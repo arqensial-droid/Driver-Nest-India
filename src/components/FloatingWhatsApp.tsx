@@ -1,0 +1,42 @@
+import React, { useState } from 'react';
+import { MessageSquare, X } from 'lucide-react';
+
+export const FloatingWhatsApp: React.FC = () => {
+  const [showTooltip, setShowTooltip] = useState(true);
+
+  const handleWhatsAppClick = () => {
+    window.open(
+      'https://wa.me/919930012345?text=Hello%20Driver%20Nest%20India,%20I%20need%20a%20verified%20driver%20in%20Mumbai.%20Please%20assist.',
+      '_blank'
+    );
+  };
+
+  return (
+    <div className="fixed bottom-20 md:bottom-6 right-5 z-40 flex flex-col items-end">
+      {/* Gentle Tooltip prompt */}
+      {showTooltip && (
+        <div className="mb-2 relative bg-[#141414] border border-[#25D366]/40 text-white text-xs px-3.5 py-2 rounded-xl shadow-xl flex items-center gap-2 animate-bounce-subtle">
+          <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
+          <span>Drivers available across Mumbai</span>
+          <button
+            onClick={() => setShowTooltip(false)}
+            className="text-neutral-400 hover:text-white ml-1"
+            aria-label="Dismiss tooltip"
+          >
+            <X className="w-3 h-3" />
+          </button>
+        </div>
+      )}
+
+      {/* Floating Button */}
+      <button
+        onClick={handleWhatsAppClick}
+        className="w-13 h-13 rounded-full bg-gradient-to-tr from-[#1EBE5D] to-[#25D366] text-white flex items-center justify-center shadow-lg shadow-[#25D366]/30 hover:scale-105 active:scale-95 transition-all cursor-pointer relative group"
+        aria-label="Chat with Driver Nest India on WhatsApp"
+      >
+        <MessageSquare className="w-7 h-7" />
+        <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-[#D4AF37] rounded-full border-2 border-black" />
+      </button>
+    </div>
+  );
+};

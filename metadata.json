@@ -1,0 +1,8 @@
+{
+  "name": "Driver Nest India - Premium Driver Service Across Mumbai",
+  "description": "Hire verified, experienced, and reliable personal, permanent, corporate, outstation, and luxury chauffeur drivers across Mumbai, Navi Mumbai, Thane, and MMR.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
