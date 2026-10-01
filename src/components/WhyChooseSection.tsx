@@ -60,13 +60,13 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOpenBookin
   ];
 
   return (
-    <section id="why-us" className="py-16 sm:py-20 lg:py-24 bg-black relative">
+    <section id="why-us" className="py-8 sm:py-16 lg:py-20 bg-black relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
-          <div className="text-xs font-semibold tracking-widest uppercase text-[#D4AF37] mb-3">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+          <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
             Why Discerning Clients Choose Us
           </div>
-          <h2 className="text-h2 text-white mb-4">
+          <h2 className="text-h2 text-white mb-3">
             Why Choose <span className="gold-gradient-text">Driver Nest India</span>
           </h2>
           <p className="text-body-lead text-neutral-400 font-light">
@@ -75,20 +75,20 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOpenBookin
           </p>
         </div>
 
-        {/* 8 Premium Cards Grid with Equal Height */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 items-stretch">
+        {/* 8 Premium Cards Grid: 16px mobile card padding and 16px gap */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12 items-stretch">
           {cards.map((item, index) => {
             const Icon = item.icon;
             return (
               <div
                 key={index}
-                className="glass-card glass-card-hover rounded-xl p-6 border border-[#D4AF37]/20 flex flex-col justify-between h-full"
+                className="glass-card glass-card-hover rounded-xl p-4 sm:p-6 border border-[#D4AF37]/20 flex flex-col justify-between h-full"
               >
                 <div>
-                  <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mb-3">
                     <Icon className="w-5 h-5 text-[#D4AF37]" />
                   </div>
-                  <h3 className="text-base font-bold text-white mb-2 font-display">{item.title}</h3>
+                  <h3 className="text-sm sm:text-base font-bold text-white mb-1.5 font-display">{item.title}</h3>
                   <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed font-light">{item.description}</p>
                 </div>
               </div>

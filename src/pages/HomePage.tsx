@@ -72,51 +72,51 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
         schema={homeSchema}
       />
 
-      <div className="bg-black text-white">
+      <div className="bg-black text-white overflow-x-hidden">
         {/* 1. Hero Section */}
         <Hero onOpenBooking={() => onOpenBooking()} />
 
         {/* 2. Trust Indicators Strip */}
-        <section className="py-8 bg-[#080808] border-t border-b border-neutral-900">
+        <section className="py-6 sm:py-8 bg-[#080808] border-t border-b border-neutral-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-              <div className="p-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-center">
+              <div className="p-2 sm:p-3">
                 <span className="text-xl sm:text-2xl font-bold font-mono text-[#D4AF37] block">100%</span>
-                <span className="text-xs text-neutral-400">Police Verified Roster</span>
+                <span className="text-[11px] sm:text-xs text-neutral-400">Police Verified Roster</span>
               </div>
-              <div className="p-3">
+              <div className="p-2 sm:p-3">
                 <span className="text-xl sm:text-2xl font-bold font-mono text-[#D4AF37] block">30–45 Mins</span>
-                <span className="text-xs text-neutral-400">Average Mumbai Dispatch</span>
+                <span className="text-[11px] sm:text-xs text-neutral-400">Average Mumbai Dispatch</span>
               </div>
-              <div className="p-3">
+              <div className="p-2 sm:p-3">
                 <span className="text-xl sm:text-2xl font-bold font-mono text-[#D4AF37] block">5+ Years</span>
-                <span className="text-xs text-neutral-400">Minimum Driving Track Record</span>
+                <span className="text-[11px] sm:text-xs text-neutral-400">Minimum Track Record</span>
               </div>
-              <div className="p-3">
+              <div className="p-2 sm:p-3">
                 <span className="text-xl sm:text-2xl font-bold font-mono text-[#D4AF37] block">Zero Lock-In</span>
-                <span className="text-xs text-neutral-400">No Advance Placement Brokerage</span>
+                <span className="text-[11px] sm:text-xs text-neutral-400">No Advance Brokerage</span>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 3. Short About Section (Concise for Homepage) */}
-        <section className="py-16 sm:py-20 bg-black border-b border-neutral-900">
+        {/* 3. Short About Section (Concise for Homepage - 32px Mobile Rhythm) */}
+        <section className="py-8 sm:py-16 bg-black border-b border-neutral-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
               <div className="lg:col-span-6">
-                <div className="text-xs font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
+                <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
                   About Driver Nest India
                 </div>
-                <h2 className="text-h2 text-white mb-4">
+                <h2 className="text-h2 text-white mb-3">
                   Mumbai&apos;s Gold Standard in <span className="gold-gradient-text">Private Chauffeuring</span>
                 </h2>
-                <p className="text-body-lead text-neutral-300 font-light mb-6">
+                <p className="text-body-lead text-neutral-300 font-light mb-5">
                   Driver Nest India provides discerning car owners, corporate institutions, and families with vetted,
                   police-cleared drivers trained for modern Indian vehicular dynamics—from Toyota Innova Crysta and Honda City
                   to luxury Mercedes-Benz and BMW sedans.
                 </p>
-                <div className="flex items-center gap-4">
+                <div className="flex flex-wrap items-center gap-3">
                   <Link href="/about" className="btn-secondary">
                     <span>Learn More About Us</span>
                     <ArrowRight className="w-4 h-4 text-[#D4AF37]" />
@@ -127,7 +127,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
                 </div>
               </div>
 
-              <div className="lg:col-span-6 rounded-2xl overflow-hidden border border-[#D4AF37]/30 aspect-[16/10] shadow-2xl relative">
+              <div className="lg:col-span-6 rounded-2xl overflow-hidden border border-[#D4AF37]/30 aspect-video shadow-2xl relative">
                 <ImageWithFallback
                   src="/images/services/personal-driver.jpg"
                   alt="Professional Indian family driver beside Honda City"
@@ -140,13 +140,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
         </section>
 
         {/* 4. Driver Services Grid (Concise Cards with "Explore Service" Button) */}
-        <section id="services" className="py-16 sm:py-20 lg:py-24 bg-[#060606] border-b border-neutral-900">
+        <section id="services" className="py-8 sm:py-16 lg:py-20 bg-[#060606] border-b border-neutral-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
-              <div className="text-xs font-semibold tracking-widest uppercase text-[#D4AF37] mb-3 font-mono">
+            <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+              <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
                 Bespoke Chauffeur Solutions
               </div>
-              <h2 className="text-h2 text-white mb-4">
+              <h2 className="text-h2 text-white mb-3">
                 Professional Driver Services <span className="gold-gradient-text">for Every Requirement</span>
               </h2>
               <p className="text-body-lead text-neutral-400 font-light">
@@ -154,16 +154,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
               </p>
             </div>
 
-            {/* 12 Concise Service Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
+            {/* 12 Concise Service Cards - 16px mobile card gap and 16px padding */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 items-stretch">
               {servicesData.map((svc) => (
                 <div
                   key={svc.id}
                   className="glass-card glass-card-hover rounded-2xl overflow-hidden border border-[#D4AF37]/25 flex flex-col justify-between h-full group"
                 >
                   <div>
-                    {/* Consistent Image Aspect Ratio */}
-                    <div className="relative aspect-[16/10] overflow-hidden bg-neutral-950">
+                    {/* Consistent 16:9 Image Aspect Ratio */}
+                    <div className="relative aspect-video overflow-hidden bg-neutral-950">
                       <ImageWithFallback
                         src={svc.image}
                         alt={svc.sceneDescription}
@@ -173,39 +173,44 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent pointer-events-none" />
-                      <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
-                        <span className="text-[11px] font-semibold text-white px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-md border border-[#D4AF37]/35">
+                      
+                      {/* Non-overlapping, wrapping badge container */}
+                      <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1.5 z-10 pointer-events-none">
+                        <span className="text-[10px] sm:text-[11px] font-semibold text-white px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md bg-black/85 backdrop-blur-md border border-[#D4AF37]/35 whitespace-normal max-w-[85%] leading-tight">
                           {svc.badge}
                         </span>
                       </div>
                     </div>
 
-                    <div className="p-6">
-                      <span className="text-[11px] font-semibold text-[#E5C07B] uppercase tracking-wider block mb-1 font-mono">
+                    {/* 16px mobile padding (p-4 sm:p-6) */}
+                    <div className="p-4 sm:p-6">
+                      <span className="text-[10px] sm:text-[11px] font-semibold text-[#E5C07B] uppercase tracking-wider block mb-1 font-mono">
                         {svc.shortHeadline}
                       </span>
-                      <h3 className="text-xl font-bold text-white mb-2 group-hover:text-[#E5C07B] transition-colors font-display">
+                      <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-[#E5C07B] transition-colors font-display">
                         {svc.title}
                       </h3>
-                      <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-light mb-4 line-clamp-2">
+                      <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-light mb-3 line-clamp-2">
                         {svc.shortDescription}
                       </p>
                     </div>
                   </div>
 
-                  <div className="px-6 pb-6 pt-2 border-t border-neutral-800/80 bg-neutral-950/40 mt-auto">
-                    <div className="flex items-center gap-2">
+                  {/* Bottom Action Footer with 48px Explore Service Button */}
+                  <div className="px-4 pb-4 pt-2 sm:px-6 sm:pb-6 border-t border-neutral-800/80 bg-neutral-950/40 mt-auto">
+                    <div className="flex items-center gap-3">
                       <Link
                         href={`/services/${svc.slug}`}
-                        className="flex-1 btn-primary h-11 text-xs"
+                        className="flex-1 btn-primary h-12 text-xs"
                       >
                         <span>Explore Service</span>
                         <ArrowRight className="w-3.5 h-3.5 text-black" />
                       </Link>
                       <button
                         onClick={() => onOpenBooking(svc.title)}
-                        className="btn-secondary h-11 text-xs px-3.5"
+                        className="btn-secondary h-12 text-xs px-3"
                         title="Quick Booking"
+                        aria-label={`Book ${svc.title}`}
                       >
                         <Calendar className="w-3.5 h-3.5" />
                       </button>
@@ -215,7 +220,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
               ))}
             </div>
 
-            <div className="text-center mt-12">
+            <div className="text-center mt-8 sm:mt-12">
               <Link href="/services" className="btn-secondary">
                 <span>View Full Services Directory</span>
                 <ArrowRight className="w-4 h-4 text-[#D4AF37]" />
@@ -224,42 +229,42 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
           </div>
         </section>
 
-        {/* 5. Why Choose Driver Nest India */}
-        <section className="py-16 sm:py-20 bg-black border-b border-neutral-900">
+        {/* 5. Why Choose Driver Nest India (32px Mobile Rhythm) */}
+        <section className="py-8 sm:py-16 bg-black border-b border-neutral-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <div className="text-xs font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
+            <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+              <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
                 Institutional Assurance
               </div>
               <h2 className="text-h2 text-white">Why Choose Driver Nest India?</h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="p-6 rounded-2xl glass-card border border-[#D4AF37]/25">
-                <div className="w-12 h-12 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] mb-4">
-                  <ShieldCheck className="w-6 h-6" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+              <div className="p-4 sm:p-6 rounded-2xl glass-card border border-[#D4AF37]/25">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] mb-3">
+                  <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2 font-display">100% Police Verified</h3>
+                <h3 className="text-base sm:text-lg font-bold text-white mb-2 font-display">100% Police Verified</h3>
                 <p className="text-xs sm:text-sm text-neutral-400 font-light leading-relaxed">
                   Official clearance certificates obtained directly from local Mumbai, Thane, and Navi Mumbai police commissionerates.
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl glass-card border border-[#D4AF37]/25">
-                <div className="w-12 h-12 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] mb-4">
-                  <Award className="w-6 h-6" />
+              <div className="p-4 sm:p-6 rounded-2xl glass-card border border-[#D4AF37]/25">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] mb-3">
+                  <Award className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2 font-display">5+ Years Driving Standards</h3>
+                <h3 className="text-base sm:text-lg font-bold text-white mb-2 font-display">5+ Years Driving Standards</h3>
                 <p className="text-xs sm:text-sm text-neutral-400 font-light leading-relaxed">
                   Rigorous road testing on smooth acceleration, gentle braking, expressway discipline, and multi-story parking.
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl glass-card border border-[#D4AF37]/25">
-                <div className="w-12 h-12 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] mb-4">
-                  <Zap className="w-6 h-6" />
+              <div className="p-4 sm:p-6 rounded-2xl glass-card border border-[#D4AF37]/25">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] mb-3">
+                  <Zap className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2 font-display">Free Leave Replacement</h3>
+                <h3 className="text-base sm:text-lg font-bold text-white mb-2 font-display">Free Leave Replacement</h3>
                 <p className="text-xs sm:text-sm text-neutral-400 font-light leading-relaxed">
                   Instant standby chauffeur deployed automatically whenever your regular driver takes personal leaves.
                 </p>
@@ -268,17 +273,17 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
           </div>
         </section>
 
-        {/* 6. How It Works (6 Clean Steps) */}
-        <section className="py-16 sm:py-20 bg-[#060606] border-b border-neutral-900">
+        {/* 6. How It Works (32px Mobile Rhythm) */}
+        <section className="py-8 sm:py-16 bg-[#060606] border-b border-neutral-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <div className="text-xs font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
+            <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+              <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
                 Streamlined Protocol
               </div>
               <h2 className="text-h2 text-white">How It Works</h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
               {[
                 { step: '01', title: 'Share Requirement', desc: 'Specify vehicle, hours, and pickup zone.' },
                 { step: '02', title: 'Consultation', desc: 'Our concierge verifies schedule details.' },
@@ -287,10 +292,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
                 { step: '05', title: 'Deployment', desc: 'Chauffeur reports for duty punctually.' },
                 { step: '06', title: '24/7 Support', desc: 'Dedicated coordinator and replacement.' }
               ].map((s, idx) => (
-                <div key={idx} className="p-5 rounded-xl bg-neutral-950 border border-neutral-800">
-                  <span className="text-xl font-bold font-mono text-[#D4AF37] block mb-2">{s.step}</span>
-                  <h3 className="text-sm font-bold text-white mb-1">{s.title}</h3>
-                  <p className="text-xs text-neutral-400 font-light">{s.desc}</p>
+                <div key={idx} className="p-3.5 sm:p-5 rounded-xl bg-neutral-950 border border-neutral-800">
+                  <span className="text-lg sm:text-xl font-bold font-mono text-[#D4AF37] block mb-1">{s.step}</span>
+                  <h3 className="text-xs sm:text-sm font-bold text-white mb-1">{s.title}</h3>
+                  <p className="text-[11px] sm:text-xs text-neutral-400 font-light leading-tight">{s.desc}</p>
                 </div>
               ))}
             </div>
@@ -298,10 +303,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
         </section>
 
         {/* 7. Mumbai Service Coverage (Links to location pages) */}
-        <section className="py-16 sm:py-20 bg-black border-b border-neutral-900">
+        <section className="py-8 sm:py-16 bg-black border-b border-neutral-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <div className="text-xs font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
+            <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+              <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
                 Regional Staging
               </div>
               <h2 className="text-h2 text-white">Mumbai Metropolitan Coverage</h2>
@@ -310,14 +315,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3.5 mb-8">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6 sm:mb-8">
               {locationsData.map((loc) => (
                 <Link
                   key={loc.id}
                   href={`/locations/${loc.id}`}
-                  className="p-3 rounded-xl bg-[#0E0E0E] border border-neutral-800 hover:border-[#D4AF37]/50 hover:bg-[#141414] transition-all group block text-left"
+                  className="p-2.5 sm:p-3 rounded-xl bg-[#0E0E0E] border border-neutral-800 hover:border-[#D4AF37]/50 hover:bg-[#141414] transition-all group block text-left"
                 >
-                  <div className="h-16 w-full rounded-lg overflow-hidden mb-2 relative">
+                  <div className="h-14 sm:h-16 w-full rounded-lg overflow-hidden mb-2 relative">
                     <ImageWithFallback
                       src={loc.image}
                       alt={loc.name}
@@ -344,20 +349,20 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
         {/* 8. Testimonials Section */}
         <SocialProofSection />
 
-        {/* 9. FAQs Preview (with Link to /faqs) */}
-        <section className="py-16 sm:py-20 bg-[#060606] border-b border-neutral-900">
+        {/* 9. FAQs Preview */}
+        <section className="py-8 sm:py-16 bg-[#060606] border-b border-neutral-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <div className="text-xs font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
+            <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+              <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
                 Common Questions
               </div>
               <h2 className="text-h2 text-white">Frequently Asked Questions</h2>
             </div>
 
-            <div className="space-y-3.5 mb-8">
+            <div className="space-y-3 mb-6 sm:mb-8">
               {faqsData.slice(0, 4).map((faq) => (
-                <div key={faq.id} className="p-5 rounded-xl bg-neutral-950 border border-neutral-800">
-                  <h3 className="text-sm sm:text-base font-semibold text-white mb-2 flex items-center gap-2">
+                <div key={faq.id} className="p-4 sm:p-5 rounded-xl bg-neutral-950 border border-neutral-800">
+                  <h3 className="text-xs sm:text-sm md:text-base font-semibold text-white mb-2 flex items-center gap-2">
                     <HelpCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
                     <span>{faq.question}</span>
                   </h3>
@@ -381,13 +386,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
         <LeadFormSection />
 
         {/* 11. Final CTA Banner */}
-        <section className="py-16 sm:py-20 bg-black border-t border-neutral-900 text-center">
+        <section className="py-8 sm:py-16 bg-black border-t border-neutral-900 text-center">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-h2 text-white mb-4">Ready to Experience Effortless Driving?</h2>
-            <p className="text-body-lead text-neutral-400 font-light mb-8 max-w-xl mx-auto">
+            <h2 className="text-h2 text-white mb-3">Ready to Experience Effortless Driving?</h2>
+            <p className="text-body-lead text-neutral-400 font-light mb-6 max-w-xl mx-auto">
               Connect with our central Mumbai dispatch desk. We assess your vehicle model, commute routes, and allocate a police-verified chauffeur.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-3">
               <button onClick={() => onOpenBooking()} className="btn-primary">
                 <span>Request a Driver Now</span>
                 <ArrowRight className="w-4 h-4 text-black" />

@@ -57,13 +57,13 @@ export const TrustSection: React.FC = () => {
   ];
 
   return (
-    <section id="trust" className="py-16 sm:py-20 lg:py-24 bg-[#060606] relative border-t border-b border-neutral-900">
+    <section id="trust" className="py-8 sm:py-16 lg:py-20 bg-[#060606] relative border-t border-b border-neutral-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
-          <div className="text-xs font-semibold tracking-widest uppercase text-[#D4AF37] mb-3">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+          <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
             Institutional Verification &amp; Background Screening
           </div>
-          <h2 className="text-h2 text-white mb-4">
+          <h2 className="text-h2 text-white mb-3">
             Driver Verification &amp; <span className="gold-gradient-text">Screening Protocols</span>
           </h2>
           <p className="text-body-lead text-neutral-400 font-light">
@@ -72,20 +72,20 @@ export const TrustSection: React.FC = () => {
           </p>
         </div>
 
-        {/* 8 Premium Icon Cards Grid with Equal Height */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 lg:mb-16 items-stretch">
+        {/* 8 Premium Icon Cards Grid: 16px mobile card padding and 16px gap */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12 items-stretch">
           {trustCards.map((item, index) => {
             const Icon = item.icon;
             return (
               <div
                 key={index}
-                className="glass-card glass-card-hover rounded-xl p-6 border border-[#D4AF37]/20 flex flex-col justify-between h-full"
+                className="glass-card glass-card-hover rounded-xl p-4 sm:p-6 border border-[#D4AF37]/20 flex flex-col justify-between h-full"
               >
                 <div>
-                  <div className="w-11 h-11 rounded-lg bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mb-3">
                     <Icon className="w-5 h-5 text-[#D4AF37]" />
                   </div>
-                  <h3 className="text-base font-bold text-white mb-2 font-display">{item.title}</h3>
+                  <h3 className="text-sm sm:text-base font-bold text-white mb-1.5 font-display">{item.title}</h3>
                   <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed font-light">{item.description}</p>
                 </div>
               </div>
@@ -95,7 +95,7 @@ export const TrustSection: React.FC = () => {
 
         {/* Realistic Verification Banner */}
         <div className="rounded-2xl overflow-hidden border border-[#D4AF37]/30 relative shadow-2xl">
-          <div className="h-72 sm:h-96 w-full relative">
+          <div className="min-h-[260px] sm:h-80 w-full relative">
             <ImageWithFallback
               src="/images/services/corporate-driver.jpg"
               alt="Driver Nest India verification team conducting driver screening and background checks"
@@ -104,29 +104,29 @@ export const TrustSection: React.FC = () => {
               locationTag="Mumbai Central Operations Desk"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-transparent" />
-            <div className="absolute inset-0 p-6 sm:p-10 lg:p-12 flex flex-col justify-center max-w-xl">
-              <span className="text-xs font-mono uppercase text-[#E5C07B] tracking-wider mb-2 font-semibold">
+            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/40" />
+            <div className="absolute inset-0 p-4 sm:p-8 lg:p-10 flex flex-col justify-center max-w-xl">
+              <span className="text-[10px] sm:text-xs font-mono uppercase text-[#E5C07B] tracking-wider mb-1 font-semibold">
                 Verification Dossier Guarantee
               </span>
-              <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-3 font-display">
+              <h3 className="text-lg sm:text-2xl font-bold text-white mb-2 font-display">
                 Police Verification Clearance Delivered to Your Phone
               </h3>
-              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-6 font-light">
+              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-4 font-light">
                 Before your permanent or corporate chauffeur reports for duty, you receive full digital copies of their
                 police verification certificate, Aadhaar validation, and driving license directly on WhatsApp or email.
               </p>
-              <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#E5C07B] font-medium">
+              <div className="flex flex-wrap items-center gap-3 text-xs text-[#E5C07B] font-medium">
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   Police Verification Clear
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   Aadhaar Biometric Check
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   Zero Criminal Records
                 </span>
               </div>

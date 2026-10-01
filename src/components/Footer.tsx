@@ -10,16 +10,16 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
   return (
-    <footer className="bg-[#040404] border-t border-[#D4AF37]/20 pt-16 pb-24 md:pb-12 text-neutral-400 text-xs">
+    <footer className="bg-[#040404] border-t border-[#D4AF37]/20 pt-10 sm:pt-16 pb-20 md:pb-12 text-neutral-400 text-xs overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-10 mb-8 sm:mb-12">
           {/* Col 1 & 2: Brand Lockup & Mission */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-3 sm:space-y-4">
             <Link href="/" className="flex items-center gap-2.5" aria-label="Driver Nest India Home">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#E5C07B] via-[#D4AF37] to-[#99781D] flex items-center justify-center shadow-md shadow-[#D4AF37]/20">
-                <ShieldCheck className="w-5 h-5 text-black" />
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#E5C07B] via-[#D4AF37] to-[#99781D] flex items-center justify-center shadow-md shadow-[#D4AF37]/20 shrink-0">
+                <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
               </div>
-              <span className="font-display text-xl font-bold tracking-wider text-white">
+              <span className="font-display text-lg sm:text-xl font-bold tracking-wider text-white">
                 DRIVER NEST <span className="text-[#D4AF37]">INDIA</span>
               </span>
             </Link>
@@ -30,10 +30,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
               and highway outstation journeys.
             </p>
 
-            <div className="flex items-center gap-3 pt-2 text-white">
+            <div className="flex items-center gap-3 pt-1 text-white">
               <a
                 href="tel:+919930012345"
-                className="p-2.5 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#D4AF37] transition-colors"
+                className="p-2 sm:p-2.5 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#D4AF37] transition-colors"
                 aria-label="Call Helpline"
               >
                 <Phone className="w-4 h-4 text-[#D4AF37]" />
@@ -42,29 +42,29 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
                 href="https://wa.me/919930012345"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#25D366] transition-colors"
+                className="p-2 sm:p-2.5 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#25D366] transition-colors"
                 aria-label="WhatsApp Support"
               >
                 <MessageSquare className="w-4 h-4 text-[#25D366]" />
               </a>
               <a
                 href="mailto:concierge@drivernestindia.com"
-                className="p-2.5 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#D4AF37] transition-colors"
+                className="p-2 sm:p-2.5 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#D4AF37] transition-colors"
                 aria-label="Email Concierge"
               >
                 <Mail className="w-4 h-4 text-[#D4AF37]" />
               </a>
             </div>
 
-            <div className="pt-2">
-              <div className="inline-flex items-center gap-2 text-xs text-[#E5C07B] font-mono">
+            <div className="pt-1">
+              <div className="inline-flex items-center gap-2 text-[11px] sm:text-xs text-[#E5C07B] font-mono">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span>24/7 Operations Desk Active Across MMR</span>
               </div>
             </div>
 
             {/* Quick Navigation Links */}
-            <div className="pt-2 flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-neutral-300">
+            <div className="pt-1 flex flex-wrap gap-x-3 sm:gap-x-4 gap-y-1.5 text-xs text-neutral-300">
               <Link href="/" className="hover:text-[#E5C07B] transition-colors">Home</Link>
               <Link href="/about" className="hover:text-[#E5C07B] transition-colors">About Us</Link>
               <Link href="/services" className="hover:text-[#E5C07B] transition-colors">All Services</Link>
@@ -76,11 +76,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
 
           {/* Col 3: All 12 Services Dedicated Links */}
           <div>
-            <h4 className="text-white font-semibold text-xs uppercase tracking-wider mb-4 font-mono flex items-center justify-between">
+            <h4 className="text-white font-semibold text-xs uppercase tracking-wider mb-3 font-mono flex items-center justify-between">
               <span>Driver Services</span>
               <Link href="/services" className="text-[10px] text-[#E5C07B] normal-case hover:underline">View All →</Link>
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-1.5">
               {servicesData.map((svc) => (
                 <li key={svc.id}>
                   <Link
@@ -96,11 +96,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
 
           {/* Col 4: All 11 Service Locations Dedicated Links */}
           <div>
-            <h4 className="text-white font-semibold text-xs uppercase tracking-wider mb-4 font-mono flex items-center justify-between">
+            <h4 className="text-white font-semibold text-xs uppercase tracking-wider mb-3 font-mono flex items-center justify-between">
               <span>Service Areas</span>
               <Link href="/service-areas" className="text-[10px] text-[#E5C07B] normal-case hover:underline">View All →</Link>
             </h4>
-            <div className="grid grid-cols-2 gap-x-2 gap-y-2">
+            <div className="grid grid-cols-2 gap-x-2 gap-y-1.5">
               {locationsData.map((loc) => (
                 <Link
                   key={loc.id}
@@ -114,8 +114,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
           </div>
 
           {/* Col 5: Quick Contact & Dispatch */}
-          <div className="space-y-3">
-            <h4 className="text-white font-semibold text-xs uppercase tracking-wider mb-4 font-mono">
+          <div className="space-y-2.5">
+            <h4 className="text-white font-semibold text-xs uppercase tracking-wider mb-3 font-mono">
               Central Concierge
             </h4>
             <div className="flex items-start gap-2">
@@ -128,13 +128,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
             </div>
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-[#D4AF37] shrink-0" />
-              <span>concierge@drivernestindia.com</span>
+              <span className="truncate">concierge@drivernestindia.com</span>
             </div>
 
             <div className="pt-2">
               <button
                 onClick={onOpenBooking}
-                className="w-full btn-primary h-11 text-xs"
+                className="w-full btn-primary h-12 text-xs"
               >
                 <span>Book a Driver</span>
                 <ArrowRight className="w-3.5 h-3.5 text-black" />
@@ -143,14 +143,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-neutral-500 font-light">
-          <p>© {new Date().getFullYear()} Driver Nest India. All rights reserved. Professional Driver Agency Across Mumbai.</p>
+        {/* Copyright and Legal Bar */}
+        <div className="pt-6 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-neutral-500">
+          <div>
+            © {new Date().getFullYear()} Driver Nest India. All rights reserved. Registered Chauffeur &amp; Driver Agency, Mumbai.
+          </div>
           <div className="flex items-center gap-4 text-neutral-400">
             <span>100% Police Verified</span>
-            <span>·</span>
-            <span>Zero Brokerage</span>
-            <span>·</span>
-            <span>MMR Dispatch</span>
+            <span>•</span>
+            <span>Zero Advance Lock-In</span>
+            <span>•</span>
+            <span>24/7 Standby Support</span>
           </div>
         </div>
       </div>

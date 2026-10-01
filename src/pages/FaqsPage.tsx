@@ -27,8 +27,8 @@ export const FaqsPage: React.FC = () => {
         schema={faqSchema}
       />
 
-      <div className="pt-24 sm:pt-28 pb-20 bg-black text-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+      <div className="pt-16 sm:pt-24 pb-12 sm:pb-20 bg-black text-white overflow-x-hidden">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-4 sm:mb-6">
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-neutral-400">
             <Link href="/" className="hover:text-[#E5C07B] transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />

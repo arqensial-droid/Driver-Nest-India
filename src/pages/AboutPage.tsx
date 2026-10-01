@@ -25,21 +25,21 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenBooking }) => {
         canonicalPath="/about"
       />
 
-      <div className="pt-24 sm:pt-28 pb-20 bg-black text-white">
+      <div className="pt-16 sm:pt-24 pb-12 sm:pb-20 bg-black text-white overflow-x-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs text-neutral-400">
+          <nav aria-label="Breadcrumb" className="mb-4 sm:mb-6 flex items-center gap-2 text-xs text-neutral-400">
             <Link href="/" className="hover:text-[#E5C07B] transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
             <span className="text-[#E5C07B] font-medium">About Us</span>
           </nav>
 
           {/* About Hero */}
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="text-xs font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
+          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+            <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
               Institutional Heritage &amp; Safety
             </div>
-            <h1 className="text-h1 text-white mb-4">
+            <h1 className="text-h1 text-white mb-3">
               About Driver Nest India
             </h1>
             <p className="text-body-lead text-neutral-300 font-light">
@@ -48,18 +48,18 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenBooking }) => {
           </div>
         </div>
 
-        {/* Existing enriched AboutSection & TrustSection */}
+        {/* Existing AboutSection & TrustSection */}
         <AboutSection onOpenBooking={onOpenBooking} />
         <TrustSection />
 
-        {/* Core Values Strip */}
-        <section className="py-16 sm:py-20 bg-black border-t border-neutral-900">
+        {/* Core Values Strip - 32px Mobile Rhythm */}
+        <section className="py-8 sm:py-16 bg-black border-t border-neutral-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-h2 text-white mb-4">Our Commitment to Mumbai Car Owners</h2>
-            <p className="text-body-lead text-neutral-400 font-light max-w-2xl mx-auto mb-10">
+            <h2 className="text-h2 text-white mb-3">Our Commitment to Mumbai Car Owners</h2>
+            <p className="text-body-lead text-neutral-400 font-light max-w-2xl mx-auto mb-8">
               We operate as your dedicated vehicular mobility partner, ensuring verified legal oversight, background transparency, and dependable standby support.
             </p>
-            <div className="flex justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-3">
               <button onClick={onOpenBooking} className="btn-primary">
                 <span>Book a Driver Consultation</span>
                 <ArrowRight className="w-4 h-4 text-black" />

@@ -32,13 +32,13 @@ export const FaqSection: React.FC = () => {
   }, [activeCategory, searchQuery]);
 
   return (
-    <section id="faqs" className="py-16 sm:py-20 lg:py-24 bg-[#070707] relative border-t border-neutral-900">
+    <section id="faqs" className="py-8 sm:py-16 lg:py-20 bg-[#070707] relative border-t border-neutral-900">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
-          <div className="text-xs font-semibold tracking-widest uppercase text-[#D4AF37] mb-3">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+          <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
             Inquiries &amp; Service Clarity
           </div>
-          <h2 className="text-h2 text-white mb-4">
+          <h2 className="text-h2 text-white mb-3">
             Frequently Asked <span className="gold-gradient-text">Questions</span>
           </h2>
           <p className="text-body-lead text-neutral-400 font-light">
@@ -46,33 +46,33 @@ export const FaqSection: React.FC = () => {
             and service standards across Mumbai and MMR.
           </p>
 
-          {/* Search Box */}
-          <div className="mt-8 relative max-w-lg mx-auto">
-            <Search className="w-4 h-4 text-neutral-400 absolute left-4 top-1/2 -translate-y-1/2" />
+          {/* Search Box - 48px height */}
+          <div className="mt-6 relative max-w-lg mx-auto">
+            <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search questions (e.g. police verification, corporate, monthly)..."
-              className="w-full h-12 bg-[#141414] border border-neutral-800 rounded-xl pl-11 pr-12 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all"
+              placeholder="Search questions (e.g. police verification, corporate)..."
+              className="w-full h-12 bg-[#141414] border border-neutral-800 rounded-xl pl-10 pr-12 text-xs sm:text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-neutral-400 hover:text-white cursor-pointer px-1 py-0.5"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-neutral-400 hover:text-white cursor-pointer px-1 py-0.5"
               >
                 Clear
               </button>
             )}
           </div>
 
-          {/* Category Filter Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-2 p-1.5 mt-6 bg-[#111111] border border-neutral-800 rounded-xl max-w-xl mx-auto">
+          {/* Category Filter Chips - Horizontally scrollable on mobile */}
+          <div className="flex items-center gap-1.5 sm:gap-2 p-1.5 mt-4 sm:mt-6 bg-[#111111] border border-neutral-800 rounded-xl max-w-xl mx-auto overflow-x-auto no-scrollbar justify-start sm:justify-center">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 text-xs font-medium rounded-lg transition-all cursor-pointer whitespace-nowrap ${
+                className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs font-medium rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                   activeCategory === cat
                     ? 'bg-gradient-to-r from-[#F3D085] to-[#D4AF37] text-black font-bold shadow-sm'
                     : 'text-neutral-400 hover:text-white hover:bg-neutral-800/50'
@@ -84,10 +84,10 @@ export const FaqSection: React.FC = () => {
           </div>
         </div>
 
-        {/* FAQs Accordion List */}
-        <div className="space-y-3.5">
+        {/* FAQs Accordion List - 16px mobile padding */}
+        <div className="space-y-3">
           {filteredFaqs.length === 0 ? (
-            <div className="p-8 text-center text-neutral-400 bg-neutral-900/40 rounded-xl border border-neutral-800">
+            <div className="p-6 text-center text-xs sm:text-sm text-neutral-400 bg-neutral-900/40 rounded-xl border border-neutral-800">
               No matching questions found. Try another search term or contact our 24/7 concierge directly.
             </div>
           ) : (
@@ -100,12 +100,12 @@ export const FaqSection: React.FC = () => {
                 >
                   <button
                     onClick={() => toggleFaq(faq.id)}
-                    className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
+                    className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-3 cursor-pointer focus:outline-none"
                     aria-expanded={isOpen}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2.5">
                       <HelpCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                      <span className="text-sm sm:text-base font-semibold text-white">{faq.question}</span>
+                      <span className="text-xs sm:text-sm md:text-base font-semibold text-white">{faq.question}</span>
                     </div>
                     <div className="w-6 h-6 rounded-full bg-neutral-900 flex items-center justify-center shrink-0 border border-neutral-800">
                       {isOpen ? (
@@ -117,7 +117,7 @@ export const FaqSection: React.FC = () => {
                   </button>
 
                   {isOpen && (
-                    <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-neutral-800/50 font-light">
+                    <div className="px-4 pb-4 pt-1 sm:px-5 sm:pb-5 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-neutral-800/50 font-light">
                       <p>{faq.answer}</p>
                     </div>
                   )}

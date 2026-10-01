@@ -41,22 +41,22 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenBooking }) => 
   ];
 
   return (
-    <section id="about" className="py-16 sm:py-20 lg:py-24 bg-[#080808] relative border-t border-b border-neutral-900">
+    <section id="about" className="py-8 sm:py-16 lg:py-20 bg-[#080808] relative border-t border-b border-neutral-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top Story Section: Brand Narrative & Indian Driver Visuals */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center mb-16 lg:mb-20">
+        {/* Top Story Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center mb-10 sm:mb-16">
           {/* Left: Brand Story */}
           <div className="lg:col-span-6 flex flex-col justify-center">
-            <div className="text-xs font-semibold tracking-widest uppercase text-[#D4AF37] mb-3 flex items-center gap-2">
-              <span className="w-6 h-[1.5px] bg-[#D4AF37]" />
+            <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 flex items-center gap-2 font-mono">
+              <span className="w-5 h-[1.5px] bg-[#D4AF37]" />
               <span>Your Trusted Driver Partner in Mumbai</span>
             </div>
 
-            <h2 className="text-h2 text-white mb-6">
+            <h2 className="text-h2 text-white mb-3">
               Professional Driver Services for <span className="gold-gradient-text">Mumbai Families &amp; Businesses</span>
             </h2>
 
-            <div className="space-y-4 text-neutral-300 text-body-lead font-light leading-relaxed mb-8">
+            <div className="space-y-3 text-neutral-300 text-body-lead font-light leading-relaxed mb-6">
               <p>
                 Driver Nest India provides professional chauffeur and driver services across Mumbai and surrounding areas.
                 We help families, businesses, senior citizens, and vehicle owners find trusted and experienced drivers for
@@ -73,7 +73,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenBooking }) => 
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+            <div className="flex flex-wrap items-center gap-3">
               <button
                 onClick={onOpenBooking}
                 className="btn-primary"
@@ -82,7 +82,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenBooking }) => 
                 <ArrowRight className="w-4 h-4 text-black" />
               </button>
 
-              <div className="flex items-center gap-2 text-xs sm:text-sm text-[#E5C07B] font-medium">
+              <div className="flex items-center gap-1.5 text-xs text-[#E5C07B] font-medium">
                 <Check className="w-4 h-4 text-[#D4AF37]" />
                 <span>100% Police Verified Roster</span>
               </div>
@@ -90,9 +90,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenBooking }) => 
           </div>
 
           {/* Right: Indian Family Assisting Imagery Grid with Consistent Aspect Ratios */}
-          <div className="lg:col-span-6 grid grid-cols-2 gap-4">
-            <div className="space-y-4">
-              <div className="rounded-2xl overflow-hidden border border-[#D4AF37]/25 shadow-2xl aspect-[4/3] sm:aspect-auto sm:h-64 lg:h-72 relative">
+          <div className="lg:col-span-6 grid grid-cols-2 gap-3 sm:gap-4">
+            <div className="space-y-3 sm:space-y-4">
+              <div className="rounded-2xl overflow-hidden border border-[#D4AF37]/25 shadow-2xl aspect-video sm:h-64 lg:h-72 relative">
                 <ImageWithFallback
                   src="/images/services/personal-driver.jpg"
                   alt="Indian driver assisting family entering clean vehicle"
@@ -102,7 +102,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenBooking }) => 
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="rounded-2xl overflow-hidden border border-neutral-800 shadow-xl aspect-[4/3] sm:aspect-auto sm:h-44 lg:h-48 relative">
+              <div className="rounded-2xl overflow-hidden border border-neutral-800 shadow-xl aspect-video sm:h-44 lg:h-48 relative">
                 <ImageWithFallback
                   src="/images/services/senior-citizen-assistance.jpg"
                   alt="Professional driver assisting senior citizen parents safely"
@@ -114,8 +114,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenBooking }) => 
               </div>
             </div>
 
-            <div className="space-y-4 pt-4 sm:pt-6">
-              <div className="rounded-2xl overflow-hidden border border-neutral-800 shadow-xl aspect-[4/3] sm:aspect-auto sm:h-44 lg:h-48 relative">
+            <div className="space-y-3 sm:space-y-4 pt-3 sm:pt-6">
+              <div className="rounded-2xl overflow-hidden border border-neutral-800 shadow-xl aspect-video sm:h-44 lg:h-48 relative">
                 <ImageWithFallback
                   src="/images/services/corporate-driver.jpg"
                   alt="Indian corporate executive stepping out of sedan at BKC"
@@ -125,7 +125,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenBooking }) => 
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="rounded-2xl overflow-hidden border border-[#D4AF37]/25 shadow-2xl aspect-[4/3] sm:aspect-auto sm:h-64 lg:h-72 relative">
+              <div className="rounded-2xl overflow-hidden border border-[#D4AF37]/25 shadow-2xl aspect-video sm:h-64 lg:h-72 relative">
                 <ImageWithFallback
                   src="/images/services/outstation-driver.jpg"
                   alt="Toyota Innova Crysta on Mumbai-Pune expressway outstation trip"
@@ -139,21 +139,23 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenBooking }) => 
           </div>
         </div>
 
-        {/* 6 Core Pillars Grid: Equal Height & Premium Polish */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+        {/* Bottom 6 Pillars Grid: 16px mobile card padding and 16px gap */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 items-stretch">
           {pillars.map((pillar, idx) => {
             const Icon = pillar.icon;
             return (
               <div
                 key={idx}
-                className="glass-card glass-card-hover rounded-xl p-6 border border-[#D4AF37]/20 flex flex-col justify-between h-full"
+                className="glass-card glass-card-hover rounded-xl p-4 sm:p-6 border border-[#D4AF37]/20 flex flex-col justify-between h-full"
               >
                 <div>
-                  <div className="w-11 h-11 rounded-lg bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mb-4">
-                    <Icon className="w-5 h-5 text-[#D4AF37]" />
+                  <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] mb-3">
+                    <Icon className="w-5 h-5" />
                   </div>
-                  <h3 className="text-base sm:text-lg font-bold text-white mb-2 font-display">{pillar.title}</h3>
-                  <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-light">{pillar.description}</p>
+                  <h3 className="text-base font-bold text-white mb-1.5 font-display">{pillar.title}</h3>
+                  <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-light">
+                    {pillar.description}
+                  </p>
                 </div>
               </div>
             );

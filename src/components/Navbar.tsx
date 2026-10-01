@@ -9,7 +9,7 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
-  const { currentPath, navigate } = useRouter();
+  const { currentPath } = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
@@ -24,7 +24,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 15);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -75,29 +75,30 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         isScrolled
-          ? 'bg-black/95 backdrop-blur-md border-b border-[#D4AF37]/25 shadow-xl py-2.5'
-          : 'bg-gradient-to-b from-black/95 via-black/60 to-transparent py-3 sm:py-4'
+          ? 'bg-black/95 backdrop-blur-md border-b border-[#D4AF37]/25 shadow-xl py-1 sm:py-2'
+          : 'bg-gradient-to-b from-black/95 via-black/75 to-transparent py-1.5 sm:py-2'
       }`}
     >
+      {/* Container with 16px padding on mobile, giving hamburger 16px right margin */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-12 sm:h-13">
-          {/* Brand Wordmark & Crest */}
+        <div className="flex items-center justify-between h-9 sm:h-11">
+          {/* Brand Wordmark & Crest - Compact Mobile Width, Fully Visible */}
           <Link
             href="/"
-            className="flex items-center gap-2.5 sm:gap-3 group transition-transform focus:outline-none shrink-0"
+            className="flex items-center gap-2 group transition-transform focus:outline-none shrink-0"
             aria-label="Driver Nest India Home"
           >
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#E5C07B] via-[#D4AF37] to-[#99781D] flex items-center justify-center shadow-md shadow-[#D4AF37]/20 group-hover:scale-105 transition-transform duration-300 shrink-0">
-              <ShieldCheck className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-black" />
+            <div className="w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-lg bg-gradient-to-br from-[#E5C07B] via-[#D4AF37] to-[#99781D] flex items-center justify-center shadow-md shadow-[#D4AF37]/20 group-hover:scale-105 transition-transform duration-300 shrink-0">
+              <ShieldCheck className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-black" />
             </div>
-            <div className="flex flex-col justify-center">
-              <span className="font-display text-lg sm:text-xl font-bold tracking-wider text-white group-hover:text-[#E5C07B] transition-colors whitespace-nowrap leading-none mb-1">
+            <div className="flex flex-col justify-center min-w-0">
+              <span className="font-display text-xs sm:text-base lg:text-xl font-bold tracking-wide text-white group-hover:text-[#E5C07B] transition-colors whitespace-nowrap leading-none">
                 DRIVER NEST <span className="text-[#D4AF37]">INDIA</span>
               </span>
-              <span className="text-[9px] uppercase tracking-widest text-[#E5C07B] font-mono leading-none hidden sm:block">
-                Professional Driver Agency · Mumbai
+              <span className="text-[8px] sm:text-[9px] uppercase tracking-widest text-[#E5C07B] font-mono leading-none hidden sm:block mt-0.5">
+                Professional Drivers · Mumbai
               </span>
             </div>
           </Link>
@@ -251,33 +252,35 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
             </Link>
           </nav>
 
-          {/* Action CTAs */}
+          {/* Action CTAs: Properly spaced with min 12px gap between Logo, Button, Hamburger */}
           <div className="flex items-center gap-3">
             <a
               href="tel:+919930012345"
-              className="hidden sm:inline-flex items-center gap-2 h-10 px-3.5 text-xs font-semibold text-[#E5C07B] bg-black/60 border border-[#D4AF37]/45 rounded-xl hover:bg-[#D4AF37]/10 hover:border-[#D4AF37] transition-all whitespace-nowrap backdrop-blur-md"
+              className="hidden md:inline-flex items-center gap-1.5 h-8.5 sm:h-9 px-3 text-xs font-semibold text-[#E5C07B] bg-black/60 border border-[#D4AF37]/45 rounded-xl hover:bg-[#D4AF37]/10 transition-all whitespace-nowrap backdrop-blur-md"
               aria-label="Call Concierge"
             >
               <Phone className="w-3.5 h-3.5 text-[#D4AF37]" />
               <span className="font-mono tracking-wide">+91 99300 12345</span>
             </a>
 
+            {/* Mobile-optimized Book Driver CTA: Significantly reduced width to prevent overcrowding */}
             <button
               onClick={onOpenBooking}
-              className="inline-flex items-center gap-2 h-10 px-4 text-xs font-bold text-black bg-gradient-to-r from-[#F3D085] via-[#D4AF37] to-[#B89020] rounded-xl hover:brightness-110 active:scale-[0.98] transition-all shadow-md shadow-[#D4AF37]/25 whitespace-nowrap cursor-pointer border border-white/20"
+              className="inline-flex items-center justify-center gap-1 sm:gap-1.5 h-8 sm:h-9 px-2.5 sm:px-3 text-[11px] sm:text-xs font-bold text-black bg-gradient-to-r from-[#F3D085] via-[#D4AF37] to-[#B89020] rounded-lg sm:rounded-xl hover:brightness-110 active:scale-[0.98] transition-all shadow-sm shadow-[#D4AF37]/25 whitespace-nowrap cursor-pointer border border-white/20"
             >
-              <Calendar className="w-3.5 h-3.5 text-black" />
-              <span>Book a Driver</span>
+              <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-black shrink-0" />
+              <span className="hidden min-[380px]:inline">Book Driver</span>
+              <span className="min-[380px]:hidden">Book</span>
             </button>
 
-            {/* Mobile Hamburger Button */}
+            {/* Mobile Hamburger Button with 16px right margin from container */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-neutral-300 hover:text-[#E5C07B] focus:outline-none rounded-xl bg-neutral-900/80 border border-neutral-800 transition-colors"
+              className="lg:hidden p-1.5 text-neutral-300 hover:text-[#E5C07B] focus:outline-none rounded-lg bg-neutral-900/80 border border-neutral-800 transition-colors flex items-center justify-center"
               aria-label="Toggle Navigation Menu"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5 text-[#E5C07B]" /> : <Menu className="w-5 h-5" />}
+              {mobileMenuOpen ? <X className="w-4.5 h-4.5 text-[#E5C07B]" /> : <Menu className="w-4.5 h-4.5" />}
             </button>
           </div>
         </div>
@@ -285,12 +288,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
 
       {/* Smooth Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-[56px] sm:top-[60px] bg-black/95 backdrop-blur-2xl z-50 overflow-y-auto animate-fade-in flex flex-col justify-between border-t border-[#D4AF37]/25">
-          <div className="px-6 py-6 space-y-2">
+        <div className="lg:hidden fixed inset-0 top-[44px] sm:top-[50px] bg-black/95 backdrop-blur-2xl z-50 overflow-y-auto animate-fade-in flex flex-col justify-between border-t border-[#D4AF37]/25">
+          <div className="px-4 py-3 space-y-1">
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between py-3 px-3 text-base font-medium text-neutral-200 hover:text-white rounded-xl hover:bg-neutral-900 border-b border-neutral-900"
+              className="flex items-center justify-between py-2 px-3 text-sm font-medium text-neutral-200 hover:text-white rounded-lg hover:bg-neutral-900 border-b border-neutral-900/60"
             >
               <span>Home</span>
               <ChevronRight className="w-4 h-4 text-neutral-600" />
@@ -299,29 +302,29 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
             <Link
               href="/about"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between py-3 px-3 text-base font-medium text-neutral-200 hover:text-white rounded-xl hover:bg-neutral-900 border-b border-neutral-900"
+              className="flex items-center justify-between py-2 px-3 text-sm font-medium text-neutral-200 hover:text-white rounded-lg hover:bg-neutral-900 border-b border-neutral-900/60"
             >
               <span>About Us</span>
               <ChevronRight className="w-4 h-4 text-neutral-600" />
             </Link>
 
             {/* Mobile Services Accordion */}
-            <div className="border-b border-neutral-900">
+            <div className="border-b border-neutral-900/60">
               <button
                 type="button"
                 onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                className="w-full flex items-center justify-between py-3 px-3 text-base font-medium text-neutral-200 hover:text-white rounded-xl hover:bg-neutral-900 cursor-pointer"
+                className="w-full flex items-center justify-between py-2 px-3 text-sm font-medium text-neutral-200 hover:text-white rounded-lg hover:bg-neutral-900 cursor-pointer"
               >
                 <span>Services (12)</span>
                 <ChevronDown className={`w-4 h-4 text-[#D4AF37] transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {mobileServicesOpen && (
-                <div className="pl-4 pr-2 py-2 space-y-1 bg-neutral-950/60 rounded-xl mb-2">
+                <div className="pl-3 pr-2 py-1.5 space-y-1 bg-neutral-950/80 rounded-lg mb-1.5">
                   <Link
                     href="/services"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block py-2 px-3 text-xs font-semibold text-[#E5C07B] uppercase tracking-wider"
+                    className="block py-1 px-2 text-xs font-semibold text-[#E5C07B] uppercase tracking-wider"
                   >
                     View All Services Directory →
                   </Link>
@@ -330,7 +333,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                       key={svc.id}
                       href={`/services/${svc.slug}`}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block py-2 px-3 text-sm text-neutral-300 hover:text-white rounded-lg hover:bg-neutral-900"
+                      className="block py-1 px-2 text-xs text-neutral-300 hover:text-white rounded hover:bg-neutral-900"
                     >
                       {svc.title}
                     </Link>
@@ -340,22 +343,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
             </div>
 
             {/* Mobile Service Areas Accordion */}
-            <div className="border-b border-neutral-900">
+            <div className="border-b border-neutral-900/60">
               <button
                 type="button"
                 onClick={() => setMobileLocationsOpen(!mobileLocationsOpen)}
-                className="w-full flex items-center justify-between py-3 px-3 text-base font-medium text-neutral-200 hover:text-white rounded-xl hover:bg-neutral-900 cursor-pointer"
+                className="w-full flex items-center justify-between py-2 px-3 text-sm font-medium text-neutral-200 hover:text-white rounded-lg hover:bg-neutral-900 cursor-pointer"
               >
                 <span>Service Areas (11)</span>
                 <ChevronDown className={`w-4 h-4 text-[#D4AF37] transition-transform ${mobileLocationsOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {mobileLocationsOpen && (
-                <div className="pl-4 pr-2 py-2 space-y-1 bg-neutral-950/60 rounded-xl mb-2">
+                <div className="pl-3 pr-2 py-1.5 space-y-1 bg-neutral-950/80 rounded-lg mb-1.5">
                   <Link
                     href="/service-areas"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block py-2 px-3 text-xs font-semibold text-[#E5C07B] uppercase tracking-wider"
+                    className="block py-1 px-2 text-xs font-semibold text-[#E5C07B] uppercase tracking-wider"
                   >
                     View All Service Areas →
                   </Link>
@@ -364,7 +367,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                       key={loc.id}
                       href={`/locations/${loc.id}`}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="block py-2 px-3 text-sm text-neutral-300 hover:text-white rounded-lg hover:bg-neutral-900"
+                      className="block py-1 px-2 text-xs text-neutral-300 hover:text-white rounded hover:bg-neutral-900"
                     >
                       {loc.name}
                     </Link>
@@ -376,7 +379,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
             <Link
               href="/faqs"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between py-3 px-3 text-base font-medium text-neutral-200 hover:text-white rounded-xl hover:bg-neutral-900 border-b border-neutral-900"
+              className="flex items-center justify-between py-2 px-3 text-sm font-medium text-neutral-200 hover:text-white rounded-lg hover:bg-neutral-900 border-b border-neutral-900/60"
             >
               <span>FAQs</span>
               <ChevronRight className="w-4 h-4 text-neutral-600" />
@@ -385,19 +388,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between py-3 px-3 text-base font-medium text-neutral-200 hover:text-white rounded-xl hover:bg-neutral-900 border-b border-neutral-900"
+              className="flex items-center justify-between py-2 px-3 text-sm font-medium text-neutral-200 hover:text-white rounded-lg hover:bg-neutral-900 border-b border-neutral-900/60"
             >
               <span>Contact Us</span>
               <ChevronRight className="w-4 h-4 text-neutral-600" />
             </Link>
           </div>
 
-          <div className="p-6 bg-neutral-950/90 border-t border-neutral-900 space-y-3 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+          <div className="p-4 bg-neutral-950/95 border-t border-neutral-900 space-y-2 pb-[max(1rem,env(safe-area-inset-bottom))]">
             <a
               href="tel:+919930012345"
-              className="w-full flex items-center justify-center gap-2 h-12 text-sm font-semibold text-[#E5C07B] bg-black/60 border border-[#D4AF37]/50 rounded-xl hover:bg-[#D4AF37]/10 transition-colors font-mono"
+              className="w-full flex items-center justify-center gap-2 h-10 text-xs font-semibold text-[#E5C07B] bg-black/60 border border-[#D4AF37]/50 rounded-xl hover:bg-[#D4AF37]/10 transition-colors font-mono"
             >
-              <Phone className="w-4 h-4 text-[#D4AF37]" />
+              <Phone className="w-3.5 h-3.5 text-[#D4AF37]" />
               <span>Call Concierge: +91 99300 12345</span>
             </a>
             <button
@@ -405,9 +408,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                 setMobileMenuOpen(false);
                 onOpenBooking();
               }}
-              className="w-full flex items-center justify-center gap-2 h-12 text-sm font-bold text-black bg-gradient-to-r from-[#F3D085] via-[#D4AF37] to-[#B89020] rounded-xl hover:brightness-110 shadow-lg shadow-[#D4AF37]/25"
+              className="w-full flex items-center justify-center gap-2 h-10 text-xs font-bold text-black bg-gradient-to-r from-[#F3D085] via-[#D4AF37] to-[#B89020] rounded-xl hover:brightness-110 shadow-md shadow-[#D4AF37]/25"
             >
-              <Calendar className="w-4 h-4 text-black" />
+              <Calendar className="w-3.5 h-3.5 text-black" />
               <span>Book a Driver Now</span>
             </button>
           </div>

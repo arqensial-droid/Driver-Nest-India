@@ -45,9 +45,9 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
 
   if (!location) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 pt-32 pb-20">
-        <h1 className="text-3xl font-bold font-display text-white mb-4">Location Not Found</h1>
-        <p className="text-neutral-400 mb-8 max-w-md">
+      <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 pt-24 pb-16">
+        <h1 className="text-2xl sm:text-3xl font-bold font-display text-white mb-3">Location Not Found</h1>
+        <p className="text-neutral-400 mb-6 max-w-md text-sm">
           The requested service location could not be found. Explore our complete coverage across Mumbai and MMR.
         </p>
         <Link href="/service-areas" className="btn-primary">
@@ -137,12 +137,12 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
         schema={pageSchema}
       />
 
-      <div className="pt-24 sm:pt-28 pb-20 bg-black text-white">
+      <div className="pt-16 sm:pt-24 pb-12 sm:pb-20 bg-black text-white overflow-x-hidden">
         {/* Hero Section */}
-        <section className="relative overflow-hidden pb-16 sm:pb-20 border-b border-neutral-900">
+        <section className="relative overflow-hidden pb-8 sm:pb-16 border-b border-neutral-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             {/* Breadcrumb */}
-            <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-2 text-xs text-neutral-400">
+            <nav aria-label="Breadcrumb" className="mb-4 sm:mb-6 flex items-center gap-2 text-xs text-neutral-400">
               <Link href="/" className="hover:text-[#E5C07B] transition-colors">Home</Link>
               <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
               <Link href="/service-areas" className="hover:text-[#E5C07B] transition-colors">Service Areas</Link>
@@ -150,22 +150,22 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
               <span className="text-[#E5C07B] font-medium truncate">{location.name}</span>
             </nav>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
               <div className="lg:col-span-7">
-                <div className="inline-flex items-center gap-2 mb-4 text-xs font-semibold tracking-widest uppercase text-[#E5C07B] bg-[#141414] px-3.5 py-1.5 rounded-full border border-[#D4AF37]/35 w-fit font-mono">
+                <div className="inline-flex items-center gap-1.5 mb-3 text-[10px] sm:text-xs font-semibold tracking-wider uppercase text-[#E5C07B] bg-[#141414] px-3 py-1 rounded-full border border-[#D4AF37]/35 w-fit font-mono">
                   <MapPin className="w-3.5 h-3.5 text-[#D4AF37]" />
                   <span>{location.district}</span>
                 </div>
 
-                <h1 className="text-h1 text-white mb-4 sm:mb-6">
+                <h1 className="text-h1 text-white mb-3">
                   Professional Driver Service in {location.name}
                 </h1>
 
-                <p className="text-body-lead text-neutral-300 font-light mb-8 max-w-2xl">
+                <p className="text-body-lead text-neutral-300 font-light mb-6 max-w-2xl">
                   {location.shortSnippet} Verified, police-screened chauffeurs ready for doorstep deployment across {location.name} within {location.avgDispatchTime}.
                 </p>
 
-                <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-8">
+                <div className="flex flex-wrap items-center gap-3 mb-6">
                   <button
                     onClick={() => onOpenBooking('Personal Driver', location.name)}
                     className="btn-primary"
@@ -192,24 +192,24 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                 </div>
 
                 {/* Staging Metrics */}
-                <div className="pt-6 border-t border-neutral-800/80 grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs text-neutral-300">
+                <div className="pt-4 border-t border-neutral-800/80 grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs text-neutral-300">
                   <div className="p-3 rounded-lg bg-neutral-900/60 border border-neutral-800">
-                    <span className="text-neutral-400 block text-[11px] font-mono">Response Time</span>
-                    <span className="text-sm font-bold text-white font-mono">{location.avgDispatchTime}</span>
+                    <span className="text-neutral-400 block text-[10px] sm:text-[11px] font-mono">Response Time</span>
+                    <span className="text-xs sm:text-sm font-bold text-white font-mono">{location.avgDispatchTime}</span>
                   </div>
                   <div className="p-3 rounded-lg bg-neutral-900/60 border border-neutral-800">
-                    <span className="text-neutral-400 block text-[11px] font-mono">Vetting Level</span>
-                    <span className="text-sm font-bold text-[#E5C07B]">100% Police Verified</span>
+                    <span className="text-neutral-400 block text-[10px] sm:text-[11px] font-mono">Vetting Level</span>
+                    <span className="text-xs sm:text-sm font-bold text-[#E5C07B]">100% Police Verified</span>
                   </div>
                   <div className="p-3 rounded-lg bg-neutral-900/60 border border-neutral-800 col-span-2 sm:col-span-1">
-                    <span className="text-neutral-400 block text-[11px] font-mono">Standby Support</span>
-                    <span className="text-sm font-bold text-emerald-400">24/7 Replacement</span>
+                    <span className="text-neutral-400 block text-[10px] sm:text-[11px] font-mono">Standby Support</span>
+                    <span className="text-xs sm:text-sm font-bold text-emerald-400">24/7 Replacement</span>
                   </div>
                 </div>
               </div>
 
               <div className="lg:col-span-5">
-                <div className="rounded-2xl overflow-hidden border border-[#D4AF37]/35 shadow-2xl relative aspect-[16/10] sm:aspect-auto sm:h-80 lg:h-96">
+                <div className="rounded-2xl overflow-hidden border border-[#D4AF37]/35 shadow-2xl relative aspect-video">
                   <ImageWithFallback
                     src={location.image}
                     alt={`Driver service in ${location.name}`}
@@ -217,11 +217,11 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent pointer-events-none" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <span className="text-xs font-semibold text-[#E5C07B] uppercase tracking-wider block font-mono">
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <span className="text-[10px] sm:text-xs font-semibold text-[#E5C07B] uppercase tracking-wider block font-mono">
                       Active Coverage Hub
                     </span>
-                    <h3 className="text-xl font-bold text-white font-display">{location.name} Operations Desk</h3>
+                    <h3 className="text-base sm:text-xl font-bold text-white font-display">{location.name} Operations Desk</h3>
                   </div>
                 </div>
               </div>
@@ -230,29 +230,29 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
         </section>
 
         {/* Detailed Hyper-Local Narrative */}
-        <section className="py-16 sm:py-20 border-b border-neutral-900 bg-[#060606]">
+        <section className="py-8 sm:py-16 border-b border-neutral-900 bg-[#060606]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start">
               <div className="lg:col-span-7">
-                <div className="text-xs font-semibold uppercase text-[#D4AF37] tracking-wider mb-2 font-mono">
+                <div className="text-[11px] font-semibold uppercase text-[#D4AF37] tracking-wider mb-2 font-mono">
                   Localized Chauffeur Coverage
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6 font-display">
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-4 font-display">
                   {location.seoHeadline}
                 </h2>
-                <div className="space-y-4 text-neutral-300 text-sm sm:text-base leading-relaxed whitespace-pre-line font-light">
+                <div className="space-y-3.5 text-neutral-300 text-xs sm:text-sm md:text-base leading-relaxed whitespace-pre-line font-light">
                   {location.fullContent}
                 </div>
               </div>
 
               {/* Local Hubs & Routes Sidebar */}
-              <div className="lg:col-span-5 space-y-6">
-                <div className="p-6 rounded-2xl glass-card border border-[#D4AF37]/25">
-                  <h3 className="text-sm font-semibold text-[#D4AF37] uppercase tracking-wider mb-3 font-mono flex items-center gap-2">
-                    <MapPin className="w-4 h-4" />
+              <div className="lg:col-span-5 space-y-4 sm:space-y-6">
+                <div className="p-4 sm:p-6 rounded-2xl glass-card border border-[#D4AF37]/25">
+                  <h3 className="text-xs sm:text-sm font-semibold text-[#D4AF37] uppercase tracking-wider mb-3 font-mono flex items-center gap-2">
+                    <MapPin className="w-4 h-4 shrink-0" />
                     <span>Popular Neighborhoods &amp; Staging Zones</span>
                   </h3>
-                  <ul className="space-y-2">
+                  <ul className="space-y-1.5">
                     {location.popularHubs.map((hub, hIdx) => (
                       <li key={hIdx} className="text-xs sm:text-sm text-neutral-200 flex items-center gap-2">
                         <ChevronRight className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" />
@@ -262,12 +262,12 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                   </ul>
                 </div>
 
-                <div className="p-6 rounded-2xl glass-card border border-neutral-800">
-                  <h3 className="text-sm font-semibold text-[#D4AF37] uppercase tracking-wider mb-3 font-mono flex items-center gap-2">
-                    <Route className="w-4 h-4" />
+                <div className="p-4 sm:p-6 rounded-2xl glass-card border border-neutral-800">
+                  <h3 className="text-xs sm:text-sm font-semibold text-[#D4AF37] uppercase tracking-wider mb-3 font-mono flex items-center gap-2">
+                    <Route className="w-4 h-4 shrink-0" />
                     <span>Primary Arterial Routes Managed</span>
                   </h3>
-                  <ul className="space-y-2">
+                  <ul className="space-y-1.5">
                     {location.keyRoutes.map((route, rIdx) => (
                       <li key={rIdx} className="text-xs sm:text-sm text-neutral-300 flex items-center gap-2">
                         <ChevronRight className="w-3.5 h-3.5 text-neutral-500 shrink-0" />
@@ -282,28 +282,28 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
         </section>
 
         {/* Services Available in this Location */}
-        <section className="py-16 sm:py-20 border-b border-neutral-900 bg-black">
+        <section className="py-8 sm:py-16 border-b border-neutral-900 bg-black">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <div className="text-xs font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
+            <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+              <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
                 Driver Categories
               </div>
               <h2 className="text-h2 text-white">Services Available in {location.name}</h2>
-              <p className="text-sm text-neutral-400 mt-2 font-light">
+              <p className="text-xs sm:text-sm text-neutral-400 mt-2 font-light">
                 Explore specialized chauffeur options tailored for residential and corporate mobility in {location.name}.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {servicesData.slice(0, 6).map((svc) => (
                 <div
                   key={svc.id}
-                  className="glass-card glass-card-hover rounded-xl p-5 border border-neutral-800 hover:border-[#D4AF37]/35 flex flex-col justify-between"
+                  className="glass-card glass-card-hover rounded-xl p-4 sm:p-5 border border-neutral-800 hover:border-[#D4AF37]/35 flex flex-col justify-between"
                 >
                   <div>
                     <span className="text-[10px] font-mono text-[#E5C07B] uppercase tracking-wider block mb-1">{svc.badge}</span>
-                    <h3 className="text-base font-bold text-white mb-2 font-display">{svc.title}</h3>
-                    <p className="text-xs text-neutral-400 leading-relaxed font-light mb-4">{svc.shortDescription}</p>
+                    <h3 className="text-sm sm:text-base font-bold text-white mb-1.5 font-display">{svc.title}</h3>
+                    <p className="text-xs text-neutral-400 leading-relaxed font-light mb-3">{svc.shortDescription}</p>
                   </div>
                   <Link
                     href={`/services/${svc.slug}`}
@@ -316,7 +316,7 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
               ))}
             </div>
 
-            <div className="text-center mt-8">
+            <div className="text-center mt-6 sm:mt-8">
               <Link href="/services" className="btn-secondary">
                 <span>Browse All 12 Driver Services</span>
                 <ArrowRight className="w-4 h-4 text-[#D4AF37]" />
@@ -326,16 +326,16 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
         </section>
 
         {/* Localized FAQs */}
-        <section className="py-16 sm:py-20 border-b border-neutral-900 bg-[#070707]">
+        <section className="py-8 sm:py-16 border-b border-neutral-900 bg-[#070707]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <div className="text-xs font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
+            <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+              <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
                 Regional Questions
               </div>
               <h2 className="text-h2 text-white">FAQs for {location.name}</h2>
             </div>
 
-            <div className="space-y-3.5">
+            <div className="space-y-3">
               {location.localFaqs.map((faq, fIdx) => {
                 const isOpen = openFaqIndex === fIdx;
                 return (
@@ -345,11 +345,11 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                   >
                     <button
                       onClick={() => setOpenFaqIndex(isOpen ? null : fIdx)}
-                      className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
+                      className="w-full p-3.5 sm:p-5 text-left flex items-center justify-between gap-3 cursor-pointer focus:outline-none"
                     >
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2.5">
                         <HelpCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                        <span className="text-sm sm:text-base font-semibold text-white">{faq.question}</span>
+                        <span className="text-xs sm:text-sm md:text-base font-semibold text-white">{faq.question}</span>
                       </div>
                       <div className="w-6 h-6 rounded-full bg-neutral-900 flex items-center justify-center shrink-0 border border-neutral-800">
                         {isOpen ? (
@@ -361,7 +361,7 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                     </button>
 
                     {isOpen && (
-                      <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-neutral-800/50 font-light">
+                      <div className="px-4 pb-4 pt-1 sm:px-5 sm:pb-5 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-neutral-800/50 font-light">
                         <p>{faq.answer}</p>
                       </div>
                     )}
@@ -373,29 +373,29 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
         </section>
 
         {/* Location Lead Form */}
-        <section className="py-16 sm:py-20 bg-[#050505]">
+        <section className="py-8 sm:py-16 bg-[#050505]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="glass-card rounded-2xl p-6 sm:p-8 lg:p-10 border border-[#D4AF37]/35 shadow-2xl relative">
-              <div className="border-b border-neutral-800 pb-4 mb-6 flex items-center justify-between">
+            <div className="glass-card rounded-2xl p-4 sm:p-8 lg:p-10 border border-[#D4AF37]/35 shadow-2xl relative">
+              <div className="border-b border-neutral-800 pb-3 mb-4 flex items-center justify-between">
                 <div>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-white font-display">Need a Driver in {location.name}?</h2>
-                  <p className="text-xs text-[#E5C07B] mt-1 font-medium flex items-center gap-1.5">
+                  <h2 className="text-xl sm:text-2xl font-bold text-white font-display">Need a Driver in {location.name}?</h2>
+                  <p className="text-[11px] sm:text-xs text-[#E5C07B] mt-0.5 font-medium flex items-center gap-1.5">
                     <Clock className="w-3.5 h-3.5 text-[#D4AF37]" />
                     <span>Instant Doorstep Allocation in {location.avgDispatchTime}</span>
                   </p>
                 </div>
-                <div className="w-11 h-11 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center shrink-0">
-                  <ShieldCheck className="w-5 h-5 text-[#D4AF37]" />
+                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center shrink-0">
+                  <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />
                 </div>
               </div>
 
               {submitted ? (
-                <div className="py-8 text-center space-y-4 animate-fade-in">
-                  <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-8 h-8 text-emerald-400" />
+                <div className="py-6 text-center space-y-3 animate-fade-in">
+                  <div className="w-14 h-14 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto">
+                    <CheckCircle2 className="w-7 h-7 text-emerald-400" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-white font-display">Thank You, {formData.fullName}!</h3>
+                    <h3 className="text-xl font-bold text-white font-display">Thank You, {formData.fullName}!</h3>
                     <p className="text-xs text-[#E5C07B] font-mono mt-1">Inquiry for {location.name} Logged</p>
                   </div>
                   <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-md mx-auto font-light">
@@ -409,9 +409,9 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleFormSubmit} className="space-y-4">
+                <form onSubmit={handleFormSubmit} className="space-y-3">
                   <div>
-                    <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1.5">
+                    <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
                       <User className="w-3.5 h-3.5 text-[#D4AF37]" />
                       <span>Full Name *</span>
                     </label>
@@ -421,13 +421,13 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                       placeholder="e.g. Vikramaditya Singhania"
-                      className="w-full h-12 bg-neutral-900/90 border border-neutral-700/80 rounded-xl px-4 text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder-neutral-500"
+                      className="w-full h-12 bg-neutral-900/90 border border-neutral-700/80 rounded-xl px-3 sm:px-4 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder-neutral-500"
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1.5">
+                      <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
                         <Phone className="w-3.5 h-3.5 text-[#D4AF37]" />
                         <span>Phone Number *</span>
                       </label>
@@ -437,12 +437,12 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="e.g. 98200 12345"
-                        className="w-full h-12 bg-neutral-900/90 border border-neutral-700/80 rounded-xl px-4 text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder-neutral-500 font-mono"
+                        className="w-full h-12 bg-neutral-900/90 border border-neutral-700/80 rounded-xl px-3 sm:px-4 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder-neutral-500 font-mono"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1.5">
+                      <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
                         <Mail className="w-3.5 h-3.5 text-[#D4AF37]" />
                         <span>Email Address *</span>
                       </label>
@@ -452,48 +452,50 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="e.g. v.singhania@corp.com"
-                        className="w-full h-12 bg-neutral-900/90 border border-neutral-700/80 rounded-xl px-4 text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder-neutral-500"
+                        className="w-full h-12 bg-neutral-900/90 border border-neutral-700/80 rounded-xl px-3 sm:px-4 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder-neutral-500"
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1.5">
+                      <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
                         <Car className="w-3.5 h-3.5 text-[#D4AF37]" />
-                        <span>Service Requirement *</span>
+                        <span>Service Required *</span>
                       </label>
                       <select
                         value={formData.serviceType}
                         onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
-                        className="w-full h-12 bg-neutral-900/90 border border-neutral-700/80 rounded-xl px-3 text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all cursor-pointer"
+                        className="w-full h-12 bg-neutral-900/90 border border-neutral-700/80 rounded-xl px-3 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all cursor-pointer"
                       >
-                        <option value="Permanent Driver">Permanent / Full-Time Chauffeur</option>
-                        <option value="Personal Driver">Personal Driver Service</option>
-                        <option value="Part-Time Driver">Part-Time / Hourly Driver</option>
-                        <option value="Temporary Driver">Temporary Leave Replacement</option>
-                        <option value="Corporate Chauffeur">Corporate / BKC Executive Driver</option>
-                        <option value="Airport Transfer">Airport CSMIA T1/T2 Transfer</option>
-                        <option value="Outstation Trip">Outstation Highway Chauffeur</option>
-                        <option value="Luxury Chauffeur">Luxury Chauffeur (Mercedes/BMW)</option>
-                        <option value="Senior Citizen Driver">Senior Citizen Care Driver</option>
-                        <option value="Event Chauffeur">Event &amp; Wedding Driver</option>
+                        <option value="Personal Driver">Personal Driver (Daily / Family)</option>
+                        <option value="Full-Time Driver">Full-Time Monthly Driver</option>
+                        <option value="Part-Time Driver">Part-Time Driver</option>
+                        <option value="Temporary Driver">Temporary Driver</option>
+                        <option value="Hourly Driver">Hourly On-Demand Driver</option>
+                        <option value="Permanent Driver">Permanent Dedicated Chauffeur</option>
+                        <option value="Corporate Driver">Corporate Fleet &amp; Executive</option>
+                        <option value="Outstation Driver">Outstation Highway Chauffeur</option>
+                        <option value="Airport Driver">Airport Transfer Chauffeur</option>
+                        <option value="Chauffeur Service">Professional Chauffeur (Sedans/SUVs)</option>
+                        <option value="Senior Citizen Driver">Senior Citizen Driver Assistance</option>
+                        <option value="Event Driver">Event &amp; Wedding Driver</option>
                       </select>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1.5">
+                      <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
                         <Clock className="w-3.5 h-3.5 text-[#D4AF37]" />
                         <span>Requirement Type *</span>
                       </label>
                       <select
                         value={formData.requirementType}
                         onChange={(e) => setFormData({ ...formData, requirementType: e.target.value as any })}
-                        className="w-full h-12 bg-neutral-900/90 border border-neutral-700/80 rounded-xl px-3 text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all cursor-pointer"
+                        className="w-full h-12 bg-neutral-900/90 border border-neutral-700/80 rounded-xl px-3 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all cursor-pointer"
                       >
-                        <option value="Full-Time">Full-Time</option>
-                        <option value="Part-Time">Part-Time</option>
                         <option value="Hourly">Hourly</option>
+                        <option value="Part-Time">Part-Time</option>
+                        <option value="Full-Time">Full-Time</option>
                         <option value="Temporary">Temporary</option>
                         <option value="Permanent">Permanent</option>
                       </select>
@@ -502,35 +504,35 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
 
                   <div>
                     <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                      Specific Address / Neighborhood &amp; Car Details
+                      Message / Vehicle Model &amp; Timings
                     </label>
                     <textarea
-                      rows={3}
+                      rows={2}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder={`Enter your specific society or landmark in ${location.name}, vehicle model and daily timings...`}
-                      className="w-full bg-neutral-900/90 border border-neutral-700/80 rounded-xl p-3.5 text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder-neutral-500 resize-none font-light"
+                      placeholder={`Provide details regarding your vehicle model and scheduled timings in ${location.name}...`}
+                      className="w-full bg-neutral-900/90 border border-neutral-700/80 rounded-xl p-3 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder-neutral-500 resize-none font-light"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full btn-primary h-12 text-sm mt-2"
+                    className="w-full btn-primary h-12 text-xs sm:text-sm mt-1"
                   >
                     {isSubmitting ? (
-                      <span>Submitting Request...</span>
+                      <span>Assigning Chauffeur in {location.name}...</span>
                     ) : (
                       <>
                         <Send className="w-4 h-4 text-black" />
-                        <span>Request a Call Back for {location.name}</span>
+                        <span>Request a Call Back</span>
                       </>
                     )}
                   </button>
 
-                  <div className="pt-2 text-center">
-                    <p className="text-xs text-neutral-400 font-light">
-                      ✓ No advance brokerage · Verified local {location.name} chauffeur allocated
+                  <div className="pt-1 text-center">
+                    <p className="text-[10px] sm:text-xs text-neutral-400 font-light">
+                      ✓ Instant allocation in {location.name} ({location.avgDispatchTime}) · 100% Police Verified
                     </p>
                   </div>
                 </form>
