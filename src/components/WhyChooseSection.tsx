@@ -35,7 +35,7 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOpenBookin
     {
       icon: Clock,
       title: 'Fast Response',
-      description: 'Quick turnaround with chauffeur staging pods deployed across all major MMR corridors.',
+      description: 'Quick turnaround with driver staging pods deployed across all major MMR corridors.',
     },
     {
       icon: Briefcase,
@@ -45,12 +45,12 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOpenBookin
     {
       icon: Headphones,
       title: 'Dedicated Support',
-      description: '24/7 dedicated dispatch team with immediate replacement chauffeur guarantees during leaves.',
+      description: '24/7 dedicated dispatch team with immediate replacement driver guarantees during leaves.',
     },
     {
       icon: Award,
       title: 'Experienced Drivers',
-      description: 'Minimum 5+ years of verified driving experience on luxury sedans, automatics, and high-performance cars.',
+      description: 'Minimum 5+ years of verified driving experience on sedans, SUVs, automatics, and family cars.',
     },
     {
       icon: MapPin,
@@ -60,37 +60,37 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOpenBookin
   ];
 
   return (
-    <section id="why-us" className="py-8 sm:py-16 lg:py-20 bg-black relative">
+    <section className="py-8 sm:py-16 lg:py-20 bg-white text-[#111111] border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-          <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
-            Why Discerning Clients Choose Us
+          <div className="text-xs font-bold uppercase tracking-wider text-[#37B5D6] mb-2">
+            The Service Standard
           </div>
-          <h2 className="text-h2 text-white mb-3">
-            Why Choose <span className="gold-gradient-text">Driver Nest India</span>
+          <h2 className="text-h2 font-bold font-heading text-neutral-900 mb-3">
+            Why Choose On Time Driver Service
           </h2>
-          <p className="text-body-lead text-neutral-400 font-light">
-            We deliver the gold standard in private chauffeuring—combining institutional verification with the refined
-            touch of a luxury concierge service.
+          <p className="text-body-lead text-neutral-600 font-normal">
+            We bridge the gap between unorganized local driver agencies and corporate-grade service delivery with guaranteed punctuality and safety.
           </p>
         </div>
 
-        {/* 8 Premium Cards Grid: 16px mobile card padding and 16px gap */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12 items-stretch">
-          {cards.map((item, index) => {
-            const Icon = item.icon;
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10">
+          {cards.map((card, idx) => {
+            const Icon = card.icon;
             return (
               <div
-                key={index}
-                className="glass-card glass-card-hover rounded-xl p-4 sm:p-6 border border-[#D4AF37]/20 flex flex-col justify-between h-full"
+                key={idx}
+                className="bg-[#F8F9FA] rounded-[16px] p-5 border border-gray-200 flex flex-col justify-start"
               >
-                <div>
-                  <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mb-3">
-                    <Icon className="w-5 h-5 text-[#D4AF37]" />
-                  </div>
-                  <h3 className="text-sm sm:text-base font-bold text-white mb-1.5 font-display">{item.title}</h3>
-                  <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed font-light">{item.description}</p>
+                <div className="w-10 h-10 rounded-[12px] bg-[#37B5D6]/10 text-[#37B5D6] flex items-center justify-center mb-3">
+                  <Icon className="w-5 h-5" />
                 </div>
+                <h3 className="text-sm sm:text-base font-bold font-heading text-neutral-900 mb-1.5">
+                  {card.title}
+                </h3>
+                <p className="text-xs text-neutral-600 leading-relaxed font-normal">
+                  {card.description}
+                </p>
               </div>
             );
           })}
@@ -99,10 +99,10 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOpenBookin
         <div className="text-center">
           <button
             onClick={onOpenBooking}
-            className="btn-primary"
+            className="btn-primary h-12 px-6 text-sm font-semibold inline-flex items-center gap-2"
           >
-            <span>Request Your Chauffeur Consultation</span>
-            <ArrowRight className="w-4 h-4 text-black" />
+            <span>Book Your On-Time Driver Now</span>
+            <ArrowRight className="w-4 h-4" />
           </button>
         </div>
       </div>

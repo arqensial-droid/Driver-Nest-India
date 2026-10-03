@@ -6,6 +6,7 @@ import { StickyMobileBar } from './components/StickyMobileBar';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { BookingModal } from './components/BookingModal';
 import { ExitIntentModal } from './components/ExitIntentModal';
+import { RecentBookingNotification } from './components/RecentBookingNotification';
 
 // Pages
 import { HomePage } from './pages/HomePage';
@@ -18,12 +19,26 @@ import { ContactPage } from './pages/ContactPage';
 import { FaqsPage } from './pages/FaqsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
+const DEDICATED_SEO_ROUTES: Record<string, string> = {
+  '/hourly-driver-service': 'hourly-driver',
+  '/permanent-driver-service': 'permanent-driver',
+  '/personal-driver-service': 'personal-driver',
+  '/corporate-driver-service': 'corporate-driver',
+  '/outstation-driver-service': 'outstation-driver',
+  '/family-driver-service': 'family-driver',
+  '/chauffeur-service': 'chauffeur-service',
+  '/full-time-driver-service': 'permanent-driver',
+  '/part-time-driver-service': 'part-time-driver',
+  '/airport-driver-service': 'airport-driver',
+  '/temporary-driver-service': 'temporary-driver',
+};
+
 const AppContent: React.FC = () => {
   const { currentPath } = useRouter();
 
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [preselectedService, setPreselectedService] = useState('Personal Driver');
-  const [preselectedLocation, setPreselectedLocation] = useState('Mumbai (All Zones & BKC)');
+  const [preselectedLocation, setPreselectedLocation] = useState('Mumbai');
 
   const handleOpenBooking = (serviceTitle?: string, locationName?: string) => {
     if (serviceTitle) setPreselectedService(serviceTitle);
@@ -45,6 +60,12 @@ const AppContent: React.FC = () => {
 
     if (path === '/services') {
       return <ServicesDirectoryPage onOpenBooking={handleOpenBooking} />;
+    }
+
+    // Check dedicated SEO service pages first
+    if (DEDICATED_SEO_ROUTES[path]) {
+      const slug = DEDICATED_SEO_ROUTES[path];
+      return <ServiceDetailPage slug={slug} onOpenBooking={handleOpenBooking} />;
     }
 
     if (path.startsWith('/services/')) {
@@ -73,8 +94,8 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#000000] text-white selection:bg-[#D4AF37]/30 selection:text-[#E5C07B] relative font-body antialiased flex flex-col justify-between">
-      {/* 1. Header / Navigation with Mega Dropdowns */}
+    <div className="min-h-screen bg-[#0A0A0A] text-white selection:bg-[#35B5D8]/30 selection:text-white relative font-body antialiased flex flex-col justify-between">
+      {/* 1. Header / Navigation with Luxury Chauffeur Brand Re-Design */}
       <Navbar onOpenBooking={() => handleOpenBooking()} />
 
       {/* 2. Main Page Content (Dynamic Routing) */}
@@ -82,16 +103,19 @@ const AppContent: React.FC = () => {
         {renderRoute()}
       </main>
 
-      {/* 3. Luxury Multi-Page Footer */}
+      {/* 3. Professional Corporate Multi-Page Footer */}
       <Footer onOpenBooking={() => handleOpenBooking()} />
 
-      {/* 4. Mobile Sticky Quick Action Bar */}
+      {/* 4. Mobile Sticky Quick Action Bar (50-52px, Sticky Book Driver & Call) */}
       <StickyMobileBar onOpenBooking={() => handleOpenBooking()} />
 
-      {/* 5. Floating WhatsApp Concierge Button */}
+      {/* 5. Floating WhatsApp Support Button */}
       <FloatingWhatsApp />
 
-      {/* 6. "Request a Driver" Modal */}
+      {/* 6. Recent Booking Activity Notification */}
+      <RecentBookingNotification />
+
+      {/* 7. Quick Booking Modal with lead capture */}
       <BookingModal
         isOpen={isBookingModalOpen}
         onClose={() => setIsBookingModalOpen(false)}
@@ -99,7 +123,7 @@ const AppContent: React.FC = () => {
         initialLocation={preselectedLocation}
       />
 
-      {/* 7. Exit Intent Priority Consultation Modal */}
+      {/* 8. Exit Intent Priority Consultation Modal */}
       <ExitIntentModal onOpenBooking={() => handleOpenBooking()} />
     </div>
   );

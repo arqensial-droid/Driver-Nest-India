@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, ShieldCheck, MessageSquare, Phone, ArrowRight, Award } from 'lucide-react';
+import { X, ShieldCheck, Phone, ArrowRight, Clock } from 'lucide-react';
 
 interface ExitIntentModalProps {
   onOpenBooking: () => void;
@@ -34,56 +34,53 @@ export const ExitIntentModal: React.FC<ExitIntentModalProps> = ({ onOpenBooking 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
-      <div className="bg-[#111111] border border-[#D4AF37]/50 rounded-2xl max-w-md w-full p-6 sm:p-8 relative shadow-2xl text-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+      <div className="bg-[#121212] border border-white/15 rounded-2xl max-w-md w-full p-6 sm:p-8 relative shadow-2xl text-center text-white">
         <button
           onClick={handleDismiss}
-          className="absolute top-4 right-4 p-2 text-neutral-400 hover:text-white rounded-xl bg-neutral-900 border border-neutral-800 transition-colors cursor-pointer"
+          className="absolute top-4 right-4 p-2 text-neutral-400 hover:text-white rounded-xl hover:bg-white/10 transition-colors cursor-pointer"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
         </button>
 
-        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#E5C07B] to-[#D4AF37] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#D4AF37]/25 text-black">
-          <Award className="w-7 h-7" />
+        <div className="w-13 h-13 rounded-2xl bg-[#35B5D8]/15 border border-[#35B5D8]/30 flex items-center justify-center mx-auto mb-3.5 text-[#35B5D8]">
+          <Clock className="w-6 h-6" />
         </div>
 
-        <span className="text-[11px] font-mono uppercase tracking-widest text-[#E5C07B] block mb-1 font-semibold">
-          Priority Chauffeur Allocation
+        <span className="text-xs font-bold uppercase tracking-wider text-[#35B5D8] block mb-1">
+          Instant Driver Allocation Desk
         </span>
 
-        <h3 className="font-display text-2xl font-bold text-white mb-2 leading-tight">
-          Need a Verified Chauffeur <span className="gold-gradient-text">in Mumbai?</span>
+        <h3 className="font-heading text-xl sm:text-2xl font-bold text-white mb-2 leading-tight">
+          Looking for a Verified Driver in Mumbai?
         </h3>
 
-        <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-6 font-light">
-          Speak directly with our senior concierge coordinator. We evaluate your vehicle model and schedule to provide a pre-screened,
-          police-verified chauffeur matched to your exact standards.
+        <p className="text-xs sm:text-sm text-[#D1D5DB] leading-relaxed mb-6 font-normal">
+          Speak directly with our concierge team. We match your vehicle model and schedule with a 100% police-verified chauffeur within 30 minutes.
         </p>
 
         <div className="space-y-3">
           <button
             onClick={handleClaim}
-            className="w-full btn-primary h-12 text-sm"
+            className="btn-primary w-full h-[52px] text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#F2F028]/20"
           >
-            <span>Request Priority Consultation</span>
-            <ArrowRight className="w-4 h-4 text-black" />
+            <span>Book a Driver Online</span>
+            <ArrowRight className="w-4 h-4" />
           </button>
 
           <a
-            href="https://wa.me/919930012345?text=Hello%20Driver%20Nest%20India,%20I%20would%20like%20to%20request%20priority%20driver%20consultation."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full btn-whatsapp h-12 text-sm"
+            href="tel:8652880057"
+            className="btn-secondary w-full h-[52px] text-sm font-semibold flex items-center justify-center gap-2"
           >
-            <MessageSquare className="w-4 h-4" />
-            <span>Consult via WhatsApp Concierge</span>
+            <Phone className="w-4 h-4 text-[#35B5D8]" />
+            <span>Call 24/7 Concierge: 8652880057</span>
           </a>
         </div>
 
-        <div className="flex items-center justify-center gap-2 pt-5 text-[11px] text-neutral-400 font-light">
-          <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37]" />
-          <span>Available across Mumbai, Thane, Navi Mumbai &amp; MMR</span>
+        <div className="mt-5 flex items-center justify-center gap-2 text-xs text-neutral-400">
+          <ShieldCheck className="w-4 h-4 text-[#22C55E]" />
+          <span>No advance brokerages · Police Verified Drivers</span>
         </div>
       </div>
     </div>

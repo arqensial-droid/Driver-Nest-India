@@ -12,285 +12,531 @@ import {
   CheckCircle2,
   User,
   Car,
+  Calendar,
+  FileText,
+  Headphones,
+  Sparkles,
+  AlertCircle,
 } from 'lucide-react';
+import { LeadFormData } from '../types';
+import { submitLead, validateLeadForm } from '../services/leadService';
+import { ImageWithFallback } from '../components/ImageWithFallback';
 
 export const ContactPage: React.FC = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    phone: '',
+  const [formData, setFormData] = useState<LeadFormData>({
+    name: '',
+    mobile: '',
     email: '',
-    location: 'Mumbai (All Zones & BKC)',
-    serviceType: 'Permanent Driver',
-    requirementType: 'Full-Time',
+    location: 'Mumbai (BKC, South Mumbai, Suburbs)',
+    serviceType: 'Personal Driver',
+    vehicleType: 'Toyota Innova Crysta / Hycross',
+    date: new Date().toISOString().split('T')[0],
+    time: 'Immediate Dispatch (30-45 mins)',
     message: '',
+    formName: 'Contact Form',
   });
 
+  const [honeypot, setHoneypot] = useState('');
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bookingRef, setBookingRef] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const validation = validateLeadForm(formData, honeypot);
+    if (!validation.isValid) {
+      setErrors(validation.errors);
+      return;
+    }
+    setErrors({});
     setIsSubmitting(true);
-    setTimeout(() => {
+
+    try {
+      const res = await submitLead(formData, 'Contact Form');
+      if (res.success && res.record) {
+        setBookingRef(res.record.id);
+        setSubmitted(true);
+      }
+    } catch (err) {
+      setErrors({ form: 'Transmission error. Please call our 24/7 concierge at 8652880057 directly.' });
+    } finally {
       setIsSubmitting(false);
-      setSubmitted(true);
-    }, 600);
+    }
+  };
+
+  const handleWhatsAppForward = () => {
+    const text = encodeURIComponent(
+      `Hello On Time Driver Service, I submitted contact inquiry #${bookingRef || 'NEW'}:\n\n` +
+        `• Name: ${formData.name}\n` +
+        `• Mobile: ${formData.mobile}\n` +
+        `• Email: ${formData.email}\n` +
+        `• Location: ${formData.location}\n` +
+        `• Service: ${formData.serviceType}\n` +
+        `• Vehicle: ${formData.vehicleType}\n` +
+        `• Date: ${formData.date} at ${formData.time}\n` +
+        `• Message: ${formData.message || 'Driver requirement'}\n\n` +
+        `Please respond with chauffeur availability.`
+    );
+    window.open(`https://wa.me/918652880057?text=${text}`, '_blank');
   };
 
   return (
     <>
       <SEO
-        title="Contact Us – Driver Nest India | 24/7 Mumbai Chauffeur Concierge"
-        description="Get in touch with Driver Nest India central dispatch in BKC, Mumbai. Call +91 99300 12345 or WhatsApp for instant chauffeur bookings across Mumbai, Thane & MMR."
+        title="Contact Us – On Time Driver Service | 24/7 Mumbai Chauffeur Concierge"
+        description="Contact On Time Driver Service in Mumbai. Call +91 8652880057 or email info@ontimedriverservice.com for verified driver bookings across Mumbai, Navi Mumbai, Thane, Mira Road, Vasai, Virar & Palghar."
         canonicalPath="/contact"
       />
 
-      <div className="pt-16 sm:pt-24 pb-12 sm:pb-20 bg-black text-white overflow-x-hidden">
+      <div className="pt-24 sm:pt-28 pb-20 bg-[#0A0A0A] text-white overflow-x-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="mb-4 sm:mb-6 flex items-center gap-2 text-xs text-neutral-400">
-            <Link href="/" className="hover:text-[#E5C07B] transition-colors">Home</Link>
+          <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-neutral-400">
+            <Link href="/" className="hover:text-[#35B5D8] transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
-            <span className="text-[#E5C07B] font-medium">Contact Us</span>
+            <span className="text-white font-semibold">Contact Us</span>
           </nav>
 
           {/* Header */}
-          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-            <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
-              24/7 Operations Desk
+          <div className="text-center max-w-3xl mx-auto mb-14">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121212] border border-[#35B5D8]/40 shadow-md mb-3.5">
+              <Headphones className="w-3.5 h-3.5 text-[#F2F028]" />
+              <span className="text-xs font-bold uppercase tracking-wider text-[#35B5D8]">
+                24/7 Chauffeur Operations Desk
+              </span>
             </div>
-            <h1 className="text-h1 text-white mb-3">
-              Contact Driver Nest India
+            <h1 className="text-h1 font-extrabold text-white mb-4">
+              Contact On Time Driver Service
             </h1>
-            <p className="text-body-lead text-neutral-300 font-light">
-              Connect directly with our senior operations team to schedule driver trials, request airport transfers, or discuss corporate fleet contracts.
+            <p className="text-subheading text-[#D1D5DB] leading-relaxed">
+              Need a verified driver within 30 minutes? Or planning monthly chauffeur placement for your family or corporate fleet? Reach our concierge team directly.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start mb-12 sm:mb-16">
-            {/* Left: Contact Info */}
-            <div className="lg:col-span-5 space-y-4 sm:space-y-6">
-              <div className="p-4 sm:p-6 rounded-2xl glass-card border border-[#D4AF37]/30 space-y-3">
-                <span className="text-xs font-semibold text-[#E5C07B] uppercase tracking-wider block font-mono">
-                  Direct Concierge Helplines
-                </span>
-
-                <a
-                  href="tel:+919930012345"
-                  className="flex items-center gap-3 p-3 sm:p-4 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#D4AF37] transition-all group"
-                >
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] group-hover:scale-105 transition-transform">
-                    <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
+          {/* Contact Showcase Visual Card */}
+          <div className="bg-[#121212] rounded-2xl p-6 sm:p-8 border border-white/15 shadow-2xl mb-14">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              {/* Driver standing beside vehicle visual */}
+              <div className="lg:col-span-6 relative">
+                <div className="rounded-xl overflow-hidden border border-white/15 shadow-xl aspect-[16/10] bg-[#181818] relative">
+                  <ImageWithFallback
+                    src="/images/services/corporate-driver.jpg"
+                    alt="Professional Indian driver standing beside corporate sedan vehicle in Mumbai"
+                    fallbackTitle="Chauffeur Beside Vehicle"
+                    vehicleTag="Toyota Innova & Sedans"
+                    locationTag="Mumbai BKC Support Pod"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute bottom-3 left-3 right-3 text-white">
+                    <span className="glass-badge px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2">
+                      <ShieldCheck className="w-4 h-4 text-[#22C55E]" />
+                      <span>Dedicated Chauffeurs On Call 24/7 Across Mumbai</span>
+                    </span>
                   </div>
-                  <div>
-                    <span className="text-[10px] text-neutral-400 uppercase font-mono block">Direct Helpline</span>
-                    <span className="text-sm sm:text-base font-bold text-white font-mono">+91 99300 12345</span>
-                  </div>
-                </a>
-
-                <a
-                  href="https://wa.me/919930012345?text=Hello%20Driver%20Nest%20India,%20I%20would%20like%20to%20request%20a%20driver%20consultation."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3 sm:p-4 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#25D366] transition-all group"
-                >
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-[#25D366]/10 flex items-center justify-center text-[#25D366] group-hover:scale-105 transition-transform">
-                    <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-neutral-400 uppercase font-mono block">WhatsApp Desk</span>
-                    <span className="text-sm sm:text-base font-bold text-white font-mono">+91 99300 12345</span>
-                  </div>
-                </a>
-
-                <a
-                  href="mailto:concierge@drivernestindia.com"
-                  className="flex items-center gap-3 p-3 sm:p-4 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#D4AF37] transition-all group"
-                >
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] group-hover:scale-105 transition-transform">
-                    <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </div>
-                  <div className="min-w-0">
-                    <span className="text-[10px] text-neutral-400 uppercase font-mono block">Official Email</span>
-                    <span className="text-xs sm:text-sm font-semibold text-white truncate block">concierge@drivernestindia.com</span>
-                  </div>
-                </a>
+                </div>
               </div>
 
-              <div className="p-4 sm:p-6 rounded-2xl glass-card border border-neutral-800 space-y-2.5">
-                <span className="text-xs font-semibold text-[#D4AF37] uppercase tracking-wider block font-mono">
-                  Corporate Headquarters
-                </span>
-                <div className="flex items-start gap-2.5 text-xs text-neutral-300">
-                  <MapPin className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
-                  <span>Bandra Kurla Complex (BKC) &amp; Western Express Corridor, Mumbai, Maharashtra 400051</span>
+              {/* Direct Support Visual Channels */}
+              <div className="lg:col-span-6 space-y-4">
+                <div className="text-xs font-bold uppercase tracking-wider text-[#35B5D8] flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-[#F2F028]" />
+                  <span>Immediate Communication Channels</span>
                 </div>
-                <div className="flex items-center gap-2.5 text-xs text-neutral-300 pt-2 border-t border-neutral-800">
-                  <Clock className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                  <span>Operations: 24 Hours / 7 Days a Week / 365 Days</span>
-                </div>
-              </div>
-            </div>
+                <h2 className="text-xl sm:text-2xl font-bold font-heading text-white">
+                  Speak Directly with Our Mumbai Concierge Desk
+                </h2>
+                <p className="text-sm text-[#D1D5DB] leading-relaxed font-normal">
+                  Our operations team manages active driver allocations around the clock. Whether for urgent early morning airport transfers or monthly chauffeur interviews, we respond within 15 minutes.
+                </p>
 
-            {/* Right: Form */}
-            <div className="lg:col-span-7">
-              <div className="glass-card rounded-2xl p-4 sm:p-8 lg:p-10 border border-[#D4AF37]/35 shadow-2xl">
-                <div className="border-b border-neutral-800 pb-3 mb-4 flex items-center justify-between">
-                  <div>
-                    <h2 className="text-xl sm:text-2xl font-bold text-white font-display">Send Consultation Request</h2>
-                    <p className="text-[11px] sm:text-xs text-neutral-400 mt-0.5">Expect a response within 15–30 minutes.</p>
-                  </div>
-                  <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center shrink-0">
-                    <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />
-                  </div>
-                </div>
-
-                {submitted ? (
-                  <div className="py-6 text-center space-y-3 animate-fade-in">
-                    <div className="w-14 h-14 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto">
-                      <CheckCircle2 className="w-7 h-7 text-emerald-400" />
+                {/* Call & WhatsApp Visual Cards */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+                  <a
+                    href="tel:+918652880057"
+                    className="bg-[#181818] rounded-xl p-4 border border-white/10 hover:border-[#35B5D8] transition-all group flex items-start gap-3"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-[#35B5D8]/15 border border-[#35B5D8]/30 text-[#35B5D8] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <Phone className="w-5 h-5" />
                     </div>
-                    <h3 className="text-xl font-bold text-white font-display">Message Sent Successfully!</h3>
-                    <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-md mx-auto font-light">
-                      Thank you, {formData.fullName}. Our central Mumbai concierge will connect with you via phone shortly.
-                    </p>
-                    <button
-                      onClick={() => setSubmitted(false)}
-                      className="text-xs text-[#E5C07B] hover:underline cursor-pointer pt-2 font-medium"
-                    >
-                      Send another message
-                    </button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-3">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
-                        <User className="w-3.5 h-3.5 text-[#D4AF37]" />
-                        <span>Full Name *</span>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.fullName}
-                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                        placeholder="e.g. Vikramaditya Singhania"
-                        className="w-full h-12 bg-neutral-900 border border-neutral-700/80 rounded-xl px-3 sm:px-4 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder-neutral-500"
-                      />
+                      <div className="text-[10px] font-bold uppercase text-neutral-400">Call Support</div>
+                      <div className="text-sm font-bold text-white group-hover:text-[#35B5D8]">+91 8652880057</div>
+                      <div className="text-[11px] text-[#22C55E]">24/7 Emergency Line</div>
                     </div>
+                  </a>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
-                          <Phone className="w-3.5 h-3.5 text-[#D4AF37]" />
-                          <span>Phone Number *</span>
-                        </label>
-                        <input
-                          type="tel"
-                          required
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="e.g. 98200 12345"
-                          className="w-full h-12 bg-neutral-900 border border-neutral-700/80 rounded-xl px-3 sm:px-4 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder-neutral-500 font-mono"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
-                          <Mail className="w-3.5 h-3.5 text-[#D4AF37]" />
-                          <span>Email Address *</span>
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          placeholder="e.g. v.singhania@corp.com"
-                          className="w-full h-12 bg-neutral-900 border border-neutral-700/80 rounded-xl px-3 sm:px-4 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder-neutral-500"
-                        />
-                      </div>
+                  <a
+                    href="https://wa.me/918652880057?text=Hello%20On%20Time%20Driver%20Service,%20I%20need%20a%20driver%20in%20Mumbai."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#181818] rounded-xl p-4 border border-white/10 hover:border-[#25D366] transition-all group flex items-start gap-3"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-[#25D366]/15 border border-[#25D366]/30 text-[#25D366] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                      <MessageSquare className="w-5 h-5" />
                     </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
-                          <MapPin className="w-3.5 h-3.5 text-[#D4AF37]" />
-                          <span>Location</span>
-                        </label>
-                        <select
-                          value={formData.location}
-                          onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                          className="w-full h-12 bg-neutral-900 border border-neutral-700/80 rounded-xl px-3 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all cursor-pointer"
-                        >
-                          <option value="Mumbai (All Zones & BKC)">Mumbai (All Zones &amp; BKC)</option>
-                          <option value="South Mumbai (Colaba, Malabar Hill, Marine Drive)">South Mumbai</option>
-                          <option value="Bandra & BKC (Bandra Kurla Complex)">Bandra &amp; BKC</option>
-                          <option value="Western Suburbs (Andheri, Juhu, Borivali)">Western Suburbs</option>
-                          <option value="Central Mumbai (Dadar, Worli, Lower Parel)">Central Mumbai</option>
-                          <option value="Powai & Hiranandani">Powai &amp; Hiranandani</option>
-                          <option value="Thane (Majiwada, Ghodbunder)">Thane</option>
-                          <option value="Navi Mumbai (Vashi, Nerul, Belapur)">Navi Mumbai</option>
-                          <option value="Mira Road & Bhayandar">Mira Road &amp; Bhayandar</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
-                          <Car className="w-3.5 h-3.5 text-[#D4AF37]" />
-                          <span>Service Interested</span>
-                        </label>
-                        <select
-                          value={formData.serviceType}
-                          onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
-                          className="w-full h-12 bg-neutral-900 border border-neutral-700/80 rounded-xl px-3 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all cursor-pointer"
-                        >
-                          <option value="Personal Driver">Personal Driver</option>
-                          <option value="Full-Time Driver">Full-Time Driver</option>
-                          <option value="Part-Time Driver">Part-Time Driver</option>
-                          <option value="Temporary Driver">Temporary Driver</option>
-                          <option value="Hourly Driver">Hourly Driver</option>
-                          <option value="Permanent Driver">Permanent Driver</option>
-                          <option value="Corporate Driver">Corporate Driver</option>
-                          <option value="Outstation Driver">Outstation Driver</option>
-                          <option value="Airport Driver">Airport Driver</option>
-                          <option value="Chauffeur Service">Professional Chauffeur</option>
-                          <option value="Senior Citizen Driver">Senior Citizen Driver</option>
-                          <option value="Event Driver">Event Driver</option>
-                        </select>
-                      </div>
-                    </div>
-
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                        Your Requirement Details
-                      </label>
-                      <textarea
-                        rows={3}
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        placeholder="Tell us about your car model, schedule, start date, or specific driving preferences..."
-                        className="w-full bg-neutral-900 border border-neutral-700/80 rounded-xl p-3 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder-neutral-500 resize-none font-light"
-                      />
+                      <div className="text-[10px] font-bold uppercase text-neutral-400">WhatsApp Desk</div>
+                      <div className="text-sm font-bold text-white group-hover:text-[#25D366]">Chat Online</div>
+                      <div className="text-[11px] text-[#22C55E]">Avg Reply: &lt; 5 mins</div>
                     </div>
+                  </a>
+                </div>
 
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full btn-primary h-12 text-xs sm:text-sm mt-1"
-                    >
-                      {isSubmitting ? (
-                        <span>Transmitting to Concierge...</span>
-                      ) : (
-                        <>
-                          <Send className="w-4 h-4 text-black" />
-                          <span>Send Consultation Request</span>
-                        </>
-                      )}
-                    </button>
-                  </form>
-                )}
+                <div className="flex items-center gap-2 pt-1 text-xs text-neutral-400">
+                  <Mail className="w-4 h-4 text-[#35B5D8]" />
+                  <span>Official Inquiries:</span>
+                  <a href="mailto:info@ontimedriverservice.com" className="text-white hover:text-[#35B5D8] font-semibold underline">
+                    info@ontimedriverservice.com
+                  </a>
+                </div>
               </div>
             </div>
           </div>
+
+          {/* Form & Info Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            
+            {/* Left 7 Columns: Complete 9-Field Dark Luxury Contact Form */}
+            <div className="lg:col-span-7 bg-[#121212] rounded-2xl border border-white/15 p-6 sm:p-8 shadow-2xl">
+              {!submitted ? (
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-bold font-heading text-white mb-2">
+                    Send Driver Requirement
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[#D1D5DB] mb-6">
+                    Fill the 9 fields below to dispatch your booking directly to <span className="text-[#35B5D8]">info@ontimedriverservice.com</span>.
+                  </p>
+
+                  {errors.form && (
+                    <div className="p-3 mb-4 rounded-xl bg-red-950/60 border border-red-500/40 text-red-200 text-xs flex items-center gap-2">
+                      <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+                      <span>{errors.form}</span>
+                    </div>
+                  )}
+
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <input
+                      type="text"
+                      name="contact_hp_check"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                      className="hidden"
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+
+                    {/* 1. Name & 2. Mobile */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Full Name <span className="text-[#F2F028]">*</span>
+                        </label>
+                        <div className="relative">
+                          <User className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
+                          <input
+                            type="text"
+                            required
+                            placeholder="e.g. Vikram Singhania"
+                            value={formData.name}
+                            onChange={(e) => {
+                              setFormData({ ...formData, name: e.target.value });
+                              if (errors.name) setErrors({ ...errors, name: '' });
+                            }}
+                            className="dark-input w-full pl-10 pr-3 py-2.5"
+                          />
+                        </div>
+                        {errors.name && <p className="text-red-400 text-[11px] mt-1">{errors.name}</p>}
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Mobile Number <span className="text-[#F2F028]">*</span>
+                        </label>
+                        <div className="relative">
+                          <Phone className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
+                          <input
+                            type="tel"
+                            required
+                            placeholder="10-digit mobile"
+                            maxLength={10}
+                            value={formData.mobile}
+                            onChange={(e) => {
+                              setFormData({ ...formData, mobile: e.target.value });
+                              if (errors.mobile) setErrors({ ...errors, mobile: '' });
+                            }}
+                            className="dark-input w-full pl-10 pr-3 py-2.5"
+                          />
+                        </div>
+                        {errors.mobile && <p className="text-red-400 text-[11px] mt-1">{errors.mobile}</p>}
+                      </div>
+                    </div>
+
+                    {/* 3. Email & 4. Location */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Email Address <span className="text-[#F2F028]">*</span>
+                        </label>
+                        <div className="relative">
+                          <Mail className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
+                          <input
+                            type="email"
+                            required
+                            placeholder="name@company.com"
+                            value={formData.email}
+                            onChange={(e) => {
+                              setFormData({ ...formData, email: e.target.value });
+                              if (errors.email) setErrors({ ...errors, email: '' });
+                            }}
+                            className="dark-input w-full pl-10 pr-3 py-2.5"
+                          />
+                        </div>
+                        {errors.email && <p className="text-red-400 text-[11px] mt-1">{errors.email}</p>}
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Location / MMR Sector <span className="text-[#F2F028]">*</span>
+                        </label>
+                        <div className="relative">
+                          <MapPin className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
+                          <select
+                            value={formData.location}
+                            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                            className="dark-input w-full pl-10 pr-3 py-2.5 appearance-none"
+                          >
+                            <option value="Mumbai (BKC, South Mumbai, Suburbs)">Mumbai (BKC / South Mumbai / Suburbs)</option>
+                            <option value="Bandra / Khar / Juhu / Santacruz">Bandra / Khar / Juhu / Santacruz</option>
+                            <option value="Andheri / Oshiwara / Versova">Andheri / Oshiwara / Versova</option>
+                            <option value="Worli / Lower Parel / Prabhadevi">Worli / Lower Parel / Prabhadevi</option>
+                            <option value="Powai / Chandivali / Kanjurmarg">Powai / Chandivali / Kanjurmarg</option>
+                            <option value="Thane (Majiwada, Ghodbunder, Pokhran)">Thane (Majiwada / Ghodbunder / Pokhran)</option>
+                            <option value="Navi Mumbai (Vashi, Nerul, Kharghar, Belapur)">Navi Mumbai (Vashi / Nerul / Kharghar)</option>
+                            <option value="Mira Road, Bhayandar & Dahisar">Mira Road, Bhayandar &amp; Dahisar</option>
+                            <option value="Vasai, Virar & Palghar">Vasai, Virar &amp; Palghar</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 5. Service Type & 6. Vehicle Type */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Service Type
+                        </label>
+                        <div className="relative">
+                          <ShieldCheck className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
+                          <select
+                            value={formData.serviceType}
+                            onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
+                            className="dark-input w-full pl-10 pr-3 py-2.5 appearance-none"
+                          >
+                            <option value="Personal Driver">Personal Driver Service</option>
+                            <option value="Corporate Driver">Corporate Chauffeur Service</option>
+                            <option value="Permanent Driver">Permanent / Monthly Driver</option>
+                            <option value="Hourly Driver">Hourly Driver Service</option>
+                            <option value="Airport Driver">Airport Pickup &amp; Drop Transfer</option>
+                            <option value="Outstation Driver">Outstation Driver</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Vehicle Type
+                        </label>
+                        <div className="relative">
+                          <Car className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
+                          <select
+                            value={formData.vehicleType}
+                            onChange={(e) => setFormData({ ...formData, vehicleType: e.target.value })}
+                            className="dark-input w-full pl-10 pr-3 py-2.5 appearance-none"
+                          >
+                            <option value="Toyota Innova Crysta / Hycross">Toyota Innova Crysta / Hycross</option>
+                            <option value="Premium Sedan (Honda City / Verna / Ciaz)">Premium Sedan (Honda City / Verna / Ciaz)</option>
+                            <option value="SUV (Creta / Seltos / Fortuner / Harrier)">SUV (Creta / Seltos / Fortuner / Harrier)</option>
+                            <option value="Luxury Fleet (Mercedes / BMW / Audi)">Luxury Fleet (Mercedes / BMW / Audi)</option>
+                            <option value="Compact (Swift / i20 / Baleno)">Compact (Swift / i20 / Baleno)</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 7. Date & 8. Time */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Date Required
+                        </label>
+                        <div className="relative">
+                          <Calendar className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
+                          <input
+                            type="date"
+                            value={formData.date}
+                            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                            className="dark-input w-full pl-10 pr-3 py-2.5"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                          Preferred Time / Shift
+                        </label>
+                        <div className="relative">
+                          <Clock className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
+                          <select
+                            value={formData.time}
+                            onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                            className="dark-input w-full pl-10 pr-3 py-2.5 appearance-none"
+                          >
+                            <option value="Immediate Dispatch (30-45 mins)">Immediate Dispatch (30–45 mins)</option>
+                            <option value="Morning Shift (07:00 AM - 03:00 PM)">Morning Shift (07:00 AM – 03:00 PM)</option>
+                            <option value="Office Hours (09:00 AM - 07:00 PM)">Office Hours (09:00 AM – 07:00 PM)</option>
+                            <option value="Evening Return (05:00 PM - 01:00 AM)">Evening Return (05:00 PM – 01:00 AM)</option>
+                            <option value="Outstation Multi-Day">Outstation Multi-Day</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 9. Message */}
+                    <div>
+                      <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                        Specific Details (Optional)
+                      </label>
+                      <div className="relative">
+                        <FileText className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3" />
+                        <textarea
+                          rows={3}
+                          placeholder="Your exact pickup street or landmarks, transmission (auto/manual), or special instructions..."
+                          value={formData.message}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                          className="dark-input w-full pl-10 pr-3 py-2.5 text-xs"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Submit Button */}
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="btn-primary w-full h-[54px] text-base font-bold flex items-center justify-center gap-2 mt-4 shadow-xl shadow-[#F2F028]/25"
+                    >
+                      {isSubmitting ? (
+                        <span>Transmitting to Central Concierge...</span>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4 text-[#0A0A0A]" />
+                          <span>Submit Requirement &amp; Assign Chauffeur</span>
+                        </>
+                      )}
+                    </button>
+
+                    <div className="flex items-center justify-between text-[11px] text-neutral-400 pt-1">
+                      <span>✓ Dispatched to info@ontimedriverservice.com</span>
+                      <span>✓ 100% Police Verified Drivers</span>
+                    </div>
+                  </form>
+                </div>
+              ) : (
+                /* Confirmation Screen */
+                <div className="text-center py-8">
+                  <div className="w-16 h-16 rounded-full bg-[#35B5D8]/20 border border-[#35B5D8] text-[#35B5D8] flex items-center justify-center mx-auto mb-4 animate-bounce">
+                    <CheckCircle2 className="w-8 h-8" />
+                  </div>
+
+                  <h3 className="text-2xl font-extrabold text-white mb-2">
+                    Inquiry Received!
+                  </h3>
+
+                  <p className="text-sm text-[#D1D5DB] mb-5">
+                    Reference: <span className="font-mono font-bold text-[#F2F028]">{bookingRef}</span>
+                  </p>
+
+                  <div className="bg-[#181818] rounded-xl p-4 border border-white/10 text-left text-xs space-y-2 mb-6 text-neutral-300">
+                    <p>• <strong>Inbox:</strong> info@ontimedriverservice.com</p>
+                    <p>• <strong>Name:</strong> {formData.name}</p>
+                    <p>• <strong>Mobile:</strong> +91 {formData.mobile}</p>
+                    <p>• <strong>Email Confirmation Sent To:</strong> {formData.email}</p>
+                    <p>• <strong>Service &amp; Vehicle:</strong> {formData.serviceType} ({formData.vehicleType})</p>
+                    <p>• <strong>Timing:</strong> {formData.date} at {formData.time}</p>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <button
+                      onClick={handleWhatsAppForward}
+                      className="flex-1 h-[52px] rounded-xl bg-[#25D366] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/25"
+                    >
+                      <MessageSquare className="w-4 h-4" />
+                      <span>Speed Up via WhatsApp</span>
+                    </button>
+
+                    <button
+                      onClick={() => setSubmitted(false)}
+                      className="h-[52px] px-6 rounded-xl bg-white/10 text-white font-semibold text-sm hover:bg-white/20"
+                    >
+                      Submit Another
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Right 5 Columns: Operations Hub Info & FAQ Accordion */}
+            <div className="lg:col-span-5 space-y-6">
+              {/* Operations Pods Card */}
+              <div className="bg-[#121212] rounded-2xl border border-white/15 p-6 shadow-xl space-y-4">
+                <h4 className="text-base font-bold text-white flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-[#35B5D8]" />
+                  <span>Central Dispatch Locations</span>
+                </h4>
+                <div className="space-y-3 text-xs text-[#D1D5DB]">
+                  <div className="p-3 rounded-xl bg-black/40 border border-white/5">
+                    <strong className="text-white block mb-0.5">BKC &amp; South Mumbai Hub:</strong>
+                    <span>Bandra Kurla Complex, Bandra East, Mumbai, Maharashtra 400051</span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-black/40 border border-white/5">
+                    <strong className="text-white block mb-0.5">Thane &amp; Navi Mumbai Pod:</strong>
+                    <span>Majiwada Junction &amp; Vashi Sector 17, MMR</span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-black/40 border border-white/5">
+                    <strong className="text-white block mb-0.5">Western Suburbs Hub:</strong>
+                    <span>Andheri West &amp; Mira-Bhayandar Staging Pods</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Working Hours Card */}
+              <div className="bg-[#121212] rounded-2xl border border-white/15 p-6 shadow-xl space-y-3">
+                <h4 className="text-base font-bold text-white flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-[#F2F028]" />
+                  <span>Operations Hours</span>
+                </h4>
+                <div className="text-xs text-[#D1D5DB] space-y-2">
+                  <div className="flex items-center justify-between py-1 border-b border-white/5">
+                    <span>Driver Dispatch Operations:</span>
+                    <strong className="text-[#22C55E]">24 Hours / 365 Days</strong>
+                  </div>
+                  <div className="flex items-center justify-between py-1 border-b border-white/5">
+                    <span>Support Desk:</span>
+                    <strong className="text-white">24/7 Live Concierge</strong>
+                  </div>
+                  <div className="flex items-center justify-between py-1">
+                    <span>Average Doorstep Arrival:</span>
+                    <strong className="text-[#35B5D8]">30–45 Minutes</strong>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
       </div>
     </>

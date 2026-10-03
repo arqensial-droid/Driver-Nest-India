@@ -10,108 +10,113 @@ import {
   ChevronRight,
   ShieldCheck,
   Calendar,
-  MessageSquare,
   Phone,
   ArrowRight,
   CheckCircle2,
-  HelpCircle,
   ChevronDown,
   ChevronUp,
   User,
   Mail,
   Send,
   Car,
+  FileText,
+  Sparkles,
+  AlertCircle,
 } from 'lucide-react';
+import { LeadFormData } from '../types';
+import { submitLead, validateLeadForm } from '../services/leadService';
 
 interface LocationDetailPageProps {
   slug: string;
   onOpenBooking: (serviceTitle?: string, locationName?: string) => void;
 }
 
+const DEDICATED_SEO_MAP: Record<string, string> = {
+  'personal-driver': '/personal-driver-service',
+  'full-time-driver': '/full-time-driver-service',
+  'part-time-driver': '/part-time-driver-service',
+  'temporary-driver': '/temporary-driver-service',
+  'hourly-driver': '/hourly-driver-service',
+  'corporate-driver': '/corporate-driver-service',
+  'airport-driver': '/airport-driver-service',
+  'outstation-driver': '/outstation-driver-service',
+  'chauffeur-service': '/chauffeur-service',
+};
+
 export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, onOpenBooking }) => {
   const location = locationsData.find((l) => l.id === slug);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
-  const [formData, setFormData] = useState({
-    fullName: '',
-    phone: '',
+  const [formData, setFormData] = useState<LeadFormData>({
+    name: '',
+    mobile: '',
     email: '',
-    serviceType: 'Permanent Driver',
-    requirementType: 'Full-Time' as 'Hourly' | 'Part-Time' | 'Full-Time' | 'Temporary' | 'Permanent',
+    location: location?.name || 'Mumbai',
+    serviceType: 'Personal Driver',
+    vehicleType: 'Toyota Innova Crysta / Hycross',
+    date: new Date().toISOString().split('T')[0],
+    time: 'Immediate Dispatch (30-45 mins)',
     message: '',
+    formName: 'Driver Requirement Form',
   });
+
+  const [honeypot, setHoneypot] = useState('');
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bookingRef, setBookingRef] = useState('');
 
   if (!location) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 pt-24 pb-16">
-        <h1 className="text-2xl sm:text-3xl font-bold font-display text-white mb-3">Location Not Found</h1>
+      <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 pt-24 pb-16 bg-[#0A0A0A] text-white">
+        <h1 className="text-2xl sm:text-3xl font-bold font-heading text-white mb-3">Location Not Found</h1>
         <p className="text-neutral-400 mb-6 max-w-md text-sm">
-          The requested service location could not be found. Explore our complete coverage across Mumbai and MMR.
+          The requested service area could not be located. Explore our coverage across Mumbai and MMR.
         </p>
         <Link href="/service-areas" className="btn-primary">
           <span>View All Service Areas</span>
-          <ArrowRight className="w-4 h-4 text-black" />
+          <ArrowRight className="w-4 h-4 ml-2" />
         </Link>
       </div>
     );
   }
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const validation = validateLeadForm(formData, honeypot);
+    if (!validation.isValid) {
+      setErrors(validation.errors);
+      return;
+    }
+    setErrors({});
     setIsSubmitting(true);
-    setTimeout(() => {
+
+    try {
+      const res = await submitLead(formData, 'Driver Requirement Form');
+      if (res.success && res.record) {
+        setBookingRef(res.record.id);
+        setSubmitted(true);
+      }
+    } catch (err) {
+      setErrors({ form: 'Transmission error. Please call our 24/7 desk at 8652880057 directly.' });
+    } finally {
       setIsSubmitting(false);
-      setSubmitted(true);
-    }, 600);
+    }
   };
 
-  const handleWhatsApp = () => {
-    const text = encodeURIComponent(
-      `Hello Driver Nest India, I would like to book a driver in ${location.name}. Please share chauffeur availability and rates.`
-    );
-    window.open(`https://wa.me/919930012345?text=${text}`, '_blank');
-  };
-
-  const pageSchema = [
+  const locationSchema = [
     {
       '@context': 'https://schema.org',
       '@type': 'LocalBusiness',
-      'name': `Driver Nest India – ${location.name}`,
-      'telephone': '+91-9930012345',
-      'description': location.shortSnippet,
+      'name': `On Time Driver Service - ${location.name}`,
+      'telephone': '+91 8652880057',
       'address': {
         '@type': 'PostalAddress',
         'addressLocality': location.name,
         'addressRegion': 'Maharashtra',
-        'addressCountry': 'IN'
+        'addressCountry': 'IN',
       },
-      'areaServed': location.name
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      'itemListElement': [
-        {
-          '@type': 'ListItem',
-          'position': 1,
-          'name': 'Home',
-          'item': 'https://drivernestindia.com/'
-        },
-        {
-          '@type': 'ListItem',
-          'position': 2,
-          'name': 'Service Areas',
-          'item': 'https://drivernestindia.com/service-areas'
-        },
-        {
-          '@type': 'ListItem',
-          'position': 3,
-          'name': location.name,
-          'item': `https://drivernestindia.com/locations/${location.id}`
-        }
-      ]
+      'areaServed': location.name,
     },
     {
       '@context': 'https://schema.org',
@@ -121,248 +126,147 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
         'name': f.question,
         'acceptedAnswer': {
           '@type': 'Answer',
-          'text': f.answer
-        }
-      }))
-    }
+          'text': f.answer,
+        },
+      })),
+    },
   ];
 
   return (
     <>
       <SEO
-        title={`Driver Service in ${location.name} – Verified Chauffeurs & Drivers | Driver Nest India`}
-        description={`Hire verified professional drivers in ${location.name}. Fast ${location.avgDispatchTime} allocation for personal, corporate, monthly, and outstation trips.`}
+        title={`Driver Service in ${location.name} – Verified Chauffeurs | On Time Driver Service`}
+        description={`Hire police-verified drivers in ${location.name}. Punctual personal, corporate & outstation chauffeurs. Average dispatch time: ${location.avgDispatchTime}.`}
         canonicalPath={`/locations/${location.id}`}
         image={location.image}
-        schema={pageSchema}
+        schema={locationSchema}
       />
 
-      <div className="pt-16 sm:pt-24 pb-12 sm:pb-20 bg-black text-white overflow-x-hidden">
-        {/* Hero Section */}
-        <section className="relative overflow-hidden pb-8 sm:pb-16 border-b border-neutral-900">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            {/* Breadcrumb */}
-            <nav aria-label="Breadcrumb" className="mb-4 sm:mb-6 flex items-center gap-2 text-xs text-neutral-400">
-              <Link href="/" className="hover:text-[#E5C07B] transition-colors">Home</Link>
-              <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
-              <Link href="/service-areas" className="hover:text-[#E5C07B] transition-colors">Service Areas</Link>
-              <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
-              <span className="text-[#E5C07B] font-medium truncate">{location.name}</span>
-            </nav>
+      <div className="pt-24 sm:pt-28 pb-20 bg-[#0A0A0A] text-white overflow-x-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Breadcrumb */}
+          <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-neutral-400">
+            <Link href="/" className="hover:text-[#35B5D8] transition-colors">Home</Link>
+            <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
+            <Link href="/service-areas" className="hover:text-[#35B5D8] transition-colors">Service Areas</Link>
+            <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
+            <span className="text-white font-semibold">{location.name}</span>
+          </nav>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
-              <div className="lg:col-span-7">
-                <div className="inline-flex items-center gap-1.5 mb-3 text-[10px] sm:text-xs font-semibold tracking-wider uppercase text-[#E5C07B] bg-[#141414] px-3 py-1 rounded-full border border-[#D4AF37]/35 w-fit font-mono">
-                  <MapPin className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span>{location.district}</span>
-                </div>
-
-                <h1 className="text-h1 text-white mb-3">
-                  Professional Driver Service in {location.name}
-                </h1>
-
-                <p className="text-body-lead text-neutral-300 font-light mb-6 max-w-2xl">
-                  {location.shortSnippet} Verified, police-screened chauffeurs ready for doorstep deployment across {location.name} within {location.avgDispatchTime}.
-                </p>
-
-                <div className="flex flex-wrap items-center gap-3 mb-6">
-                  <button
-                    onClick={() => onOpenBooking('Personal Driver', location.name)}
-                    className="btn-primary"
-                  >
-                    <Calendar className="w-4 h-4 text-black" />
-                    <span>Book Driver in {location.name}</span>
-                  </button>
-
-                  <button
-                    onClick={handleWhatsApp}
-                    className="btn-whatsapp"
-                  >
-                    <MessageSquare className="w-4 h-4" />
-                    <span>WhatsApp Concierge</span>
-                  </button>
-
-                  <a
-                    href="tel:+919930012345"
-                    className="btn-secondary"
-                  >
-                    <Phone className="w-4 h-4 text-[#D4AF37]" />
-                    <span>Call Helpline</span>
-                  </a>
-                </div>
-
-                {/* Staging Metrics */}
-                <div className="pt-4 border-t border-neutral-800/80 grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs text-neutral-300">
-                  <div className="p-3 rounded-lg bg-neutral-900/60 border border-neutral-800">
-                    <span className="text-neutral-400 block text-[10px] sm:text-[11px] font-mono">Response Time</span>
-                    <span className="text-xs sm:text-sm font-bold text-white font-mono">{location.avgDispatchTime}</span>
-                  </div>
-                  <div className="p-3 rounded-lg bg-neutral-900/60 border border-neutral-800">
-                    <span className="text-neutral-400 block text-[10px] sm:text-[11px] font-mono">Vetting Level</span>
-                    <span className="text-xs sm:text-sm font-bold text-[#E5C07B]">100% Police Verified</span>
-                  </div>
-                  <div className="p-3 rounded-lg bg-neutral-900/60 border border-neutral-800 col-span-2 sm:col-span-1">
-                    <span className="text-neutral-400 block text-[10px] sm:text-[11px] font-mono">Standby Support</span>
-                    <span className="text-xs sm:text-sm font-bold text-emerald-400">24/7 Replacement</span>
-                  </div>
-                </div>
+          {/* Hero Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center mb-16 sm:mb-20">
+            <div className="lg:col-span-7 space-y-4">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121212] border border-[#35B5D8]/40 shadow-md">
+                <Sparkles className="w-3.5 h-3.5 text-[#F2F028]" />
+                <span className="text-xs font-bold uppercase tracking-wider text-[#35B5D8]">
+                  Verified Dispatch: {location.avgDispatchTime}
+                </span>
               </div>
 
-              <div className="lg:col-span-5">
-                <div className="rounded-2xl overflow-hidden border border-[#D4AF37]/35 shadow-2xl relative aspect-video">
-                  <ImageWithFallback
-                    src={location.image}
-                    alt={`Driver service in ${location.name}`}
-                    fallbackTitle={location.name}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent pointer-events-none" />
-                  <div className="absolute bottom-3 left-3 right-3">
-                    <span className="text-[10px] sm:text-xs font-semibold text-[#E5C07B] uppercase tracking-wider block font-mono">
-                      Active Coverage Hub
-                    </span>
-                    <h3 className="text-base sm:text-xl font-bold text-white font-display">{location.name} Operations Desk</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+              <h1 className="text-h1 font-extrabold text-white tracking-tight">
+                Driver Service in {location.name}
+              </h1>
 
-        {/* Detailed Hyper-Local Narrative */}
-        <section className="py-8 sm:py-16 border-b border-neutral-900 bg-[#060606]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start">
-              <div className="lg:col-span-7">
-                <div className="text-[11px] font-semibold uppercase text-[#D4AF37] tracking-wider mb-2 font-mono">
-                  Localized Chauffeur Coverage
-                </div>
-                <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-4 font-display">
-                  {location.seoHeadline}
-                </h2>
-                <div className="space-y-3.5 text-neutral-300 text-xs sm:text-sm md:text-base leading-relaxed whitespace-pre-line font-light">
-                  {location.fullContent}
-                </div>
-              </div>
-
-              {/* Local Hubs & Routes Sidebar */}
-              <div className="lg:col-span-5 space-y-4 sm:space-y-6">
-                <div className="p-4 sm:p-6 rounded-2xl glass-card border border-[#D4AF37]/25">
-                  <h3 className="text-xs sm:text-sm font-semibold text-[#D4AF37] uppercase tracking-wider mb-3 font-mono flex items-center gap-2">
-                    <MapPin className="w-4 h-4 shrink-0" />
-                    <span>Popular Neighborhoods &amp; Staging Zones</span>
-                  </h3>
-                  <ul className="space-y-1.5">
-                    {location.popularHubs.map((hub, hIdx) => (
-                      <li key={hIdx} className="text-xs sm:text-sm text-neutral-200 flex items-center gap-2">
-                        <ChevronRight className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" />
-                        <span>{hub}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="p-4 sm:p-6 rounded-2xl glass-card border border-neutral-800">
-                  <h3 className="text-xs sm:text-sm font-semibold text-[#D4AF37] uppercase tracking-wider mb-3 font-mono flex items-center gap-2">
-                    <Route className="w-4 h-4 shrink-0" />
-                    <span>Primary Arterial Routes Managed</span>
-                  </h3>
-                  <ul className="space-y-1.5">
-                    {location.keyRoutes.map((route, rIdx) => (
-                      <li key={rIdx} className="text-xs sm:text-sm text-neutral-300 flex items-center gap-2">
-                        <ChevronRight className="w-3.5 h-3.5 text-neutral-500 shrink-0" />
-                        <span>{route}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Services Available in this Location */}
-        <section className="py-8 sm:py-16 border-b border-neutral-900 bg-black">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-              <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
-                Driver Categories
-              </div>
-              <h2 className="text-h2 text-white">Services Available in {location.name}</h2>
-              <p className="text-xs sm:text-sm text-neutral-400 mt-2 font-light">
-                Explore specialized chauffeur options tailored for residential and corporate mobility in {location.name}.
+              <p className="text-subheading text-[#D1D5DB] leading-relaxed">
+                {location.fullContent}
               </p>
-            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {servicesData.slice(0, 6).map((svc) => (
-                <div
-                  key={svc.id}
-                  className="glass-card glass-card-hover rounded-xl p-4 sm:p-5 border border-neutral-800 hover:border-[#D4AF37]/35 flex flex-col justify-between"
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-4">
+                <button
+                  onClick={() => onOpenBooking(undefined, location.name)}
+                  className="btn-primary h-[52px] px-8 text-base font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#F2F028]/20"
                 >
-                  <div>
-                    <span className="text-[10px] font-mono text-[#E5C07B] uppercase tracking-wider block mb-1">{svc.badge}</span>
-                    <h3 className="text-sm sm:text-base font-bold text-white mb-1.5 font-display">{svc.title}</h3>
-                    <p className="text-xs text-neutral-400 leading-relaxed font-light mb-3">{svc.shortDescription}</p>
-                  </div>
-                  <Link
-                    href={`/services/${svc.slug}`}
-                    className="text-xs text-[#E5C07B] hover:text-white font-medium flex items-center gap-1 mt-auto pt-2 border-t border-neutral-800/80"
-                  >
-                    <span>View {svc.title}</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              ))}
+                  <Calendar className="w-4 h-4 text-[#0A0A0A]" />
+                  <span>Book Driver in {location.name}</span>
+                </button>
+
+                <a
+                  href="tel:8652880057"
+                  className="btn-secondary h-[52px] px-6 text-sm font-semibold flex items-center justify-center gap-2"
+                >
+                  <Phone className="w-4 h-4 text-[#35B5D8]" />
+                  <span>Call 8652880057</span>
+                </a>
+              </div>
             </div>
 
-            <div className="text-center mt-6 sm:mt-8">
-              <Link href="/services" className="btn-secondary">
-                <span>Browse All 12 Driver Services</span>
-                <ArrowRight className="w-4 h-4 text-[#D4AF37]" />
-              </Link>
+            {/* Media */}
+            <div className="lg:col-span-5">
+              <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#121212]">
+                <ImageWithFallback
+                  src={location.image}
+                  alt={`Driver service in ${location.name}`}
+                  fallbackTitle={`${location.name} Hub`}
+                  locationTag={location.name}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-3 left-3 bg-[#121212]/90 border border-white/10 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#F2F028]">
+                  {location.name} Local Staging Pod
+                </div>
+              </div>
             </div>
           </div>
-        </section>
 
-        {/* Localized FAQs */}
-        <section className="py-8 sm:py-16 border-b border-neutral-900 bg-[#070707]">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-              <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
-                Regional Questions
+          {/* Local Staging Hubs & Key Corridors */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+            <div className="bg-[#121212] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
+              <div className="flex items-center gap-2 text-sm font-bold text-white mb-3">
+                <MapPin className="w-4 h-4 text-[#35B5D8]" />
+                <span>Key Staging Hubs in {location.name}</span>
               </div>
-              <h2 className="text-h2 text-white">FAQs for {location.name}</h2>
+              <div className="flex flex-wrap gap-2">
+                {location.popularHubs.map((hub, i) => (
+                  <span
+                    key={i}
+                    className="px-3 py-1.5 rounded-xl bg-black/40 border border-white/10 text-neutral-300 text-xs font-medium"
+                  >
+                    {hub}
+                  </span>
+                ))}
+              </div>
             </div>
 
-            <div className="space-y-3">
-              {location.localFaqs.map((faq, fIdx) => {
-                const isOpen = openFaqIndex === fIdx;
-                return (
-                  <div
-                    key={fIdx}
-                    className="glass-card rounded-xl border border-neutral-800 hover:border-[#D4AF37]/35 transition-colors overflow-hidden"
+            <div className="bg-[#121212] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
+              <div className="flex items-center gap-2 text-sm font-bold text-white mb-3">
+                <Route className="w-4 h-4 text-[#F2F028]" />
+                <span>Major Transit Arteries</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {location.keyRoutes.map((route, i) => (
+                  <span
+                    key={i}
+                    className="px-3 py-1.5 rounded-xl bg-[#35B5D8]/10 border border-[#35B5D8]/20 text-[#35B5D8] text-xs font-medium"
                   >
-                    <button
-                      onClick={() => setOpenFaqIndex(isOpen ? null : fIdx)}
-                      className="w-full p-3.5 sm:p-5 text-left flex items-center justify-between gap-3 cursor-pointer focus:outline-none"
-                    >
-                      <div className="flex items-center gap-2.5">
-                        <HelpCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                        <span className="text-xs sm:text-sm md:text-base font-semibold text-white">{faq.question}</span>
-                      </div>
-                      <div className="w-6 h-6 rounded-full bg-neutral-900 flex items-center justify-center shrink-0 border border-neutral-800">
-                        {isOpen ? (
-                          <ChevronUp className="w-3.5 h-3.5 text-[#D4AF37]" />
-                        ) : (
-                          <ChevronDown className="w-3.5 h-3.5 text-neutral-400" />
-                        )}
-                      </div>
-                    </button>
+                    {route}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
 
+          {/* Local FAQs */}
+          <div className="max-w-3xl mx-auto mb-16">
+            <h2 className="text-xl sm:text-2xl font-bold font-heading text-white text-center mb-6">
+              {location.name} Driver FAQs
+            </h2>
+            <div className="space-y-3">
+              {location.localFaqs.map((faq, idx) => {
+                const isOpen = openFaqIndex === idx;
+                return (
+                  <div key={idx} className="bg-[#121212] rounded-xl border border-white/10 overflow-hidden">
+                    <button
+                      onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
+                      className="w-full p-4 sm:p-5 text-left font-bold text-white text-sm flex items-center justify-between gap-3"
+                    >
+                      <span>{faq.question}</span>
+                      <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180 text-[#35B5D8]' : ''}`} />
+                    </button>
                     {isOpen && (
-                      <div className="px-4 pb-4 pt-1 sm:px-5 sm:pb-5 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-neutral-800/50 font-light">
-                        <p>{faq.answer}</p>
+                      <div className="px-5 pb-5 text-sm text-[#D1D5DB] leading-relaxed border-t border-white/5 pt-3">
+                        {faq.answer}
                       </div>
                     )}
                   </div>
@@ -370,176 +274,228 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
               })}
             </div>
           </div>
-        </section>
 
-        {/* Location Lead Form */}
-        <section className="py-8 sm:py-16 bg-[#050505]">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="glass-card rounded-2xl p-4 sm:p-8 lg:p-10 border border-[#D4AF37]/35 shadow-2xl relative">
-              <div className="border-b border-neutral-800 pb-3 mb-4 flex items-center justify-between">
-                <div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-white font-display">Need a Driver in {location.name}?</h2>
-                  <p className="text-[11px] sm:text-xs text-[#E5C07B] mt-0.5 font-medium flex items-center gap-1.5">
-                    <Clock className="w-3.5 h-3.5 text-[#D4AF37]" />
-                    <span>Instant Doorstep Allocation in {location.avgDispatchTime}</span>
-                  </p>
+          {/* Lead Form for this location */}
+          <div className="max-w-2xl mx-auto bg-[#121212] rounded-2xl border border-white/15 p-6 sm:p-8 shadow-2xl">
+            {submitted ? (
+              <div className="py-8 text-center space-y-3">
+                <div className="w-14 h-14 rounded-full bg-[#35B5D8]/20 border border-[#35B5D8] text-[#35B5D8] flex items-center justify-center mx-auto">
+                  <CheckCircle2 className="w-8 h-8 text-[#35B5D8]" />
                 </div>
-                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center shrink-0">
-                  <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />
-                </div>
+                <h3 className="text-2xl font-extrabold text-white">
+                  Booking Request Received!
+                </h3>
+                <p className="text-sm text-[#D1D5DB]">
+                  A booking manager is assigning a driver in {location.name}. Reference ID: <strong className="text-[#F2F028]">{bookingRef}</strong>.
+                </p>
+                <button
+                  onClick={() => setSubmitted(false)}
+                  className="btn-primary h-11 px-6 text-xs font-bold mt-2"
+                >
+                  Submit Another Request
+                </button>
               </div>
-
-              {submitted ? (
-                <div className="py-6 text-center space-y-3 animate-fade-in">
-                  <div className="w-14 h-14 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-7 h-7 text-emerald-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white font-display">Thank You, {formData.fullName}!</h3>
-                    <p className="text-xs text-[#E5C07B] font-mono mt-1">Inquiry for {location.name} Logged</p>
-                  </div>
-                  <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed max-w-md mx-auto font-light">
-                    Our local {location.name} coordinator will contact you shortly with verified driver profiles.
+            ) : (
+              <div>
+                <div className="text-center mb-6">
+                  <span className="text-xs font-bold text-[#35B5D8] uppercase tracking-wider block mb-1">
+                    Direct Staging Dispatch
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-bold font-heading text-white">
+                    Book a Driver in {location.name}
+                  </h2>
+                  <p className="text-xs sm:text-sm text-[#D1D5DB] mt-1">
+                    Delivered directly to <span className="text-[#35B5D8]">info@ontimedriverservice.com</span>.
                   </p>
-                  <button
-                    onClick={() => setSubmitted(false)}
-                    className="text-xs text-[#E5C07B] hover:underline cursor-pointer pt-2 font-medium"
-                  >
-                    Submit another request
-                  </button>
                 </div>
-              ) : (
-                <form onSubmit={handleFormSubmit} className="space-y-3">
-                  <div>
-                    <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
-                      <User className="w-3.5 h-3.5 text-[#D4AF37]" />
-                      <span>Full Name *</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.fullName}
-                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      placeholder="e.g. Vikramaditya Singhania"
-                      className="w-full h-12 bg-neutral-900/90 border border-neutral-700/80 rounded-xl px-3 sm:px-4 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder-neutral-500"
-                    />
-                  </div>
 
+                {errors.form && (
+                  <div className="p-3 mb-4 rounded-xl bg-red-950/60 border border-red-500/40 text-red-200 text-xs flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+                    <span>{errors.form}</span>
+                  </div>
+                )}
+
+                <form onSubmit={handleFormSubmit} className="space-y-3.5">
+                  <input
+                    type="text"
+                    name="bot_field_loc"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    tabIndex={-1}
+                    className="hidden"
+                  />
+
+                  {/* 1. Name & 2. Mobile */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
-                        <Phone className="w-3.5 h-3.5 text-[#D4AF37]" />
-                        <span>Phone Number *</span>
+                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                        Full Name <span className="text-[#F2F028]">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => {
+                          setFormData({ ...formData, name: e.target.value });
+                          if (errors.name) setErrors({ ...errors, name: '' });
+                        }}
+                        placeholder="Your Name"
+                        className="dark-input w-full px-3 py-2.5"
+                      />
+                      {errors.name && <p className="text-red-400 text-[11px] mt-0.5">{errors.name}</p>}
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                        Mobile Number <span className="text-[#F2F028]">*</span>
                       </label>
                       <input
                         type="tel"
                         required
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="e.g. 98200 12345"
-                        className="w-full h-12 bg-neutral-900/90 border border-neutral-700/80 rounded-xl px-3 sm:px-4 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder-neutral-500 font-mono"
+                        maxLength={10}
+                        value={formData.mobile}
+                        onChange={(e) => {
+                          setFormData({ ...formData, mobile: e.target.value });
+                          if (errors.mobile) setErrors({ ...errors, mobile: '' });
+                        }}
+                        placeholder="10-digit mobile"
+                        className="dark-input w-full px-3 py-2.5"
                       />
+                      {errors.mobile && <p className="text-red-400 text-[11px] mt-0.5">{errors.mobile}</p>}
                     </div>
+                  </div>
 
+                  {/* 3. Email & 4. Location */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
-                        <Mail className="w-3.5 h-3.5 text-[#D4AF37]" />
-                        <span>Email Address *</span>
+                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                        Email Address <span className="text-[#F2F028]">*</span>
                       </label>
                       <input
                         type="email"
                         required
                         value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="e.g. v.singhania@corp.com"
-                        className="w-full h-12 bg-neutral-900/90 border border-neutral-700/80 rounded-xl px-3 sm:px-4 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder-neutral-500"
+                        onChange={(e) => {
+                          setFormData({ ...formData, email: e.target.value });
+                          if (errors.email) setErrors({ ...errors, email: '' });
+                        }}
+                        placeholder="name@example.com"
+                        className="dark-input w-full px-3 py-2.5"
+                      />
+                      {errors.email && <p className="text-red-400 text-[11px] mt-0.5">{errors.email}</p>}
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                        Location
+                      </label>
+                      <input
+                        type="text"
+                        readOnly
+                        value={location.name}
+                        className="dark-input w-full px-3 py-2.5 opacity-80 cursor-not-allowed text-[#35B5D8] font-bold"
                       />
                     </div>
                   </div>
 
+                  {/* 5. Service Type & 6. Vehicle Type */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
-                        <Car className="w-3.5 h-3.5 text-[#D4AF37]" />
-                        <span>Service Required *</span>
+                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                        Service Type
                       </label>
                       <select
                         value={formData.serviceType}
                         onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
-                        className="w-full h-12 bg-neutral-900/90 border border-neutral-700/80 rounded-xl px-3 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all cursor-pointer"
+                        className="dark-input w-full px-3 py-2.5 appearance-none"
                       >
-                        <option value="Personal Driver">Personal Driver (Daily / Family)</option>
-                        <option value="Full-Time Driver">Full-Time Monthly Driver</option>
+                        <option value="Personal Driver">Personal Driver</option>
+                        <option value="Hourly Driver">Hourly Driver</option>
                         <option value="Part-Time Driver">Part-Time Driver</option>
-                        <option value="Temporary Driver">Temporary Driver</option>
-                        <option value="Hourly Driver">Hourly On-Demand Driver</option>
-                        <option value="Permanent Driver">Permanent Dedicated Chauffeur</option>
-                        <option value="Corporate Driver">Corporate Fleet &amp; Executive</option>
-                        <option value="Outstation Driver">Outstation Highway Chauffeur</option>
-                        <option value="Airport Driver">Airport Transfer Chauffeur</option>
-                        <option value="Chauffeur Service">Professional Chauffeur (Sedans/SUVs)</option>
-                        <option value="Senior Citizen Driver">Senior Citizen Driver Assistance</option>
-                        <option value="Event Driver">Event &amp; Wedding Driver</option>
+                        <option value="Full-Time Driver">Full-Time Driver</option>
+                        <option value="Corporate Driver">Corporate Chauffeur</option>
+                        <option value="Airport Transfer">Airport Transfer</option>
+                        <option value="Outstation Driver">Outstation Driver</option>
                       </select>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
-                        <Clock className="w-3.5 h-3.5 text-[#D4AF37]" />
-                        <span>Requirement Type *</span>
+                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                        Vehicle Type
                       </label>
                       <select
-                        value={formData.requirementType}
-                        onChange={(e) => setFormData({ ...formData, requirementType: e.target.value as any })}
-                        className="w-full h-12 bg-neutral-900/90 border border-neutral-700/80 rounded-xl px-3 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all cursor-pointer"
+                        value={formData.vehicleType}
+                        onChange={(e) => setFormData({ ...formData, vehicleType: e.target.value })}
+                        className="dark-input w-full px-3 py-2.5 appearance-none"
                       >
-                        <option value="Hourly">Hourly</option>
-                        <option value="Part-Time">Part-Time</option>
-                        <option value="Full-Time">Full-Time</option>
-                        <option value="Temporary">Temporary</option>
-                        <option value="Permanent">Permanent</option>
+                        <option value="Toyota Innova Crysta / Hycross">Toyota Innova Crysta / Hycross</option>
+                        <option value="Sedan (Honda City / Dzire / Verna)">Sedan (Honda City / Dzire / Verna)</option>
+                        <option value="SUV (Creta / Fortuner / Seltos)">SUV (Creta / Fortuner / Seltos)</option>
+                        <option value="Luxury (Mercedes / BMW / Audi)">Luxury (Mercedes / BMW / Audi)</option>
+                        <option value="Compact (Swift / i20 / Baleno)">Compact (Swift / i20 / Baleno)</option>
                       </select>
                     </div>
                   </div>
 
+                  {/* 7. Date & 8. Time */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                        Date Required
+                      </label>
+                      <input
+                        type="date"
+                        value={formData.date}
+                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                        className="dark-input w-full px-3 py-2.5"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                        Time / Urgency
+                      </label>
+                      <select
+                        value={formData.time}
+                        onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                        className="dark-input w-full px-3 py-2.5 appearance-none"
+                      >
+                        <option value="Immediate Dispatch (30-45 mins)">Immediate Dispatch (30–45 mins)</option>
+                        <option value="Morning Shift (07:00 AM - 03:00 PM)">Morning Shift</option>
+                        <option value="Office Hours (09:00 AM - 07:00 PM)">Office Hours</option>
+                        <option value="Evening Return (05:00 PM - 01:00 AM)">Evening Return</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* 9. Message */}
                   <div>
                     <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                      Message / Vehicle Model &amp; Timings
+                      Pickup Address &amp; Instructions
                     </label>
                     <textarea
                       rows={2}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder={`Provide details regarding your vehicle model and scheduled timings in ${location.name}...`}
-                      className="w-full bg-neutral-900/90 border border-neutral-700/80 rounded-xl p-3 text-xs sm:text-sm text-white focus:outline-none focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37] transition-all placeholder-neutral-500 resize-none font-light"
+                      placeholder="e.g. Near Majiwada junction, manual transmission..."
+                      className="dark-input w-full px-3 py-2 text-xs"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full btn-primary h-12 text-xs sm:text-sm mt-1"
+                    className="btn-primary w-full h-[52px] text-base font-bold flex items-center justify-center gap-2 mt-4 shadow-lg shadow-[#F2F028]/20"
                   >
-                    {isSubmitting ? (
-                      <span>Assigning Chauffeur in {location.name}...</span>
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4 text-black" />
-                        <span>Request a Call Back</span>
-                      </>
-                    )}
+                    {isSubmitting ? 'Transmitting to Desk...' : `Book Chauffeur in ${location.name}`}
                   </button>
-
-                  <div className="pt-1 text-center">
-                    <p className="text-[10px] sm:text-xs text-neutral-400 font-light">
-                      ✓ Instant allocation in {location.name} ({location.avgDispatchTime}) · 100% Police Verified
-                    </p>
-                  </div>
                 </form>
-              )}
-            </div>
+              </div>
+            )}
           </div>
-        </section>
+
+        </div>
       </div>
     </>
   );

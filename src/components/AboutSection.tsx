@@ -1,5 +1,18 @@
 import React from 'react';
-import { ShieldCheck, Award, Sliders, FileText, Zap, Headphones, Check, ArrowRight } from 'lucide-react';
+import {
+  ShieldCheck,
+  Award,
+  Zap,
+  Phone,
+  ArrowRight,
+  Clock,
+  UserCheck2,
+  FileCheck2,
+  CheckCircle2,
+  Users,
+  Sparkles,
+  FileText,
+} from 'lucide-react';
 import { ImageWithFallback } from './ImageWithFallback';
 
 interface AboutSectionProps {
@@ -7,160 +20,233 @@ interface AboutSectionProps {
 }
 
 export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenBooking }) => {
-  const pillars = [
+  const verificationSteps = [
     {
-      icon: ShieldCheck,
-      title: 'Verified Indian Drivers',
-      description: 'Strict police verification, authentic Aadhaar validation, and criminal record clearance before any deployment in Mumbai.',
+      step: '01',
+      title: 'Police Clearance Dossier',
+      desc: 'Criminal record verification conducted in coordination with local police commissionerates across Mumbai, Thane & Navi Mumbai.',
+      image: '/images/services/chauffeur-service.jpg',
+      tag: 'Legal Background Clear',
     },
     {
-      icon: Award,
-      title: 'Trained Chauffeurs',
-      description: 'Chauffeurs trained in smooth braking, executive business etiquette, VIP protocol, and Indian vehicle dynamics.',
+      step: '02',
+      title: 'Biometric Aadhaar & Address Audit',
+      desc: 'Physical residence verification and UIDAI biometric identification ensuring 100% trace-verified workforce personnel.',
+      image: '/images/services/corporate-driver.jpg',
+      tag: 'Biometric Verification',
     },
     {
-      icon: Sliders,
-      title: 'Flexible Hiring Options',
-      description: 'Hourly, part-time, full-time, outstation, or dedicated monthly retainers tailored to your family or corporate calendar.',
+      step: '03',
+      title: 'Practical Road & Transmission Test',
+      desc: 'Rigorous driving test covering smooth braking, narrow Mumbai lanes, multi-story parking, and automatic transmissions.',
+      image: '/images/services/permanent-driver.jpg',
+      tag: 'Defensive Driving Audit',
     },
     {
+      step: '04',
+      title: 'Etiquette & Protocol Training',
+      desc: 'Professional grooming, non-disclosure confidentiality, route navigation optimization, and emergency standby protocols.',
+      image: '/images/services/hourly-driver.jpg',
+      tag: 'Chauffeur Standards',
+    },
+  ];
+
+  const workforceHighlights = [
+    {
+      title: '5,000+ Verified Drivers',
+      desc: 'Screened Indian chauffeurs stationed throughout Mumbai, Thane, Navi Mumbai, and the extended MMR corridor.',
+      icon: Users,
+    },
+    {
+      title: 'Zero Brokerage Agency Fees',
+      desc: 'We operate transparently with direct driver allocation without exorbitant upfront placement agency commissions.',
       icon: FileText,
-      title: 'Transparent Process',
-      description: 'Bespoke consultation, clear vehicle matching (Innova, City, Creta, E-Class), and zero advance placement brokerage.',
     },
     {
+      title: 'Standby Replacement Fleet',
+      desc: 'Our Mumbai staging pods ensure guaranteed backup driver deployment if your regular driver is on leave.',
       icon: Zap,
-      title: 'Fast Driver Allocation',
-      description: 'Strategic driver staging hubs throughout Mumbai and MMR enable rapid door-to-door allocation within 30 to 45 mins.',
     },
     {
-      icon: Headphones,
-      title: 'Dedicated Support',
-      description: '24/7 dedicated support desk with instant replacement driver guarantees during unexpected leaves.',
+      title: '5+ Years Verified Experience',
+      desc: 'Every candidate possesses verified years behind the wheel of sedans, SUVs, and luxury automatic transmissions.',
+      icon: Award,
     },
   ];
 
   return (
-    <section id="about" className="py-8 sm:py-16 lg:py-20 bg-[#080808] relative border-t border-b border-neutral-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="py-20 lg:py-28 bg-[#0A0A0A] text-white border-b border-white/10 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
         {/* Top Story Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center mb-10 sm:mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center mb-16 sm:mb-24">
           {/* Left: Brand Story */}
           <div className="lg:col-span-6 flex flex-col justify-center">
-            <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 flex items-center gap-2 font-mono">
-              <span className="w-5 h-[1.5px] bg-[#D4AF37]" />
-              <span>Your Trusted Driver Partner in Mumbai</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121212] border border-[#35B5D8]/40 shadow-md mb-3.5 w-fit">
+              <Sparkles className="w-3.5 h-3.5 text-[#F2F028]" />
+              <span className="text-xs font-bold uppercase tracking-wider text-[#35B5D8]">
+                Mumbai Chauffeur Authority
+              </span>
             </div>
 
-            <h2 className="text-h2 text-white mb-3">
-              Professional Driver Services for <span className="gold-gradient-text">Mumbai Families &amp; Businesses</span>
+            <h2 className="text-h2 font-extrabold text-white mb-4">
+              Professional Driver Services for Mumbai Families &amp; Businesses
             </h2>
 
-            <div className="space-y-3 text-neutral-300 text-body-lead font-light leading-relaxed mb-6">
+            <div className="space-y-4 text-[#D1D5DB] text-sm sm:text-base leading-relaxed mb-6 font-normal">
               <p>
-                Driver Nest India provides professional chauffeur and driver services across Mumbai and surrounding areas.
-                We help families, businesses, senior citizens, and vehicle owners find trusted and experienced drivers for
-                every driving need.
+                Navigating the roads of Mumbai, Thane, and Navi Mumbai shouldn't consume your energy or compromise your peace of mind. On Time Driver Service was founded to deliver dependable, punctual, and 100% background-cleared chauffeurs for car owners who value their safety and time.
               </p>
               <p>
-                Our focus is safety, reliability, professionalism, and customer satisfaction. Whether driving a family
-                Toyota Innova Crysta, Honda City, or executive Mercedes-Benz, our chauffeurs understand Mumbai traffic nuances,
-                flyovers, arterial shortcuts, and parking protocols.
-              </p>
-              <p className="text-neutral-400 text-xs sm:text-sm">
-                Every driver is backed by institutional oversight, police verification dossiers, regular skill audits,
-                and seamless standby replacements.
+                Whether you commute through the Western Express Highway daily, need a disciplined driver for your children’s school runs, or require an executive chauffeur for corporate partners visiting BKC, our platform provides vetted professionals with guaranteed punctuality.
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3">
+            {/* Checklist */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-300">
+                <CheckCircle2 className="w-4 h-4 text-[#35B5D8] shrink-0" />
+                <span>100% Police Verified Records</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-300">
+                <CheckCircle2 className="w-4 h-4 text-[#35B5D8] shrink-0" />
+                <span>Zero Advance Placement Fees</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-300">
+                <CheckCircle2 className="w-4 h-4 text-[#35B5D8] shrink-0" />
+                <span>Rapid 30–45 Min Dispatch</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-300">
+                <CheckCircle2 className="w-4 h-4 text-[#35B5D8] shrink-0" />
+                <span>Standby Replacement Guarantee</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
               <button
                 onClick={onOpenBooking}
-                className="btn-primary"
+                className="btn-primary h-[52px] px-8 text-base font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#F2F028]/20"
               >
-                <span>Schedule Driver Consultation</span>
-                <ArrowRight className="w-4 h-4 text-black" />
+                <span>Hire a Chauffeur Now</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
 
-              <div className="flex items-center gap-1.5 text-xs text-[#E5C07B] font-medium">
-                <Check className="w-4 h-4 text-[#D4AF37]" />
-                <span>100% Police Verified Roster</span>
-              </div>
+              <a
+                href="tel:8652880057"
+                className="btn-secondary h-[52px] px-6 text-sm font-semibold flex items-center justify-center gap-2"
+              >
+                <Phone className="w-4 h-4 text-[#35B5D8]" />
+                <span>Call Desk: 8652880057</span>
+              </a>
             </div>
           </div>
 
-          {/* Right: Indian Family Assisting Imagery Grid with Consistent Aspect Ratios */}
-          <div className="lg:col-span-6 grid grid-cols-2 gap-3 sm:gap-4">
-            <div className="space-y-3 sm:space-y-4">
-              <div className="rounded-2xl overflow-hidden border border-[#D4AF37]/25 shadow-2xl aspect-video sm:h-64 lg:h-72 relative">
-                <ImageWithFallback
-                  src="/images/services/personal-driver.jpg"
-                  alt="Indian driver assisting family entering clean vehicle"
-                  fallbackTitle="Indian Family Travel"
-                  vehicleTag="Honda City / Verna"
-                  locationTag="Western Express, Mumbai"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="rounded-2xl overflow-hidden border border-neutral-800 shadow-xl aspect-video sm:h-44 lg:h-48 relative">
-                <ImageWithFallback
-                  src="/images/services/senior-citizen-assistance.jpg"
-                  alt="Professional driver assisting senior citizen parents safely"
-                  fallbackTitle="Elderly Passenger Escort"
-                  vehicleTag="Personal Car"
-                  locationTag="Dadar West, Mumbai"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
+          {/* Right: Real Photography Card */}
+          <div className="lg:col-span-6 relative">
+            <div className="relative rounded-2xl overflow-hidden border border-white/15 aspect-[4/3] bg-[#121212] shadow-2xl">
+              <ImageWithFallback
+                src="/images/services/chauffeur-service.jpg"
+                alt="Executive Indian chauffeur in formal uniform standing beside luxury vehicle in Mumbai"
+                fallbackTitle="Executive Chauffeur"
+                vehicleTag="Toyota Innova Crysta & Luxury Sedans"
+                locationTag="Mumbai BKC District"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent pointer-events-none" />
 
-            <div className="space-y-3 sm:space-y-4 pt-3 sm:pt-6">
-              <div className="rounded-2xl overflow-hidden border border-neutral-800 shadow-xl aspect-video sm:h-44 lg:h-48 relative">
-                <ImageWithFallback
-                  src="/images/services/corporate-driver.jpg"
-                  alt="Indian corporate executive stepping out of sedan at BKC"
-                  fallbackTitle="Corporate Executive Chauffeur"
-                  vehicleTag="BKC Corporate Fleet"
-                  locationTag="BKC G-Block, Mumbai"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="rounded-2xl overflow-hidden border border-[#D4AF37]/25 shadow-2xl aspect-video sm:h-64 lg:h-72 relative">
-                <ImageWithFallback
-                  src="/images/services/outstation-driver.jpg"
-                  alt="Toyota Innova Crysta on Mumbai-Pune expressway outstation trip"
-                  fallbackTitle="Expressway Highway Specialist"
-                  vehicleTag="Toyota Innova Crysta"
-                  locationTag="Mumbai-Pune Expressway"
-                  className="w-full h-full object-cover"
-                />
+              <div className="absolute bottom-4 left-4 right-4 text-white z-10">
+                <div className="glass-badge rounded-xl px-4 py-3 border border-white/10">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-xs font-bold text-white">Discipline · Decorum · Safety</div>
+                      <div className="text-[11px] text-[#35B5D8]">Trained specifically for Mumbai driving protocols</div>
+                    </div>
+                    <span className="px-2.5 py-1 text-[10px] font-bold rounded-md bg-[#22C55E]/20 text-[#22C55E] border border-[#22C55E]/30">
+                      Vetted
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom 6 Pillars Grid: 16px mobile card padding and 16px gap */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 items-stretch">
-          {pillars.map((pillar, idx) => {
-            const Icon = pillar.icon;
-            return (
+        {/* 4-Step Verification Process Cards */}
+        <div className="mb-16 sm:mb-24">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h3 className="text-h2 font-extrabold text-white mb-3">
+              Our 4-Stage Driver Induction &amp; Verification Protocol
+            </h3>
+            <p className="text-sm text-[#D1D5DB] leading-relaxed">
+              Before any driver represents On Time Driver Service behind your wheel, they must clear all four verification gates.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {verificationSteps.map((step, idx) => (
               <div
                 key={idx}
-                className="glass-card glass-card-hover rounded-xl p-4 sm:p-6 border border-[#D4AF37]/20 flex flex-col justify-between h-full"
+                className="bg-[#121212] rounded-2xl border border-white/10 overflow-hidden shadow-xl hover:border-[#35B5D8]/50 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between"
               >
                 <div>
-                  <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] mb-3">
-                    <Icon className="w-5 h-5" />
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#181818]">
+                    <ImageWithFallback
+                      src={step.image}
+                      alt={step.title}
+                      fallbackTitle={step.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute top-3 left-3 bg-[#35B5D8] text-[#0A0A0A] text-xs font-extrabold px-2.5 py-1 rounded-md shadow-md">
+                      Step {step.step}
+                    </div>
+                    <div className="absolute bottom-2.5 right-3 text-[10px] font-bold text-[#F2F028] bg-black/75 px-2 py-0.5 rounded border border-white/10">
+                      {step.tag}
+                    </div>
                   </div>
-                  <h3 className="text-base font-bold text-white mb-1.5 font-display">{pillar.title}</h3>
-                  <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-light">
-                    {pillar.description}
-                  </p>
+
+                  <div className="p-5">
+                    <h4 className="text-base font-bold text-white mb-2">
+                      {step.title}
+                    </h4>
+                    <p className="text-xs text-[#D1D5DB] leading-relaxed">
+                      {step.desc}
+                    </p>
+                  </div>
                 </div>
+
+                <div className="px-5 pb-5 pt-2 border-t border-white/5 flex items-center gap-1.5 text-xs text-[#22C55E] font-semibold">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>Mandatory Clearance</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Workforce Highlights Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {workforceHighlights.map((hl, i) => {
+            const Icon = hl.icon;
+            return (
+              <div
+                key={i}
+                className="bg-[#121212] rounded-2xl p-6 border border-white/10 hover:border-[#35B5D8]/40 transition-all text-center flex flex-col items-center justify-center"
+              >
+                <div className="w-12 h-12 rounded-xl bg-[#35B5D8]/15 border border-[#35B5D8]/30 text-[#35B5D8] flex items-center justify-center mb-3">
+                  <Icon className="w-6 h-6" />
+                </div>
+                <h4 className="text-base font-bold text-white mb-2">
+                  {hl.title}
+                </h4>
+                <p className="text-xs text-[#D1D5DB] leading-relaxed">
+                  {hl.desc}
+                </p>
               </div>
             );
           })}
         </div>
+
       </div>
     </section>
   );

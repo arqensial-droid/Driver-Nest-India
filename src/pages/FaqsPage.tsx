@@ -13,26 +13,26 @@ export const FaqsPage: React.FC = () => {
       'name': f.question,
       'acceptedAnswer': {
         '@type': 'Answer',
-        'text': f.answer
-      }
-    }))
+        'text': f.answer,
+      },
+    })),
   };
 
   return (
     <>
       <SEO
-        title="Frequently Asked Questions – Driver Nest India"
-        description="Find answers to all questions regarding police background verification, chauffeur screening, duty schedules, replacement guarantees, and booking in Mumbai."
+        title="Frequently Asked Questions – On Time Driver Service"
+        description="Find answers to all questions regarding police background verification, driver screening, duty schedules, replacement guarantees, and booking in Mumbai."
         canonicalPath="/faqs"
         schema={faqSchema}
       />
 
-      <div className="pt-16 sm:pt-24 pb-12 sm:pb-20 bg-black text-white overflow-x-hidden">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-4 sm:mb-6">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-neutral-400">
-            <Link href="/" className="hover:text-[#E5C07B] transition-colors">Home</Link>
+      <div className="pt-24 sm:pt-28 pb-20 bg-[#0A0A0A] text-white overflow-x-hidden">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-neutral-400">
+            <Link href="/" className="hover:text-[#35B5D8] transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
-            <span className="text-[#E5C07B] font-medium">FAQs</span>
+            <span className="text-white font-semibold">FAQs</span>
           </nav>
         </div>
 

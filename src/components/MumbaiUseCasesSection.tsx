@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeartHandshake, Briefcase, PlaneTakeoff, Compass, CheckCircle, ArrowRight, MessageSquare, Phone } from 'lucide-react';
+import { HeartHandshake, Briefcase, PlaneTakeoff, Compass, CheckCircle2, ArrowRight, MessageSquare, Phone, Sparkles } from 'lucide-react';
 import { ImageWithFallback } from './ImageWithFallback';
 
 interface MumbaiUseCasesSectionProps {
@@ -9,34 +9,40 @@ interface MumbaiUseCasesSectionProps {
 export const MumbaiUseCasesSection: React.FC<MumbaiUseCasesSectionProps> = ({ onSelectServiceAndBook }) => {
   const handleWhatsApp = (serviceTitle: string) => {
     const text = encodeURIComponent(
-      `Hello Driver Nest India, I would like to inquire about ${serviceTitle} for Mumbai. Please share driver availability.`
+      `Hello On Time Driver Service, I would like to inquire about ${serviceTitle} for Mumbai. Please share driver availability.`
     );
-    window.open(`https://wa.me/919930012345?text=${text}`, '_blank');
+    window.open(`https://wa.me/918652880057?text=${text}`, '_blank');
   };
 
   return (
-    <section id="mumbai-routes" className="py-8 sm:py-16 lg:py-20 bg-[#050505] relative border-t border-b border-neutral-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="mumbai-routes" className="py-20 lg:py-28 bg-[#0A0A0A] text-white border-b border-white/10 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-          <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
-            Real Mumbai Driving Scenarios
+        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121212] border border-[#35B5D8]/40 shadow-md mb-3.5">
+            <Sparkles className="w-3.5 h-3.5 text-[#F2F028]" />
+            <span className="text-xs font-bold uppercase tracking-wider text-[#35B5D8]">
+              Real Mumbai Driving Scenarios
+            </span>
           </div>
-          <h2 className="text-h2 text-white mb-3">
-            Trusted Across Mumbai&apos;s <span className="gold-gradient-text">Demanding Routes</span>
+
+          <h2 className="text-h2 font-extrabold text-white mb-4">
+            Trusted Across Mumbai's Most Demanding Routes
           </h2>
-          <p className="text-body-lead text-neutral-400 font-light">
-            From assisting elderly parents with medical visits to executive BKC corporate commutes and family road trips
-            down the expressway in a Toyota Innova Crysta.
+
+          <p className="text-subheading text-[#D1D5DB] leading-relaxed">
+            From assisting elderly parents with hospital visits to executive BKC corporate commutes and family road trips down the expressway in Honda City and Toyota Innova Crysta.
           </p>
         </div>
 
-        {/* 4 Dedicated Deep-Dive Showcases with Uniform Rhythm */}
-        <div className="space-y-6 sm:space-y-10">
+        {/* 4 Dedicated Deep-Dive Showcases */}
+        <div className="space-y-8 sm:space-y-12">
+          
           {/* 1. Senior Citizen Section */}
-          <div className="glass-card rounded-2xl p-4 sm:p-8 lg:p-10 border border-[#D4AF37]/30 shadow-2xl">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
-              <div className="lg:col-span-6 rounded-2xl overflow-hidden border border-[#D4AF37]/25 aspect-video relative shadow-xl">
+          <div className="bg-[#121212] rounded-2xl p-6 sm:p-8 lg:p-10 border border-white/10 shadow-xl hover:border-[#35B5D8]/40 transition-all">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              <div className="lg:col-span-6 rounded-2xl overflow-hidden border border-white/15 aspect-video relative bg-[#181818]">
                 <ImageWithFallback
                   src="/images/services/senior-citizen-assistance.jpg"
                   alt="Indian elderly parents assisted safely into vehicle by professional chauffeur"
@@ -45,241 +51,161 @@ export const MumbaiUseCasesSection: React.FC<MumbaiUseCasesSectionProps> = ({ on
                   locationTag="Lilavati & Hinduja Hospitals, Mumbai"
                   className="w-full h-full object-cover"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent pointer-events-none" />
               </div>
               <div className="lg:col-span-6 flex flex-col justify-center">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#E5C07B] uppercase tracking-wider mb-2 font-mono">
-                  <HeartHandshake className="w-4 h-4 text-[#D4AF37]" />
+                <div className="flex items-center gap-2 text-xs font-bold text-[#35B5D8] uppercase tracking-wider mb-2">
+                  <HeartHandshake className="w-4 h-4 text-[#35B5D8]" />
                   <span>Senior Citizen Transportation Support</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-3 font-display">
+                <h3 className="text-xl sm:text-2xl font-bold font-heading text-white mb-3">
                   Compassionate, Gentle Driving for Elderly Parents
                 </h3>
-                <p className="text-xs sm:text-sm md:text-base text-neutral-300 leading-relaxed mb-4 font-light">
-                  Driving through Mumbai&apos;s congested roads can be daunting and hazardous for senior citizens.
-                  Our senior-friendly chauffeurs offer physical door-to-door escorting, assist with wheelchairs and walking sticks,
-                  and drive with smooth acceleration and non-jarring braking.
+                <p className="text-sm text-[#D1D5DB] leading-relaxed mb-5 font-normal">
+                  Driving through Mumbai's congested roads can be daunting for senior citizens. Our verified chauffeurs offer door-to-door escorting, assist with bags and walking aids, and maintain smooth, non-jarring driving habits.
                 </p>
-
-                <div className="space-y-1.5 mb-6 text-xs sm:text-sm text-neutral-300">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                    <span>Gentle boarding &amp; disembarking assistance</span>
+                <div className="space-y-2 mb-6">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-300">
+                    <CheckCircle2 className="w-4 h-4 text-[#22C55E] shrink-0" />
+                    <span>Patient assistance for hospital visits at Lilavati, Hinduja &amp; Kokilaben</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                    <span>Regular medical visits: Lilavati, Hinduja, Kokilaben &amp; Nanavati</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                    <span>Careful speed compliance and non-abrupt braking</span>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-300">
+                    <CheckCircle2 className="w-4 h-4 text-[#22C55E] shrink-0" />
+                    <span>Smooth acceleration and progressive braking for spine-safe travel</span>
                   </div>
                 </div>
-
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <button
-                    onClick={() => onSelectServiceAndBook('Senior Citizen Driver')}
-                    className="btn-primary"
+                    onClick={() => onSelectServiceAndBook('Senior Citizen Driver Care')}
+                    className="btn-primary h-[50px] px-6 text-sm font-bold flex items-center justify-center gap-2"
                   >
-                    <span>Request Senior Citizen Driver</span>
-                    <ArrowRight className="w-4 h-4 text-black" />
+                    <span>Book Senior Care Driver</span>
+                    <ArrowRight className="w-4 h-4" />
                   </button>
                   <button
-                    onClick={() => handleWhatsApp('Senior Citizen Driver Service')}
-                    className="btn-whatsapp"
+                    onClick={() => handleWhatsApp('Senior Citizen Assistance')}
+                    className="btn-secondary h-[50px] px-5 text-sm font-semibold flex items-center justify-center gap-2"
                   >
-                    <MessageSquare className="w-4 h-4" />
-                    <span>Inquire via WhatsApp</span>
+                    <MessageSquare className="w-4 h-4 text-[#25D366]" />
+                    <span>WhatsApp Inquiry</span>
                   </button>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* 2. Corporate & Executive Section */}
-          <div className="glass-card rounded-2xl p-4 sm:p-8 lg:p-10 border border-[#D4AF37]/30 shadow-2xl">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
-              <div className="lg:col-span-6 lg:order-2 rounded-2xl overflow-hidden border border-[#D4AF37]/25 aspect-video relative shadow-xl">
+          {/* 2. Corporate BKC Executive Transit */}
+          <div className="bg-[#121212] rounded-2xl p-6 sm:p-8 lg:p-10 border border-white/10 shadow-xl hover:border-[#35B5D8]/40 transition-all">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              <div className="lg:col-span-6 order-2 lg:order-1 flex flex-col justify-center">
+                <div className="flex items-center gap-2 text-xs font-bold text-[#F2F028] uppercase tracking-wider mb-2">
+                  <Briefcase className="w-4 h-4 text-[#F2F028]" />
+                  <span>Corporate Mobility &amp; Executive Travel</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold font-heading text-white mb-3">
+                  Transform Daily BKC &amp; Lower Parel Traffic into Productive Hours
+                </h3>
+                <p className="text-sm text-[#D1D5DB] leading-relaxed mb-5 font-normal">
+                  Turn stressful commutes along the Western Express Highway, Sea Link, and Eastern Freeway into productive workspace. Review board presentations, attend conference calls, and arrive at meetings refreshed.
+                </p>
+                <div className="space-y-2 mb-6">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-300">
+                    <CheckCircle2 className="w-4 h-4 text-[#22C55E] shrink-0" />
+                    <span>Expertise across BKC, Nariman Point, Lower Parel &amp; Nesco Goregaon</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-300">
+                    <CheckCircle2 className="w-4 h-4 text-[#22C55E] shrink-0" />
+                    <span>Full NDA compliance &amp; discreet corporate executive decorum</span>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                  <button
+                    onClick={() => onSelectServiceAndBook('Corporate Chauffeur Service')}
+                    className="btn-primary h-[50px] px-6 text-sm font-bold flex items-center justify-center gap-2"
+                  >
+                    <span>Hire Corporate Chauffeur</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => handleWhatsApp('Corporate Chauffeur')}
+                    className="btn-secondary h-[50px] px-5 text-sm font-semibold flex items-center justify-center gap-2"
+                  >
+                    <MessageSquare className="w-4 h-4 text-[#25D366]" />
+                    <span>Corporate Inquiry</span>
+                  </button>
+                </div>
+              </div>
+              <div className="lg:col-span-6 order-1 lg:order-2 rounded-2xl overflow-hidden border border-white/15 aspect-video relative bg-[#181818]">
                 <ImageWithFallback
                   src="/images/services/corporate-driver.jpg"
-                  alt="Corporate executive in business district being chauffeured"
-                  fallbackTitle="Corporate Chauffeur Service"
-                  vehicleTag="Toyota Camry / Mercedes-Benz E-Class"
-                  locationTag="BKC & Nariman Point, Mumbai"
+                  alt="Corporate executive being driven by professional chauffeur in Mumbai BKC"
+                  fallbackTitle="Corporate BKC Transit"
+                  vehicleTag="Toyota Innova Crysta & Luxury Sedans"
+                  locationTag="BKC Commercial Complex"
                   className="w-full h-full object-cover"
                 />
-              </div>
-              <div className="lg:col-span-6 lg:order-1 flex flex-col justify-center">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#E5C07B] uppercase tracking-wider mb-2 font-mono">
-                  <Briefcase className="w-4 h-4 text-[#D4AF37]" />
-                  <span>Corporate &amp; Executive Transit</span>
-                </div>
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-3 font-display">
-                  Transform Commute Hours into Productive Boardroom Time
-                </h3>
-                <p className="text-xs sm:text-sm md:text-base text-neutral-300 leading-relaxed mb-4 font-light">
-                  Executives navigating Mumbai between Nariman Point, Lower Parel, and Bandra Kurla Complex lose hours
-                  to traffic stress. Our corporate chauffeurs maintain strict executive decorum, discreet privacy,
-                  and flawless punctuality.
-                </p>
-
-                <div className="space-y-1.5 mb-6 text-xs sm:text-sm text-neutral-300">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                    <span>Discreet in-cabin privacy for confidential calls</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                    <span>Familiarity with Coastal Road, Sea Link &amp; Eastern Freeway</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                    <span>Monthly corporate retainers with GST compliant billing</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-3">
-                  <button
-                    onClick={() => onSelectServiceAndBook('Corporate Driver')}
-                    className="btn-primary"
-                  >
-                    <span>Book Corporate Chauffeur</span>
-                    <ArrowRight className="w-4 h-4 text-black" />
-                  </button>
-                  <button
-                    onClick={() => handleWhatsApp('Corporate Driver Service')}
-                    className="btn-whatsapp"
-                  >
-                    <MessageSquare className="w-4 h-4" />
-                    <span>Corporate Desk WhatsApp</span>
-                  </button>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent pointer-events-none" />
               </div>
             </div>
           </div>
 
-          {/* 3. Airport Transfers Section */}
-          <div className="glass-card rounded-2xl p-4 sm:p-8 lg:p-10 border border-[#D4AF37]/30 shadow-2xl">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
-              <div className="lg:col-span-6 rounded-2xl overflow-hidden border border-[#D4AF37]/25 aspect-video relative shadow-xl">
-                <ImageWithFallback
-                  src="/images/services/airport-transfer.jpg"
-                  alt="Chauffeur greeting passenger at Mumbai CSMIA Airport Terminal 2"
-                  fallbackTitle="Airport Chauffeur Service"
-                  vehicleTag="Toyota Innova / Honda City"
-                  locationTag="Mumbai Airport T2 & T1"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="lg:col-span-6 flex flex-col justify-center">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#E5C07B] uppercase tracking-wider mb-2 font-mono">
-                  <PlaneTakeoff className="w-4 h-4 text-[#D4AF37]" />
-                  <span>24/7 Airport Transfer Desk</span>
-                </div>
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-3 font-display">
-                  Punctual CSMIA T1 &amp; T2 Airport Departures &amp; Arrivals
-                </h3>
-                <p className="text-xs sm:text-sm md:text-base text-neutral-300 leading-relaxed mb-4 font-light">
-                  Never stress over midnight airport transfers or early morning 4 AM flights. Our airport drivers arrive
-                  15 minutes prior to scheduled reporting, handle heavy luggage, and ensure a calm drive to Chhatrapati Shivaji Maharaj International Airport.
-                </p>
-
-                <div className="space-y-1.5 mb-6 text-xs sm:text-sm text-neutral-300">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                    <span>Flight delay monitoring &amp; flexible pickup adjustment</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                    <span>Luggage loading &amp; airport ramp drop-off assistance</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                    <span>Coverage from South Mumbai, Thane, Navi Mumbai &amp; Mira-Bhayandar</span>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-3">
-                  <button
-                    onClick={() => onSelectServiceAndBook('Airport Driver')}
-                    className="btn-primary"
-                  >
-                    <span>Reserve Airport Chauffeur</span>
-                    <ArrowRight className="w-4 h-4 text-black" />
-                  </button>
-                  <button
-                    onClick={() => handleWhatsApp('Airport Driver Service')}
-                    className="btn-whatsapp"
-                  >
-                    <MessageSquare className="w-4 h-4" />
-                    <span>WhatsApp Airport Desk</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 4. Outstation Highway Trips Section */}
-          <div className="glass-card rounded-2xl p-4 sm:p-8 lg:p-10 border border-[#D4AF37]/30 shadow-2xl">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
-              <div className="lg:col-span-6 lg:order-2 rounded-2xl overflow-hidden border border-[#D4AF37]/25 aspect-video relative shadow-xl">
+          {/* 3. Outstation Road Trips */}
+          <div className="bg-[#121212] rounded-2xl p-6 sm:p-8 lg:p-10 border border-white/10 shadow-xl hover:border-[#35B5D8]/40 transition-all">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              <div className="lg:col-span-6 rounded-2xl overflow-hidden border border-white/15 aspect-video relative bg-[#181818]">
                 <ImageWithFallback
                   src="/images/services/outstation-driver.jpg"
-                  alt="Toyota Innova Crysta driving down Mumbai-Pune Expressway"
-                  fallbackTitle="Outstation Highway Chauffeur"
-                  vehicleTag="Toyota Innova Crysta / Fortuner"
-                  locationTag="Mumbai-Pune Expressway & NH-48"
+                  alt="Indian family arriving safely at outstation resort with experienced highway driver"
+                  fallbackTitle="Outstation Travel"
+                  vehicleTag="Toyota Innova / Fortuner / Carens"
+                  locationTag="Mumbai-Pune Expressway"
                   className="w-full h-full object-cover"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent pointer-events-none" />
               </div>
-              <div className="lg:col-span-6 lg:order-1 flex flex-col justify-center">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#E5C07B] uppercase tracking-wider mb-2 font-mono">
-                  <Compass className="w-4 h-4 text-[#D4AF37]" />
-                  <span>Outstation Highway Specialists</span>
+              <div className="lg:col-span-6 flex flex-col justify-center">
+                <div className="flex items-center gap-2 text-xs font-bold text-[#35B5D8] uppercase tracking-wider mb-2">
+                  <Compass className="w-4 h-4 text-[#35B5D8]" />
+                  <span>Outstation &amp; Weekend Getaways</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-3 font-display">
-                  Relax with Family While an Expert Drives the Highway
+                <h3 className="text-xl sm:text-2xl font-bold font-heading text-white mb-3">
+                  Stress-Free Highway Drives to Pune, Lonavala, Nashik &amp; Goa
                 </h3>
-                <p className="text-xs sm:text-sm md:text-base text-neutral-300 leading-relaxed mb-4 font-light">
-                  Long drives down the Mumbai-Pune Expressway, Mumbai-Goa Highway (NH-66), or the ghats of Khandala and
-                  Mahabaleshwar require seasoned highway focus. Our certified outstation drivers maintain defensive driving,
-                  speed discipline, and vehicle inspection throughout the round trip.
+                <p className="text-sm text-[#D1D5DB] leading-relaxed mb-5 font-normal">
+                  Enjoy quality time with your family on weekend holidays without driver fatigue. Our outstation drivers possess extensive experience with ghat sections, night driving, and expressway toll corridors.
                 </p>
-
-                <div className="space-y-1.5 mb-6 text-xs sm:text-sm text-neutral-300">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                    <span>Expertise across ghats, hairpin bends &amp; monsoon highways</span>
+                <div className="space-y-2 mb-6">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-300">
+                    <CheckCircle2 className="w-4 h-4 text-[#22C55E] shrink-0" />
+                    <span>Specialists in Mumbai-Pune Expressway, Kasara Ghat &amp; Samruddhi Mahamarg</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                    <span>Popular corridors: Pune, Lonavala, Shirdi, Nashik, Alibaug &amp; Goa</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-[#D4AF37] shrink-0" />
-                    <span>Transparent daily driver allowances with zero hidden charges</span>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-neutral-300">
+                    <CheckCircle2 className="w-4 h-4 text-[#22C55E] shrink-0" />
+                    <span>Zero driver advance charges; clean daily allowance terms</span>
                   </div>
                 </div>
-
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <button
-                    onClick={() => onSelectServiceAndBook('Outstation Driver')}
-                    className="btn-primary"
+                    onClick={() => onSelectServiceAndBook('Outstation Driver Service')}
+                    className="btn-primary h-[50px] px-6 text-sm font-bold flex items-center justify-center gap-2"
                   >
-                    <span>Book Outstation Driver</span>
-                    <ArrowRight className="w-4 h-4 text-black" />
+                    <span>Book Outstation Chauffeur</span>
+                    <ArrowRight className="w-4 h-4" />
                   </button>
                   <button
-                    onClick={() => handleWhatsApp('Outstation Driver Service')}
-                    className="btn-whatsapp"
+                    onClick={() => handleWhatsApp('Outstation Driver')}
+                    className="btn-secondary h-[50px] px-5 text-sm font-semibold flex items-center justify-center gap-2"
                   >
-                    <MessageSquare className="w-4 h-4" />
-                    <span>WhatsApp Route Inquiry</span>
+                    <MessageSquare className="w-4 h-4 text-[#25D366]" />
+                    <span>Inquire Outstation</span>
                   </button>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
+
       </div>
     </section>
   );

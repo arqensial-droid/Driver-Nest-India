@@ -133,10 +133,10 @@ export const SEO: React.FC<SEOProps> = ({
     setMeta('twitter:title', title);
     setMeta('twitter:description', description);
 
-    const fullUrl = `https://drivernestindia.com${canonicalPath || window.location.pathname}`;
+    const fullUrl = `https://ontimedriverservice.com${canonicalPath || window.location.pathname}`;
     setMeta('og:url', fullUrl, true);
 
-    const fullImg = image.startsWith('http') ? image : `https://drivernestindia.com${image}`;
+    const fullImg = image.startsWith('http') ? image : `https://ontimedriverservice.com${image}`;
     setMeta('og:image', fullImg, true);
     setMeta('twitter:image', fullImg);
 

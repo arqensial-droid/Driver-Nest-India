@@ -1,49 +1,48 @@
-import React from 'react';
-import { Phone, MessageSquare, Calendar } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Phone, Calendar } from 'lucide-react';
 
 interface StickyMobileBarProps {
   onOpenBooking: () => void;
 }
 
 export const StickyMobileBar: React.FC<StickyMobileBarProps> = ({ onOpenBooking }) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show sticky bar once user scrolls slightly past hero
+      setIsVisible(window.scrollY > 200);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  if (!isVisible) return null;
+
   return (
-    <aside
-      aria-label="Mobile Quick Actions"
-      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-black/95 backdrop-blur-xl border-t border-[#D4AF37]/35 px-3 py-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))] shadow-2xl h-[54px] max-h-[60px] flex items-center"
+    <nav
+      aria-label="Quick mobile booking actions"
+      className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-[#0D0D0D]/95 backdrop-blur-md border-t border-white/15 px-3 py-2.5 shadow-2xl animate-fade-in"
     >
-      <div className="flex items-center justify-between gap-2 w-full max-w-md mx-auto">
-        {/* Call Now Button - Equal 1/3 Width */}
+      <div className="max-w-md mx-auto grid grid-cols-2 gap-2.5">
+        {/* Sticky Call Button */}
         <a
-          href="tel:+919930012345"
-          className="flex-1 h-9 sm:h-10 flex items-center justify-center gap-1.5 px-2 text-[11px] font-semibold text-white bg-neutral-900 border border-neutral-700/80 rounded-lg hover:border-[#D4AF37] active:scale-[0.98] transition-all whitespace-nowrap min-w-0"
-          aria-label="Call Helpline"
+          href="tel:8652880057"
+          className="h-[50px] rounded-xl bg-[#161616] border border-[#35B5D8]/50 text-white flex items-center justify-center gap-2 text-sm font-bold active:scale-98 transition-transform shadow-md"
         >
-          <Phone className="w-3.5 h-3.5 text-[#D4AF37] shrink-0" />
-          <span className="truncate">Call Now</span>
+          <Phone className="w-4 h-4 text-[#35B5D8]" />
+          <span>Call Desk</span>
         </a>
 
-        {/* WhatsApp Button - Equal 1/3 Width */}
-        <a
-          href="https://wa.me/919930012345?text=Hello%20Driver%20Nest%20India,%20I%20would%20like%20to%20request%20a%20driver%20in%20Mumbai."
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex-1 h-9 sm:h-10 flex items-center justify-center gap-1.5 px-2 text-[11px] font-semibold text-[#25D366] bg-[#25D366]/15 border border-[#25D366]/40 rounded-lg hover:bg-[#25D366]/25 active:scale-[0.98] transition-all whitespace-nowrap min-w-0"
-          aria-label="Chat on WhatsApp"
-        >
-          <MessageSquare className="w-3.5 h-3.5 text-[#25D366] shrink-0" />
-          <span className="truncate">WhatsApp</span>
-        </a>
-
-        {/* Book Driver Button - Equal 1/3 Width */}
+        {/* Sticky Book Driver Button */}
         <button
           onClick={onOpenBooking}
-          className="flex-1 h-9 sm:h-10 flex items-center justify-center gap-1.5 px-2 text-[11px] font-bold text-black bg-gradient-to-r from-[#F3D085] via-[#D4AF37] to-[#B89020] rounded-lg shadow-sm shadow-[#D4AF37]/25 active:scale-[0.98] transition-all whitespace-nowrap cursor-pointer border border-white/20 min-w-0"
-          aria-label="Request a Driver"
+          className="h-[50px] rounded-xl bg-[#F2F028] text-[#0A0A0A] flex items-center justify-center gap-2 text-sm font-bold active:scale-98 transition-transform shadow-lg shadow-[#F2F028]/20"
         >
-          <Calendar className="w-3.5 h-3.5 text-black shrink-0" />
-          <span className="truncate">Book Driver</span>
+          <Calendar className="w-4 h-4 text-[#0A0A0A]" />
+          <span>Book Driver</span>
         </button>
       </div>
-    </aside>
+    </nav>
   );
 };

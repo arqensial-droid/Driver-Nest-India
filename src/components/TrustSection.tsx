@@ -1,138 +1,159 @@
 import React from 'react';
 import {
-  FileCheck2,
-  Fingerprint,
-  UserCheck2,
-  CalendarCheck,
-  Headphones,
-  Zap,
-  Sparkles,
   ShieldCheck,
+  FileCheck2,
+  Award,
+  RefreshCw,
+  Zap,
+  UserCheck,
   CheckCircle2,
+  Sparkles,
 } from 'lucide-react';
-import { ImageWithFallback } from './ImageWithFallback';
 
 export const TrustSection: React.FC = () => {
-  const trustCards = [
+  const trustPillars = [
+    {
+      icon: ShieldCheck,
+      title: 'Police Verified',
+      badge: '100% Certified',
+      description:
+        'Official character verification and clearance certificates authenticated directly with local Mumbai, Thane, and Navi Mumbai police commissionerates.',
+      accent: '#35B5D8',
+    },
     {
       icon: FileCheck2,
-      title: 'Police Verification Process',
-      description: 'Official clearance certificates obtained directly from local Mumbai, Thane, and Navi Mumbai police commissionerates.',
+      title: 'Background Checked',
+      badge: 'Biometric & Address',
+      description:
+        'Biometric Aadhaar authentication, physical residence audits, past employer reviews, and clean RTO driving license verification.',
+      accent: '#F2F028',
     },
     {
-      icon: Fingerprint,
-      title: 'Biometric ID Verification',
-      description: 'Aadhaar biometric validation, PAN verification, and physical permanent address cross-examinations.',
+      icon: Award,
+      title: 'Experienced Drivers',
+      badge: '5+ Years Track Record',
+      description:
+        'Minimum 5 years of verified experience in high-density Mumbai traffic, Western Express Highway, Sea Link, and luxury automatic sedans and SUVs.',
+      accent: '#35B5D8',
     },
     {
-      icon: UserCheck2,
-      title: 'Driver Screening & Training',
-      description: 'In-depth behavioral interviews, background checks with past 2 Mumbai employers, and practical road testing.',
-    },
-    {
-      icon: CalendarCheck,
-      title: 'Experience Verification',
-      description: 'Mandatory minimum 5+ years of verified driving track record across Mumbai flyovers, toll plazas, and expressways.',
-    },
-    {
-      icon: Headphones,
-      title: '24/7 Operations Support',
-      description: 'Dedicated Mumbai operations team with immediate phone coordination and free standby replacement driver guarantees.',
+      icon: RefreshCw,
+      title: 'Emergency Replacement',
+      badge: 'Zero Downtime',
+      description:
+        'Seamless leave management with guaranteed standby chauffeurs dispatched from our regional staging hubs if your regular driver is unavailable.',
+      accent: '#F2F028',
     },
     {
       icon: Zap,
-      title: 'Fast Doorstep Allocation',
-      description: 'Driver staging clusters across Western, Central, Harbor, and Thane lines enable 30 to 45 min dispatch.',
+      title: 'Instant Dispatch',
+      badge: '30–45 Min Arrival',
+      description:
+        'Strategic driver staging network across South Mumbai, BKC, Western Suburbs, Thane, and Navi Mumbai for rapid urgent allocation.',
+      accent: '#35B5D8',
     },
     {
-      icon: Sparkles,
-      title: 'Professional Chauffeur Etiquette',
-      description: 'Neat formal attire, non-intrusive in-cabin conduct, smoke-free clean personal hygiene, and vehicle respect.',
-    },
-    {
-      icon: ShieldCheck,
-      title: 'Defensive Driving Standards',
-      description: 'Smooth non-jarring braking, speed regulation, and monsoon waterlogging navigation protocols.',
+      icon: UserCheck,
+      title: 'Uniformed Chauffeurs',
+      badge: 'VIP Protocol',
+      description:
+        'Crisp formal uniform, immaculate personal grooming, non-smoking policy, and trained executive etiquette tailored for corporate and family travel.',
+      accent: '#F2F028',
     },
   ];
 
   return (
-    <section id="trust" className="py-8 sm:py-16 lg:py-20 bg-[#060606] relative border-t border-b border-neutral-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-          <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
-            Institutional Verification &amp; Background Screening
+    <section id="trust" className="relative py-20 lg:py-28 bg-[#0A0A0A] text-white overflow-hidden border-t border-b border-white/10">
+      {/* Ambient background glows */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-[#35B5D8]/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 right-10 w-[300px] h-[300px] bg-[#F2F028]/5 rounded-full blur-[80px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-14 lg:mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121212] border border-[#35B5D8]/40 shadow-md mb-3.5">
+            <Sparkles className="w-3.5 h-3.5 text-[#F2F028]" />
+            <span className="text-xs font-bold uppercase tracking-wider text-[#35B5D8]">
+              Vetted Excellence
+            </span>
           </div>
-          <h2 className="text-h2 text-white mb-3">
-            Driver Verification &amp; <span className="gold-gradient-text">Screening Protocols</span>
+
+          <h2 className="text-h2 text-white font-extrabold tracking-tight mb-4">
+            Built on Rigorous Trust & Uncompromised Safety
           </h2>
-          <p className="text-body-lead text-neutral-400 font-light">
-            Every chauffeur on our Mumbai roster undergoes mandatory legal police checks, biometric Aadhaar identification,
-            and vehicle handling audits before being deployed to your doorstep.
+
+          <p className="text-subheading text-[#D1D5DB] leading-relaxed">
+            Every chauffeur in our network undergoes comprehensive multi-tier background screening, police verification, and executive etiquette training before stepping behind your wheel.
           </p>
         </div>
 
-        {/* 8 Premium Icon Cards Grid: 16px mobile card padding and 16px gap */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12 items-stretch">
-          {trustCards.map((item, index) => {
-            const Icon = item.icon;
+        {/* 6 Dark Premium Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {trustPillars.map((pillar, idx) => {
+            const Icon = pillar.icon;
+            const isBlue = pillar.accent === '#35B5D8';
+
             return (
               <div
-                key={index}
-                className="glass-card glass-card-hover rounded-xl p-4 sm:p-6 border border-[#D4AF37]/20 flex flex-col justify-between h-full"
+                key={idx}
+                className="group relative p-7 rounded-2xl bg-[#121212] border border-white/10 hover:border-[#35B5D8]/60 transition-all duration-300 hover:-translate-y-1.5 shadow-xl hover:shadow-[#35B5D8]/10 flex flex-col justify-between"
               >
+                {/* Subtle card top glow indicator */}
+                <div
+                  className="absolute top-0 left-8 right-8 h-[2px] transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                  style={{
+                    background: isBlue
+                      ? 'linear-gradient(90deg, transparent, #35B5D8, transparent)'
+                      : 'linear-gradient(90deg, transparent, #F2F028, transparent)',
+                  }}
+                />
+
                 <div>
-                  <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center mb-3">
-                    <Icon className="w-5 h-5 text-[#D4AF37]" />
+                  <div className="flex items-center justify-between gap-3 mb-5">
+                    <div
+                      className="w-13 h-13 rounded-xl flex items-center justify-center transition-colors duration-300"
+                      style={{
+                        backgroundColor: isBlue ? 'rgba(53, 181, 216, 0.15)' : 'rgba(242, 240, 40, 0.12)',
+                        border: isBlue ? '1px solid rgba(53, 181, 216, 0.3)' : '1px solid rgba(242, 240, 40, 0.3)',
+                      }}
+                    >
+                      <Icon
+                        className="w-6 h-6 transition-transform duration-300 group-hover:scale-110"
+                        style={{ color: pillar.accent }}
+                      />
+                    </div>
+
+                    <span
+                      className="text-[11px] font-bold px-2.5 py-1 rounded-full border"
+                      style={{
+                        backgroundColor: isBlue ? 'rgba(53, 181, 216, 0.1)' : 'rgba(242, 240, 40, 0.08)',
+                        color: pillar.accent,
+                        borderColor: isBlue ? 'rgba(53, 181, 216, 0.3)' : 'rgba(242, 240, 40, 0.3)',
+                      }}
+                    >
+                      {pillar.badge}
+                    </span>
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-white mb-1.5 font-display">{item.title}</h3>
-                  <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed font-light">{item.description}</p>
+
+                  <h3 className="text-xl font-bold text-white mb-2.5 group-hover:text-[#35B5D8] transition-colors">
+                    {pillar.title}
+                  </h3>
+
+                  <p className="text-sm text-[#D1D5DB] leading-relaxed">
+                    {pillar.description}
+                  </p>
+                </div>
+
+                <div className="pt-5 mt-5 border-t border-white/5 flex items-center gap-1.5 text-xs font-semibold text-neutral-400 group-hover:text-white transition-colors">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#22C55E]" />
+                  <span>Strictly Enforced Protocol</span>
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* Realistic Verification Banner */}
-        <div className="rounded-2xl overflow-hidden border border-[#D4AF37]/30 relative shadow-2xl">
-          <div className="min-h-[260px] sm:h-80 w-full relative">
-            <ImageWithFallback
-              src="/images/services/corporate-driver.jpg"
-              alt="Driver Nest India verification team conducting driver screening and background checks"
-              fallbackTitle="Driver Screening & Verification Office"
-              vehicleTag="Verified Document Clearance"
-              locationTag="Mumbai Central Operations Desk"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-black/40" />
-            <div className="absolute inset-0 p-4 sm:p-8 lg:p-10 flex flex-col justify-center max-w-xl">
-              <span className="text-[10px] sm:text-xs font-mono uppercase text-[#E5C07B] tracking-wider mb-1 font-semibold">
-                Verification Dossier Guarantee
-              </span>
-              <h3 className="text-lg sm:text-2xl font-bold text-white mb-2 font-display">
-                Police Verification Clearance Delivered to Your Phone
-              </h3>
-              <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-4 font-light">
-                Before your permanent or corporate chauffeur reports for duty, you receive full digital copies of their
-                police verification certificate, Aadhaar validation, and driving license directly on WhatsApp or email.
-              </p>
-              <div className="flex flex-wrap items-center gap-3 text-xs text-[#E5C07B] font-medium">
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  Police Verification Clear
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  Aadhaar Biometric Check
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  Zero Criminal Records
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

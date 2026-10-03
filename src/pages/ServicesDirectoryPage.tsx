@@ -7,14 +7,26 @@ import {
   ArrowRight,
   ShieldCheck,
   Calendar,
-  Sparkles,
   Phone,
-  MessageSquare,
+  Sparkles,
+  CheckCircle2,
 } from 'lucide-react';
 
 interface ServicesDirectoryPageProps {
   onOpenBooking: (serviceTitle?: string) => void;
 }
+
+const DEDICATED_SEO_MAP: Record<string, string> = {
+  'personal-driver': '/personal-driver-service',
+  'full-time-driver': '/full-time-driver-service',
+  'part-time-driver': '/part-time-driver-service',
+  'temporary-driver': '/temporary-driver-service',
+  'hourly-driver': '/hourly-driver-service',
+  'corporate-driver': '/corporate-driver-service',
+  'airport-driver': '/airport-driver-service',
+  'outstation-driver': '/outstation-driver-service',
+  'chauffeur-service': '/chauffeur-service',
+};
 
 export const ServicesDirectoryPage: React.FC<ServicesDirectoryPageProps> = ({ onOpenBooking }) => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
@@ -42,50 +54,54 @@ export const ServicesDirectoryPage: React.FC<ServicesDirectoryPageProps> = ({ on
       '@type': 'ListItem',
       'position': idx + 1,
       'name': svc.title,
-      'url': `https://drivernestindia.com/services/${svc.slug}`
-    }))
+      'url': `https://ontimedriverservice.com${DEDICATED_SEO_MAP[svc.slug] || `/services/${svc.slug}`}`,
+    })),
   };
 
   return (
     <>
       <SEO
-        title="All Driver Services in Mumbai – Personal, Full-Time, Corporate & Chauffeurs | Driver Nest India"
-        description="Explore Driver Nest India's full portfolio of 12 verified driver services across Mumbai. Personal drivers, monthly chauffeurs, corporate fleets, outstation, airport & elderly assistance."
+        title="All Driver Services in Mumbai – Personal, Full-Time, Corporate & Chauffeurs | On Time Driver Service"
+        description="Explore On Time Driver Service's verified driver solutions across Mumbai. Personal drivers, monthly retainers, corporate fleets, outstation, airport and temporary drivers."
         canonicalPath="/services"
         schema={schema}
       />
 
-      <div className="pt-16 sm:pt-24 pb-12 sm:pb-20 bg-black text-white overflow-x-hidden">
+      <div className="pt-24 sm:pt-28 pb-20 bg-[#0A0A0A] text-white overflow-x-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="mb-4 sm:mb-6 flex items-center gap-2 text-xs text-neutral-400">
-            <Link href="/" className="hover:text-[#E5C07B] transition-colors">Home</Link>
+          <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-neutral-400">
+            <Link href="/" className="hover:text-[#35B5D8] transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
-            <span className="text-[#E5C07B] font-medium">Services Directory</span>
+            <span className="text-white font-semibold">Driver Services</span>
           </nav>
 
           {/* Header */}
-          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-            <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
-              Bespoke Mobility Portfolio
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121212] border border-[#35B5D8]/40 shadow-md mb-3.5">
+              <Sparkles className="w-3.5 h-3.5 text-[#F2F028]" />
+              <span className="text-xs font-bold uppercase tracking-wider text-[#35B5D8]">
+                Verified Chauffeur Solutions
+              </span>
             </div>
-            <h1 className="text-h1 text-white mb-3">
-              All Professional Driver Services
+            <h1 className="text-h1 font-extrabold text-white mb-4">
+              Professional Driver Services in Mumbai
             </h1>
-            <p className="text-body-lead text-neutral-300 font-light">
-              Explore our full directory of 12 verified chauffeur solutions. Click on any service to view comprehensive details, vehicle compatibility, verified dossiers, and booking options.
+            <p className="text-subheading text-[#D1D5DB] leading-relaxed">
+              From daily office commutes to outstation road trips and executive corporate fleets, hire 100% police-verified chauffeurs with zero recruitment hassles and guaranteed replacements.
             </p>
 
-            {/* Category Filter Tabs - Horizontally scrollable chips on mobile */}
-            <div className="flex items-center gap-2 p-1.5 mt-6 bg-[#111111] border border-neutral-800 rounded-xl max-w-xl mx-auto overflow-x-auto no-scrollbar justify-start sm:justify-center">
+            {/* Filter Pills */}
+            <div className="flex items-center justify-center gap-2 mt-8 overflow-x-auto no-scrollbar py-1">
               {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs font-medium rounded-lg transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                  className={`px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all shrink-0 cursor-pointer ${
                     activeCategory === cat
-                      ? 'bg-gradient-to-r from-[#F3D085] to-[#D4AF37] text-black font-bold shadow-sm'
-                      : 'text-neutral-400 hover:text-white hover:bg-neutral-800/50'
+                      ? 'bg-[#35B5D8] text-[#0A0A0A] font-bold shadow-md'
+                      : 'bg-[#121212] text-[#D1D5DB] border border-white/10 hover:border-white/20'
                   }`}
                 >
                   {cat}
@@ -94,91 +110,105 @@ export const ServicesDirectoryPage: React.FC<ServicesDirectoryPageProps> = ({ on
             </div>
           </div>
 
-          {/* Services Grid (All 12 Services in equal-height cards, 16px mobile padding, 16:9 images) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 items-stretch mb-12 sm:mb-16">
-            {filteredServices.map((svc) => (
-              <div
-                key={svc.id}
-                className="glass-card glass-card-hover rounded-2xl overflow-hidden border border-[#D4AF37]/25 flex flex-col justify-between h-full group"
-              >
-                <div>
-                  <div className="relative aspect-video overflow-hidden bg-neutral-950">
-                    <ImageWithFallback
-                      src={svc.image}
-                      alt={svc.sceneDescription}
-                      fallbackTitle={svc.title}
-                      vehicleTag={svc.vehicleTag}
-                      locationTag={svc.locationTag}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent pointer-events-none" />
-                    
-                    {/* Non-overlapping badge */}
-                    <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1.5 z-10 pointer-events-none">
-                      <span className="text-[10px] sm:text-[11px] font-semibold text-white px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md bg-black/85 backdrop-blur-md border border-[#D4AF37]/35 whitespace-normal max-w-[85%] leading-tight">
-                        {svc.badge}
-                      </span>
+          {/* Services Grid (3 cols desktop, 2 cols tablet, 1 col mobile) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+            {filteredServices.map((service) => {
+              const targetUrl = DEDICATED_SEO_MAP[service.slug] || `/services/${service.slug}`;
+              return (
+                <div
+                  key={service.id}
+                  className="bg-[#121212] rounded-2xl border border-white/10 hover:border-[#35B5D8]/50 flex flex-col justify-between overflow-hidden shadow-xl hover:shadow-[#35B5D8]/10 transition-all duration-300 hover:-translate-y-1 group"
+                >
+                  <div>
+                    {/* 16:9 Image */}
+                    <div className="relative aspect-video w-full bg-[#181818] overflow-hidden">
+                      <ImageWithFallback
+                        src={service.image}
+                        alt={service.title}
+                        fallbackTitle={service.title}
+                        vehicleTag={service.vehicleTag}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-transparent pointer-events-none" />
+
+                      <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                        <span className="glass-badge text-white text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
+                          {service.badge}
+                        </span>
+                        <span className="bg-[#22C55E]/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-md shadow-xs">
+                          Police Verified
+                        </span>
+                      </div>
+
+                      {service.vehicleTag && (
+                        <div className="absolute bottom-2.5 left-3 z-10">
+                          <span className="text-[10px] font-semibold text-[#F2F028] bg-black/80 px-2 py-0.5 rounded border border-white/10">
+                            {service.vehicleTag}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="p-6">
+                      <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#35B5D8] transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-[#D1D5DB] line-clamp-2 leading-relaxed mb-4">
+                        {service.shortDescription}
+                      </p>
+
+                      <div className="space-y-1.5 mb-4 text-xs text-neutral-300">
+                        {service.keyFeatures.slice(0, 2).map((feat, i) => (
+                          <div key={i} className="flex items-center gap-2">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#35B5D8] shrink-0" />
+                            <span className="truncate">{feat}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  <div className="p-4 sm:p-6">
-                    <span className="text-[10px] sm:text-[11px] font-semibold text-[#E5C07B] uppercase tracking-wider block mb-1 font-mono">
-                      {svc.shortHeadline}
-                    </span>
-                    <h2 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-[#E5C07B] transition-colors font-display">
-                      {svc.title}
-                    </h2>
-                    <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-light mb-3">
-                      {svc.shortDescription}
-                    </p>
-                    <div className="p-2 sm:p-2.5 rounded-lg bg-[#080808] border border-[#D4AF37]/20 text-[10px] sm:text-[11px] text-neutral-300 mb-2 flex items-start gap-1.5 leading-snug">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] shrink-0 mt-1" />
-                      <span>{svc.sceneDescription}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="px-4 pb-4 pt-2 sm:px-6 sm:pb-6 border-t border-neutral-800/80 bg-neutral-950/40 mt-auto">
-                  <div className="flex items-center gap-3">
+                  <div className="p-5 pt-3 border-t border-white/5 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 bg-[#0e0e0e]/80">
                     <Link
-                      href={`/services/${svc.slug}`}
-                      className="flex-1 btn-primary h-12 text-xs"
+                      href={targetUrl}
+                      className="flex-1 h-[50px] btn-secondary text-sm font-semibold flex items-center justify-center gap-1.5"
                     >
-                      <span>Explore Service</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-black" />
+                      <span>Details</span>
+                      <ArrowRight className="w-4 h-4 text-[#35B5D8]" />
                     </Link>
+
                     <button
-                      onClick={() => onOpenBooking(svc.title)}
-                      className="btn-secondary h-12 text-xs px-3"
-                      title="Quick Booking"
-                      aria-label={`Book ${svc.title}`}
+                      onClick={() => onOpenBooking(service.title)}
+                      className="h-[50px] px-5 btn-primary text-sm font-bold flex items-center justify-center gap-1.5"
                     >
-                      <Calendar className="w-3.5 h-3.5" />
+                      <Calendar className="w-4 h-4 text-[#0A0A0A]" />
+                      <span>Book</span>
                     </button>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
-          {/* Need help choosing banner */}
-          <div className="p-6 sm:p-8 rounded-2xl glass-card border border-[#D4AF37]/35 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <h3 className="text-lg sm:text-xl font-bold text-white font-display">Need Assistance Choosing a Driver Service?</h3>
-              <p className="text-xs sm:text-sm text-neutral-400 font-light mt-1">
-                Speak directly with our concierge team. We assess your vehicle type, commute routes, and monthly schedules.
+          {/* Bottom Help Card */}
+          <div className="mt-16 p-8 rounded-2xl bg-[#121212] border border-white/15 text-center flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+            <div className="text-left">
+              <h3 className="text-xl font-bold text-white">Need a customized driver arrangement?</h3>
+              <p className="text-xs sm:text-sm text-[#D1D5DB] mt-1">
+                We handle shift duties, multi-car family packages, and corporate fleet drivers across Mumbai.
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-3 shrink-0">
-              <a href="tel:+919930012345" className="btn-secondary">
-                <Phone className="w-4 h-4 text-[#D4AF37]" />
-                <span>Call Concierge</span>
+            <div className="flex items-center gap-3">
+              <a
+                href="tel:8652880057"
+                className="btn-primary h-[50px] px-6 text-sm font-bold inline-flex items-center gap-2"
+              >
+                <Phone className="w-4 h-4 text-[#0A0A0A]" />
+                <span>Call 8652880057</span>
               </a>
-              <button onClick={() => onOpenBooking()} className="btn-primary">
-                <span>Book Consultation</span>
-              </button>
             </div>
           </div>
+
         </div>
       </div>
     </>

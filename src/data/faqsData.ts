@@ -4,13 +4,13 @@ export const faqsData: FaqItem[] = [
   {
     id: 'faq-1',
     category: 'General',
-    question: 'How can I hire a driver in Mumbai with Driver Nest India?',
-    answer: 'Hiring a driver with Driver Nest India is quick and consultative. You can submit our "Request a Driver" inquiry form, send us a WhatsApp message at +91 99300 12345, or call our 24/7 concierge desk. Our mobility advisors evaluate your vehicle model, duty schedule, and specific driving requirements, and assign a verified, experienced chauffeur matched to your needs.'
+    question: 'How can I hire a driver in Mumbai with On Time Driver Service?',
+    answer: 'Hiring a driver with On Time Driver Service is quick and consultative. You can submit our "Request a Driver" inquiry form, send us a WhatsApp message at +91 99300 12345, or call our 24/7 concierge desk. Our mobility advisors evaluate your vehicle model, duty schedule, and specific driving requirements, and assign a verified, experienced chauffeur matched to your needs.'
   },
   {
     id: 'faq-2',
     category: 'Verification & Safety',
-    question: 'Are Driver Nest India drivers police verified?',
+    question: 'Are On Time Driver Service drivers police verified?',
     answer: 'Yes, 100% of our chauffeurs undergo formal police background verification. We obtain criminal record clearance reports from local police jurisdictions across Mumbai and MMR, verify residential addresses, validate official government IDs (Aadhaar & PAN), and verify commercial or private driving licenses before onboarding.'
   },
   {
@@ -53,7 +53,7 @@ export const faqsData: FaqItem[] = [
     id: 'faq-9',
     category: 'Services & Booking',
     question: 'What happens if my assigned monthly driver falls ill or takes unplanned leave?',
-    answer: 'Driver Nest India provides a Seamless Replacement Guarantee. If your regular chauffeur is indisposed or requires leave, our operations desk dispatches an equally skilled, pre-verified backup driver to ensure your daily schedule continues without interruption.'
+    answer: 'On Time Driver Service provides a Seamless Replacement Guarantee. If your regular chauffeur is indisposed or requires leave, our operations desk dispatches an equally skilled, pre-verified backup driver to ensure your daily schedule continues without interruption.'
   },
   {
     id: 'faq-10',
@@ -88,13 +88,13 @@ export const faqsData: FaqItem[] = [
   {
     id: 'faq-15',
     category: 'General',
-    question: 'Who provides drivers in Mumbai, and why is Driver Nest India the preferred choice?',
-    answer: 'Driver Nest India is the leading professional driver agency in Mumbai and MMR. Unlike unverified informal networks, Driver Nest India offers 100% police-verified chauffeurs, certified luxury car expertise, backup driver guarantees, and 24/7 dedicated human customer support.'
+    question: 'Who provides drivers in Mumbai, and why is On Time Driver Service the preferred choice?',
+    answer: 'On Time Driver Service is the leading professional driver agency in Mumbai and MMR. Unlike unverified informal networks, On Time Driver Service offers 100% police-verified chauffeurs, certified luxury car expertise, backup driver guarantees, and 24/7 dedicated human customer support.'
   },
   {
     id: 'faq-16',
     category: 'General',
     question: 'Where can I hire a driver near me in Thane, Navi Mumbai, or Mira-Bhayandar?',
-    answer: 'Driver Nest India operates localized chauffeur clusters across all major MMR corridors, including Mumbai, Thane, Navi Mumbai, Mira Road, Bhayandar, Vasai, Virar, Kalyan, Dombivli, and Panvel. You can request a driver near you instantly by calling +91 99300 12345 or submitting an online consultation request.'
+    answer: 'On Time Driver Service operates localized chauffeur clusters across all major MMR corridors, including Mumbai, Thane, Navi Mumbai, Mira Road, Bhayandar, Vasai, Virar, Kalyan, Dombivli, and Panvel. You can request a driver near you instantly by calling +91 99300 12345 or submitting an online consultation request.'
   }
 ];

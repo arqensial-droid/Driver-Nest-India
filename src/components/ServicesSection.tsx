@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { servicesData } from '../data/servicesData';
-import { ServiceItem } from '../types';
 import { ImageWithFallback } from './ImageWithFallback';
 import {
   UserCheck,
@@ -14,216 +13,195 @@ import {
   Crown,
   CheckCircle,
   ArrowRight,
-  X,
-  MessageSquare,
-  Calendar,
   Clock,
-  Sparkles,
   Car,
+  Sparkles,
+  Calendar,
 } from 'lucide-react';
+import { Link } from '../router';
 
 interface ServicesSectionProps {
   onSelectServiceAndBook: (serviceTitle: string) => void;
 }
 
-export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServiceAndBook }) => {
-  const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
+const DEDICATED_PAGE_URLS: Record<string, string> = {
+  'personal-driver': '/personal-driver-service',
+  'full-time-driver': '/full-time-driver-service',
+  'part-time-driver': '/part-time-driver-service',
+  'temporary-driver': '/temporary-driver-service',
+  'hourly-driver': '/hourly-driver-service',
+  'corporate-driver': '/corporate-driver-service',
+  'airport-driver': '/airport-driver-service',
+  'outstation-driver': '/outstation-driver-service',
+  'chauffeur-service': '/chauffeur-service',
+};
 
+export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServiceAndBook }) => {
   const getIcon = (iconName: string) => {
     switch (iconName) {
       case 'UserCheck':
-        return <UserCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />;
+        return <UserCheck className="w-5 h-5 text-[#35B5D8]" />;
       case 'ShieldCheck':
-        return <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />;
+        return <ShieldCheck className="w-5 h-5 text-[#35B5D8]" />;
       case 'CalendarClock':
-        return <CalendarClock className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />;
+        return <CalendarClock className="w-5 h-5 text-[#35B5D8]" />;
       case 'Clock':
-        return <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />;
+        return <Clock className="w-5 h-5 text-[#35B5D8]" />;
       case 'Briefcase':
-        return <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />;
+        return <Briefcase className="w-5 h-5 text-[#35B5D8]" />;
       case 'PlaneTakeoff':
-        return <PlaneTakeoff className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />;
+        return <PlaneTakeoff className="w-5 h-5 text-[#35B5D8]" />;
       case 'Compass':
-        return <Compass className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />;
+        return <Compass className="w-5 h-5 text-[#35B5D8]" />;
       case 'PartyPopper':
-        return <PartyPopper className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />;
+        return <PartyPopper className="w-5 h-5 text-[#35B5D8]" />;
       case 'HeartHandshake':
-        return <HeartHandshake className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />;
+        return <HeartHandshake className="w-5 h-5 text-[#35B5D8]" />;
       case 'Crown':
-        return <Crown className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />;
+        return <Crown className="w-5 h-5 text-[#35B5D8]" />;
       default:
-        return <UserCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />;
+        return <Car className="w-5 h-5 text-[#35B5D8]" />;
     }
   };
 
-  const handleWhatsAppBooking = (serviceTitle: string) => {
-    const text = encodeURIComponent(
-      `Hello Driver Nest India, I am interested in booking a driver for ${serviceTitle}. Please share chauffeur availability and consultation details.`
-    );
-    window.open(`https://wa.me/919930012345?text=${text}`, '_blank');
-  };
-
   return (
-    <section id="services" className="py-8 sm:py-16 lg:py-20 bg-black relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" className="relative py-20 lg:py-28 bg-[#0A0A0A] text-white border-b border-white/10">
+      {/* Background radial glows */}
+      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#35B5D8]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-[#F2F028]/5 rounded-full blur-[100px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-          <div className="text-[11px] font-semibold tracking-widest uppercase text-[#D4AF37] mb-2 font-mono">
-            Bespoke Chauffeur &amp; Driver Solutions
+        <div className="text-center max-w-3xl mx-auto mb-14 lg:mb-18">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121212] border border-[#35B5D8]/40 shadow-md mb-3.5">
+            <Sparkles className="w-3.5 h-3.5 text-[#F2F028]" />
+            <span className="text-xs font-bold uppercase tracking-wider text-[#35B5D8]">
+              Executive Mobility Solutions
+            </span>
           </div>
-          <h2 className="text-h2 text-white mb-3">
-            Professional Driver Services <span className="gold-gradient-text">for Every Requirement</span>
+
+          <h2 className="text-h2 font-extrabold text-white mb-4">
+            Specialized Chauffeur Services in Mumbai
           </h2>
-          <p className="text-body-lead text-neutral-400 font-light">
-            Verified Indian chauffeurs and drivers trained on popular vehicles—including Toyota Innova Crysta,
-            Honda City, Hyundai Creta, Maruti Ertiga, and Mercedes-Benz E-Class across Mumbai and MMR.
+
+          <p className="text-subheading text-[#D1D5DB] leading-relaxed">
+            Every chauffeur is 100% background-verified by local police, proficient with premium automatic &amp; manual vehicle models, and guaranteed on-time across Mumbai MMR.
           </p>
         </div>
 
-        {/* Premium Image Cards Grid: 16px mobile card gap and 16px padding */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 items-stretch">
-          {servicesData.map((service) => (
-            <div
-              key={service.id}
-              className="glass-card glass-card-hover rounded-2xl overflow-hidden border border-[#D4AF37]/25 flex flex-col justify-between h-full group"
-            >
-              {/* Card Top: 16:9 Aspect Ratio Image with Non-overlapping Badge */}
-              <div className="relative aspect-video overflow-hidden bg-neutral-950 shrink-0">
-                <ImageWithFallback
-                  src={service.image}
-                  alt={`${service.title} - ${service.sceneDescription}`}
-                  fallbackTitle={service.title}
-                  vehicleTag={service.vehicleTag}
-                  locationTag={service.locationTag}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0E0E0E] via-[#0E0E0E]/20 to-transparent pointer-events-none" />
+        {/* Services Grid:
+            Desktop: 3 cards per row
+            Tablet: 2 cards per row
+            Mobile: 1 card per row
+            Equal card heights & consistent image sizes */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+          {servicesData.slice(0, 9).map((service) => {
+            const pageUrl = DEDICATED_PAGE_URLS[service.slug] || `/services/${service.slug}`;
 
-                {/* Floating Top Badge */}
-                <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1.5 z-10 pointer-events-none">
-                  <span className="text-[10px] sm:text-[11px] font-semibold text-white px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md bg-black/85 backdrop-blur-md border border-[#D4AF37]/40 shadow-sm whitespace-normal max-w-[80%] leading-tight">
-                    {service.badge}
-                  </span>
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-black/85 backdrop-blur-md border border-[#D4AF37]/40 flex items-center justify-center shadow-sm shrink-0">
-                    {getIcon(service.iconName)}
+            return (
+              <div
+                key={service.id}
+                className="h-full bg-[#121212] rounded-2xl border border-white/10 hover:border-[#35B5D8]/50 overflow-hidden flex flex-col justify-between group shadow-xl hover:shadow-[#35B5D8]/10 transition-all duration-300 hover:-translate-y-1.5"
+              >
+                <div>
+                  {/* Card Image with 16:9 Aspect Ratio & Glass Badges */}
+                  <div className="relative aspect-video w-full overflow-hidden bg-[#181818]">
+                    <ImageWithFallback
+                      src={service.image}
+                      alt={`${service.title} in Mumbai`}
+                      fallbackTitle={service.title}
+                      vehicleTag={service.vehicleTag}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+
+                    {/* Dark gradient overlay on image */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-black/30 pointer-events-none" />
+
+                    {/* Top Overlay Badges */}
+                    <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none z-10">
+                      <span className="glass-badge text-white text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
+                        {service.badge}
+                      </span>
+                      <span className="bg-[#22C55E]/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-md shadow-sm flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                        Police Verified
+                      </span>
+                    </div>
+
+                    {/* Vehicle tag pill */}
+                    {service.vehicleTag && (
+                      <div className="absolute bottom-2.5 left-3 z-10">
+                        <span className="text-[10px] font-semibold text-[#F2F028] bg-black/75 px-2 py-0.5 rounded border border-white/10">
+                          {service.vehicleTag}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Card Content Body */}
+                  <div className="p-6">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-xl bg-[#35B5D8]/15 border border-[#35B5D8]/30 flex items-center justify-center shrink-0">
+                        {getIcon(service.iconName)}
+                      </div>
+                      <h3 className="text-lg font-bold text-white group-hover:text-[#35B5D8] transition-colors">
+                        {service.title}
+                      </h3>
+                    </div>
+
+                    <p className="text-sm text-[#D1D5DB] line-clamp-2 mb-4 leading-relaxed font-normal">
+                      {service.shortDescription}
+                    </p>
+
+                    {/* Features list */}
+                    <ul className="space-y-2 mb-2 text-xs text-neutral-300">
+                      {service.keyFeatures.slice(0, 3).map((feat, i) => (
+                        <li key={i} className="flex items-center gap-2">
+                          <CheckCircle className="w-3.5 h-3.5 text-[#35B5D8] shrink-0" />
+                          <span className="truncate">{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-              </div>
 
-              {/* Card Body with 16px mobile padding (p-4 sm:p-6) */}
-              <div className="p-4 sm:p-6 flex flex-col flex-1">
-                <span className="text-[10px] sm:text-[11px] font-semibold text-[#E5C07B] uppercase tracking-wider block mb-1 font-mono">
-                  {service.shortHeadline}
-                </span>
-
-                <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-[#E5C07B] transition-colors font-display">
-                  {service.title}
-                </h3>
-
-                {/* Photography Context */}
-                <div className="p-2 sm:p-2.5 rounded-lg bg-[#080808] border border-[#D4AF37]/20 text-[10px] sm:text-[11px] text-neutral-300 mb-3 flex items-start gap-1.5 leading-snug">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] shrink-0 mt-1" />
-                  <span>{service.sceneDescription}</span>
-                </div>
-
-                <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed mb-3 font-light">
-                  {service.shortDescription}
-                </p>
-
-                {/* Trust Statement */}
-                <div className="p-2 sm:p-2.5 rounded-lg bg-neutral-950/80 border border-[#D4AF37]/20 text-[10px] sm:text-[11px] text-[#E5C07B] font-medium mb-3 flex items-center gap-1.5">
-                  <span>{service.trustStatement}</span>
-                </div>
-
-                <div className="flex items-center justify-between text-xs text-neutral-400 pt-2.5 border-t border-neutral-800/80 mt-auto">
-                  <span className="truncate pr-2 text-[11px]">Vehicle: {service.vehicleSuitability[0]}</span>
-                  <button
-                    onClick={() => setSelectedService(service)}
-                    className="text-[#E5C07B] hover:text-white transition-colors flex items-center gap-1 cursor-pointer font-medium text-xs shrink-0"
+                {/* Card Actions Footer - Equal height anchor */}
+                <div className="p-5 pt-3 border-t border-white/5 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 bg-[#0e0e0e]/80">
+                  <Link
+                    href={pageUrl}
+                    className="flex-1 h-[50px] btn-secondary text-sm font-semibold flex items-center justify-center gap-1.5 text-white"
                   >
                     <span>View Details</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
+                    <ArrowRight className="w-4 h-4 text-[#35B5D8]" />
+                  </Link>
 
-              {/* Card Footer: Standardized Action Buttons Aligned Pinned to Bottom */}
-              <div className="px-4 pb-4 pt-2 sm:px-6 sm:pb-6 border-t border-neutral-800/80 bg-neutral-950/50 mt-auto">
-                <div className="flex items-center gap-3">
                   <button
                     onClick={() => onSelectServiceAndBook(service.title)}
-                    className="flex-1 h-12 text-xs font-bold text-black bg-gradient-to-r from-[#F3D085] via-[#D4AF37] to-[#B89020] rounded-xl hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-sm shadow-[#D4AF37]/20 whitespace-nowrap"
+                    className="h-[50px] px-5 btn-primary text-sm font-bold flex items-center justify-center gap-1.5 shrink-0"
+                    title={`Book ${service.title}`}
                   >
-                    <Calendar className="w-3.5 h-3.5 text-black" />
-                    <span>Book Driver</span>
-                  </button>
-                  <button
-                    onClick={() => handleWhatsAppBooking(service.title)}
-                    className="h-12 w-12 rounded-xl bg-[#25D366]/15 border border-[#25D366]/40 text-[#25D366] hover:bg-[#25D366]/25 flex items-center justify-center cursor-pointer transition-colors shrink-0"
-                    title="WhatsApp Consultation"
-                    aria-label={`WhatsApp for ${service.title}`}
-                  >
-                    <MessageSquare className="w-4 h-4 text-[#25D366]" />
+                    <Calendar className="w-4 h-4 text-[#0A0A0A]" />
+                    <span>Book Now</span>
                   </button>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
+
+        {/* View All Services Link */}
+        <div className="mt-14 text-center">
+          <Link
+            href="/services"
+            className="btn-secondary h-[52px] px-8 text-sm font-bold inline-flex items-center gap-2 hover:border-[#35B5D8]"
+          >
+            <span>Explore All 12 Chauffeur Services &amp; Packages</span>
+            <ArrowRight className="w-4 h-4 text-[#35B5D8]" />
+          </Link>
+        </div>
+
       </div>
-
-      {/* Details Modal */}
-      {selectedService && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
-          <div className="relative w-full max-w-2xl bg-[#0E0E0E] rounded-2xl border border-[#D4AF37]/40 shadow-2xl p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
-            <button
-              onClick={() => setSelectedService(null)}
-              className="absolute top-4 right-4 p-2 text-neutral-400 hover:text-white rounded-lg bg-neutral-900 border border-neutral-800"
-              aria-label="Close Modal"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div className="flex items-center gap-2 mb-2 text-xs font-mono text-[#E5C07B]">
-              <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
-              <span>Verified Chauffeur Dossier</span>
-            </div>
-
-            <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 font-display">{selectedService.title}</h3>
-            <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-light mb-4">
-              {selectedService.fullDescription}
-            </p>
-
-            <div className="mb-4">
-              <h4 className="text-xs font-semibold text-[#D4AF37] uppercase tracking-wider mb-2 font-mono">
-                Key Standards &amp; Verification
-              </h4>
-              <div className="space-y-1.5">
-                {selectedService.keyFeatures.map((feat, idx) => (
-                  <div key={idx} className="flex items-start gap-2 text-xs text-neutral-300 font-light">
-                    <CheckCircle className="w-3.5 h-3.5 text-[#D4AF37] shrink-0 mt-0.5" />
-                    <span>{feat}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 pt-3 border-t border-neutral-800">
-              <button
-                onClick={() => {
-                  const title = selectedService.title;
-                  setSelectedService(null);
-                  onSelectServiceAndBook(title);
-                }}
-                className="flex-1 btn-primary h-12 text-xs"
-              >
-                <span>Request Chauffeur for This Service</span>
-                <ArrowRight className="w-4 h-4 text-black" />
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 };
