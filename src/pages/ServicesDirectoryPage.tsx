@@ -67,28 +67,28 @@ export const ServicesDirectoryPage: React.FC<ServicesDirectoryPageProps> = ({ on
         schema={schema}
       />
 
-      <div className="pt-24 sm:pt-28 pb-20 bg-[#0A0A0A] text-white overflow-x-hidden">
+      <div className="pt-24 sm:pt-28 pb-20 bg-[#050505] text-white overflow-x-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-neutral-400">
-            <Link href="/" className="hover:text-[#35B5D8] transition-colors">Home</Link>
+            <Link href="/" className="hover:text-[#35B6DE] transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
             <span className="text-white font-semibold">Driver Services</span>
           </nav>
 
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121212] border border-[#35B5D8]/40 shadow-md mb-3.5">
-              <Sparkles className="w-3.5 h-3.5 text-[#F2F028]" />
-              <span className="text-xs font-bold uppercase tracking-wider text-[#35B5D8]">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B0B0B] border border-[#35B6DE]/40 shadow-md mb-3.5">
+              <Sparkles className="w-3.5 h-3.5 text-[#F3ED1A]" />
+              <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE]">
                 Verified Chauffeur Solutions
               </span>
             </div>
             <h1 className="text-h1 font-extrabold text-white mb-4">
               Professional Driver Services in Mumbai
             </h1>
-            <p className="text-subheading text-[#D1D5DB] leading-relaxed">
+            <p className="text-subheading text-[#CFCFCF] leading-relaxed">
               From daily office commutes to outstation road trips and executive corporate fleets, hire 100% police-verified chauffeurs with zero recruitment hassles and guaranteed replacements.
             </p>
 
@@ -100,8 +100,8 @@ export const ServicesDirectoryPage: React.FC<ServicesDirectoryPageProps> = ({ on
                   onClick={() => setActiveCategory(cat)}
                   className={`px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all shrink-0 cursor-pointer ${
                     activeCategory === cat
-                      ? 'bg-[#35B5D8] text-[#0A0A0A] font-bold shadow-md'
-                      : 'bg-[#121212] text-[#D1D5DB] border border-white/10 hover:border-white/20'
+                      ? 'bg-[#35B6DE] text-[#050505] font-bold shadow-md'
+                      : 'bg-[#0B0B0B] text-[#CFCFCF] border border-white/10 hover:border-white/20'
                   }`}
                 >
                   {cat}
@@ -117,7 +117,7 @@ export const ServicesDirectoryPage: React.FC<ServicesDirectoryPageProps> = ({ on
               return (
                 <div
                   key={service.id}
-                  className="bg-[#121212] rounded-2xl border border-white/10 hover:border-[#35B5D8]/50 flex flex-col justify-between overflow-hidden shadow-xl hover:shadow-[#35B5D8]/10 transition-all duration-300 hover:-translate-y-1 group"
+                  className="bg-[#0B0B0B] rounded-2xl border border-white/10 hover:border-[#35B6DE]/50 flex flex-col justify-between overflow-hidden shadow-xl hover:shadow-[#35B6DE]/10 transition-all duration-300 hover:-translate-y-1 group"
                 >
                   <div>
                     {/* 16:9 Image */}
@@ -129,7 +129,7 @@ export const ServicesDirectoryPage: React.FC<ServicesDirectoryPageProps> = ({ on
                         vehicleTag={service.vehicleTag}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-transparent pointer-events-none" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-transparent to-transparent pointer-events-none" />
 
                       <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
                         <span className="glass-badge text-white text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
@@ -142,7 +142,7 @@ export const ServicesDirectoryPage: React.FC<ServicesDirectoryPageProps> = ({ on
 
                       {service.vehicleTag && (
                         <div className="absolute bottom-2.5 left-3 z-10">
-                          <span className="text-[10px] font-semibold text-[#F2F028] bg-black/80 px-2 py-0.5 rounded border border-white/10">
+                          <span className="text-[10px] font-semibold text-[#F3ED1A] bg-black/80 px-2 py-0.5 rounded border border-white/10">
                             {service.vehicleTag}
                           </span>
                         </div>
@@ -150,17 +150,17 @@ export const ServicesDirectoryPage: React.FC<ServicesDirectoryPageProps> = ({ on
                     </div>
 
                     <div className="p-6">
-                      <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#35B5D8] transition-colors">
+                      <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#35B6DE] transition-colors">
                         {service.title}
                       </h3>
-                      <p className="text-xs sm:text-sm text-[#D1D5DB] line-clamp-2 leading-relaxed mb-4">
+                      <p className="text-xs sm:text-sm text-[#CFCFCF] line-clamp-2 leading-relaxed mb-4">
                         {service.shortDescription}
                       </p>
 
                       <div className="space-y-1.5 mb-4 text-xs text-neutral-300">
                         {service.keyFeatures.slice(0, 2).map((feat, i) => (
                           <div key={i} className="flex items-center gap-2">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#35B5D8] shrink-0" />
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#35B6DE] shrink-0" />
                             <span className="truncate">{feat}</span>
                           </div>
                         ))}
@@ -174,14 +174,14 @@ export const ServicesDirectoryPage: React.FC<ServicesDirectoryPageProps> = ({ on
                       className="flex-1 h-[50px] btn-secondary text-sm font-semibold flex items-center justify-center gap-1.5"
                     >
                       <span>Details</span>
-                      <ArrowRight className="w-4 h-4 text-[#35B5D8]" />
+                      <ArrowRight className="w-4 h-4 text-[#35B6DE]" />
                     </Link>
 
                     <button
                       onClick={() => onOpenBooking(service.title)}
                       className="h-[50px] px-5 btn-primary text-sm font-bold flex items-center justify-center gap-1.5"
                     >
-                      <Calendar className="w-4 h-4 text-[#0A0A0A]" />
+                      <Calendar className="w-4 h-4 text-[#050505]" />
                       <span>Book</span>
                     </button>
                   </div>
@@ -191,10 +191,10 @@ export const ServicesDirectoryPage: React.FC<ServicesDirectoryPageProps> = ({ on
           </div>
 
           {/* Bottom Help Card */}
-          <div className="mt-16 p-8 rounded-2xl bg-[#121212] border border-white/15 text-center flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+          <div className="mt-16 p-8 rounded-2xl bg-[#0B0B0B] border border-white/15 text-center flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
             <div className="text-left">
               <h3 className="text-xl font-bold text-white">Need a customized driver arrangement?</h3>
-              <p className="text-xs sm:text-sm text-[#D1D5DB] mt-1">
+              <p className="text-xs sm:text-sm text-[#CFCFCF] mt-1">
                 We handle shift duties, multi-car family packages, and corporate fleet drivers across Mumbai.
               </p>
             </div>
@@ -203,7 +203,7 @@ export const ServicesDirectoryPage: React.FC<ServicesDirectoryPageProps> = ({ on
                 href="tel:8652880057"
                 className="btn-primary h-[50px] px-6 text-sm font-bold inline-flex items-center gap-2"
               >
-                <Phone className="w-4 h-4 text-[#0A0A0A]" />
+                <Phone className="w-4 h-4 text-[#050505]" />
                 <span>Call 8652880057</span>
               </a>
             </div>

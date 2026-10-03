@@ -89,18 +89,18 @@ export const LeadFormSection: React.FC<LeadFormSectionProps> = ({
   };
 
   return (
-    <section id="request-driver" className="py-20 lg:py-28 bg-[#0A0A0A] relative border-t border-b border-white/10 text-white">
+    <section id="request-driver" className="py-20 lg:py-28 bg-[#050505] relative border-t border-b border-white/10 text-white">
       {/* Background radial glow */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[550px] h-[550px] bg-[#35B5D8]/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[550px] h-[550px] bg-[#35B6DE]/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
           
           {/* Left Column: Chauffeur Experience Image & Trust Credentials */}
           <div className="lg:col-span-5 flex flex-col gap-6">
-            <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-[#121212] border border-[#35B5D8]/40 shadow-md">
-              <Sparkles className="w-3.5 h-3.5 text-[#F2F028]" />
-              <span className="text-xs font-bold uppercase tracking-wider text-[#35B5D8]">
+            <div className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-[#0B0B0B] border border-[#35B6DE]/40 shadow-md">
+              <Sparkles className="w-3.5 h-3.5 text-[#F3ED1A]" />
+              <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE]">
                 Instant Booking Concierge
               </span>
             </div>
@@ -109,12 +109,12 @@ export const LeadFormSection: React.FC<LeadFormSectionProps> = ({
               Book Your Verified Driver in Under 60 Seconds
             </h2>
 
-            <p className="text-sm sm:text-base text-[#D1D5DB] leading-relaxed">
+            <p className="text-sm sm:text-base text-[#CFCFCF] leading-relaxed">
               Every submission is automatically routed to our 24/7 central dispatch desk at <strong className="text-white">info@ontimedriverservice.com</strong> and assigned to an available vetted driver near your sector.
             </p>
 
             {/* Visual Image Card with dark luxury overlay */}
-            <div className="relative rounded-2xl overflow-hidden border border-white/15 shadow-2xl aspect-[16/10] bg-[#121212]">
+            <div className="relative rounded-2xl overflow-hidden border border-white/15 shadow-2xl aspect-[16/10] bg-[#0B0B0B]">
               <ImageWithFallback
                 src="/images/services/corporate-driver.jpg"
                 alt="Verified Indian Chauffeur in uniform with executive car in Mumbai"
@@ -123,29 +123,29 @@ export const LeadFormSection: React.FC<LeadFormSectionProps> = ({
                 locationTag="BKC & South Mumbai"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent pointer-events-none" />
 
               <div className="absolute bottom-4 left-4 right-4 glass-badge rounded-xl p-3 border border-white/10">
                 <div className="flex items-center gap-2.5">
-                  <ShieldCheck className="w-5 h-5 text-[#35B5D8] shrink-0" />
+                  <ShieldCheck className="w-5 h-5 text-[#35B6DE] shrink-0" />
                   <div>
                     <p className="text-xs font-bold text-white">Guaranteed Punctuality &amp; Replacement</p>
-                    <p className="text-[11px] text-[#D1D5DB]">100% Police Verified Drivers Across MMR</p>
+                    <p className="text-[11px] text-[#CFCFCF]">100% Police Verified Drivers Across MMR</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Direct Support Quick Row */}
-            <div className="p-4 rounded-xl bg-[#121212] border border-white/10 flex items-center justify-between gap-3">
+            <div className="p-4 rounded-xl bg-[#0B0B0B] border border-white/10 flex items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-[#F2F028]/15 border border-[#F2F028]/30 flex items-center justify-center text-[#F2F028]">
+                <div className="w-10 h-10 rounded-lg bg-[#F3ED1A]/15 border border-[#F3ED1A]/30 flex items-center justify-center text-[#F3ED1A]">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="text-xs text-neutral-400">Need Immediate Allocation?</p>
-                  <a href="tel:8652880057" className="text-sm font-bold text-white hover:text-[#35B5D8]">
-                    Call Desk: +91 8652880057
+                  <a href="tel:8652880057" className="text-sm font-bold text-white hover:text-[#35B6DE]">
+                    Call Desk: 8652880057
                   </a>
                 </div>
               </div>
@@ -157,8 +157,8 @@ export const LeadFormSection: React.FC<LeadFormSectionProps> = ({
 
           {/* Right Column: Complete 9-Field Dark Luxury Lead Form */}
           <div className="lg:col-span-7">
-            <div className="bg-[#121212] rounded-2xl border border-white/15 p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-[#F2F028]/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="bg-[#0B0B0B] rounded-2xl border border-white/15 p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-[#F3ED1A]/5 rounded-full blur-3xl pointer-events-none" />
 
               {!submitted ? (
                 <div>
@@ -166,7 +166,7 @@ export const LeadFormSection: React.FC<LeadFormSectionProps> = ({
                     <h3 className="text-xl sm:text-2xl font-bold font-heading text-white">
                       {formTitle}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#D1D5DB] mt-1">
+                    <p className="text-xs sm:text-sm text-[#CFCFCF] mt-1">
                       Fill the 9 booking details below. You will receive an email confirmation and immediate callback.
                     </p>
                   </div>
@@ -194,7 +194,7 @@ export const LeadFormSection: React.FC<LeadFormSectionProps> = ({
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
                         <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                          Full Name <span className="text-[#F2F028]">*</span>
+                          Full Name <span className="text-[#F3ED1A]">*</span>
                         </label>
                         <div className="relative">
                           <User className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
@@ -215,7 +215,7 @@ export const LeadFormSection: React.FC<LeadFormSectionProps> = ({
 
                       <div>
                         <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                          Mobile Number <span className="text-[#F2F028]">*</span>
+                          Mobile Number <span className="text-[#F3ED1A]">*</span>
                         </label>
                         <div className="relative">
                           <Phone className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
@@ -240,7 +240,7 @@ export const LeadFormSection: React.FC<LeadFormSectionProps> = ({
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
                         <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                          Email Address <span className="text-[#F2F028]">*</span>
+                          Email Address <span className="text-[#F3ED1A]">*</span>
                         </label>
                         <div className="relative">
                           <Mail className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
@@ -261,7 +261,7 @@ export const LeadFormSection: React.FC<LeadFormSectionProps> = ({
 
                       <div>
                         <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                          Pickup Location / Sector <span className="text-[#F2F028]">*</span>
+                          Pickup Location / Sector <span className="text-[#F3ED1A]">*</span>
                         </label>
                         <div className="relative">
                           <MapPin className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
@@ -389,13 +389,13 @@ export const LeadFormSection: React.FC<LeadFormSectionProps> = ({
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="btn-primary w-full h-[54px] text-base font-bold flex items-center justify-center gap-2 mt-4 shadow-xl shadow-[#F2F028]/25"
+                      className="btn-primary w-full h-[54px] text-base font-bold flex items-center justify-center gap-2 mt-4 shadow-xl shadow-[#F3ED1A]/25"
                     >
                       {isSubmitting ? (
                         <span>Transmitting to Central Dispatch...</span>
                       ) : (
                         <>
-                          <Send className="w-4 h-4 text-[#0A0A0A]" />
+                          <Send className="w-4 h-4 text-[#050505]" />
                           <span>Submit Requirement &amp; Assign Chauffeur</span>
                         </>
                       )}
@@ -410,7 +410,7 @@ export const LeadFormSection: React.FC<LeadFormSectionProps> = ({
               ) : (
                 /* Confirmation Screen */
                 <div className="text-center py-8">
-                  <div className="w-16 h-16 rounded-full bg-[#35B5D8]/20 border border-[#35B5D8] text-[#35B5D8] flex items-center justify-center mx-auto mb-4 animate-bounce">
+                  <div className="w-16 h-16 rounded-full bg-[#35B6DE]/20 border border-[#35B6DE] text-[#35B6DE] flex items-center justify-center mx-auto mb-4 animate-bounce">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
 
@@ -418,8 +418,8 @@ export const LeadFormSection: React.FC<LeadFormSectionProps> = ({
                     Chauffeur Requirement Submitted!
                   </h3>
 
-                  <p className="text-sm text-[#D1D5DB] mb-5">
-                    Reference ID: <span className="font-mono font-bold text-[#F2F028]">{bookingRef}</span>
+                  <p className="text-sm text-[#CFCFCF] mb-5">
+                    Reference ID: <span className="font-mono font-bold text-[#F3ED1A]">{bookingRef}</span>
                   </p>
 
                   <div className="bg-[#181818] rounded-xl p-4 border border-white/10 text-left text-xs space-y-2 mb-6 text-neutral-300">

@@ -76,7 +76,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
 
   if (!service) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 pt-24 pb-16 bg-[#0A0A0A] text-white">
+      <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 pt-24 pb-16 bg-[#050505] text-white">
         <h1 className="text-2xl sm:text-3xl font-bold font-heading text-white mb-3">Service Not Found</h1>
         <p className="text-neutral-400 mb-6 max-w-md text-sm">
           The requested driver service could not be located. Explore our range of verified driver solutions.
@@ -120,7 +120,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
   };
 
   return (
-    <div className="bg-[#0A0A0A] text-white overflow-x-hidden">
+    <div className="bg-[#050505] text-white overflow-x-hidden">
       <SEO
         title={`${service.h1Title || service.title} | On Time Driver Service`}
         description={service.metaDescription}
@@ -129,17 +129,17 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
       />
 
       {/* 1. Breadcrumb Bar */}
-      <nav aria-label="Breadcrumb" className="bg-[#0A0A0A] border-b border-white/10 pt-24 pb-4">
+      <nav aria-label="Breadcrumb" className="bg-[#050505] border-b border-white/10 pt-24 pb-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ol className="flex items-center gap-1.5 text-xs text-neutral-400 overflow-x-auto no-scrollbar whitespace-nowrap">
             <li>
-              <Link href="/" className="hover:text-[#35B5D8] transition-colors">
+              <Link href="/" className="hover:text-[#35B6DE] transition-colors">
                 Home
               </Link>
             </li>
             <li><ChevronRight className="w-3.5 h-3.5 text-neutral-600 shrink-0" /></li>
             <li>
-              <Link href="/services" className="hover:text-[#35B5D8] transition-colors">
+              <Link href="/services" className="hover:text-[#35B6DE] transition-colors">
                 Driver Services
               </Link>
             </li>
@@ -150,22 +150,22 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
       </nav>
 
       {/* 2. Hero Section */}
-      <section className="py-12 sm:py-20 bg-[#0A0A0A] border-b border-white/10 relative">
+      <section className="py-12 sm:py-20 bg-[#050505] border-b border-white/10 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
             
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121212] border border-[#35B5D8]/40 shadow-md">
-                <Sparkles className="w-3.5 h-3.5 text-[#F2F028]" />
-                <span className="text-xs font-bold text-[#35B5D8] uppercase tracking-wider">{service.trustStatement}</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B0B0B] border border-[#35B6DE]/40 shadow-md">
+                <Sparkles className="w-3.5 h-3.5 text-[#F3ED1A]" />
+                <span className="text-xs font-bold text-[#35B6DE] uppercase tracking-wider">{service.trustStatement}</span>
               </div>
 
               <h1 className="text-h1 text-white font-extrabold tracking-tight">
                 {service.h1Title}
               </h1>
 
-              <p className="text-subheading text-[#D1D5DB] font-normal leading-relaxed">
+              <p className="text-subheading text-[#CFCFCF] font-normal leading-relaxed">
                 {service.fullDescription}
               </p>
 
@@ -173,7 +173,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                 {service.keyFeatures.map((feat, idx) => (
                   <div key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-neutral-300">
-                    <CheckCircle2 className="w-4 h-4 text-[#35B5D8] shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-[#35B6DE] shrink-0 mt-0.5" />
                     <span>{feat}</span>
                   </div>
                 ))}
@@ -183,9 +183,9 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-4">
                 <button
                   onClick={() => onOpenBooking(service.title)}
-                  className="btn-primary h-[52px] px-8 text-base font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#F2F028]/20"
+                  className="btn-primary h-[52px] px-8 text-base font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#F3ED1A]/20"
                 >
-                  <Calendar className="w-4 h-4 text-[#0A0A0A]" />
+                  <Calendar className="w-4 h-4 text-[#050505]" />
                   <span>Book {service.title}</span>
                 </button>
 
@@ -193,7 +193,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
                   href="tel:8652880057"
                   className="btn-secondary h-[52px] px-6 text-sm font-semibold flex items-center justify-center gap-2"
                 >
-                  <Phone className="w-4 h-4 text-[#35B5D8]" />
+                  <Phone className="w-4 h-4 text-[#35B6DE]" />
                   <span>Call 8652880057</span>
                 </a>
 
@@ -215,14 +215,14 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
 
             {/* Right Media (16:9 Image with Dark Overlay) */}
             <div className="lg:col-span-5">
-              <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#121212]">
+              <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#0B0B0B]">
                 <ImageWithFallback
                   src={service.image}
                   alt={`${service.title} in Mumbai`}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-3 left-3 bg-[#121212]/90 border border-white/10 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#F2F028] shadow-md">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-3 left-3 bg-[#0B0B0B]/90 border border-white/10 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#F3ED1A] shadow-md">
                   {service.vehicleTag}
                 </div>
               </div>
@@ -233,10 +233,10 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
       </section>
 
       {/* 3. Service Details & Who Is This For */}
-      <section className="py-16 sm:py-24 bg-[#0A0A0A] border-b border-white/10">
+      <section className="py-16 sm:py-24 bg-[#050505] border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mb-12">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#35B5D8] block mb-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE] block mb-2">
               Comprehensive Service Overview
             </span>
             <h2 className="text-h2 font-extrabold text-white">
@@ -245,32 +245,32 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            <div className="bg-[#121212] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
-              <div className="w-10 h-10 rounded-xl bg-[#35B5D8]/15 border border-[#35B5D8]/30 text-[#35B5D8] flex items-center justify-center mb-3">
+            <div className="bg-[#0B0B0B] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
+              <div className="w-10 h-10 rounded-xl bg-[#35B6DE]/15 border border-[#35B6DE]/30 text-[#35B6DE] flex items-center justify-center mb-3">
                 <FileCheck2 className="w-5 h-5" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">What Is It?</h3>
-              <p className="text-sm text-[#D1D5DB] leading-relaxed font-normal">
+              <p className="text-sm text-[#CFCFCF] leading-relaxed font-normal">
                 {service.serviceOverview.whatIs}
               </p>
             </div>
 
-            <div className="bg-[#121212] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
-              <div className="w-10 h-10 rounded-xl bg-[#F2F028]/15 border border-[#F2F028]/30 text-[#F2F028] flex items-center justify-center mb-3">
+            <div className="bg-[#0B0B0B] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
+              <div className="w-10 h-10 rounded-xl bg-[#F3ED1A]/15 border border-[#F3ED1A]/30 text-[#F3ED1A] flex items-center justify-center mb-3">
                 <Users className="w-5 h-5" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Who Is It For?</h3>
-              <p className="text-sm text-[#D1D5DB] leading-relaxed font-normal">
+              <p className="text-sm text-[#CFCFCF] leading-relaxed font-normal">
                 {service.serviceOverview.whoSuitable}
               </p>
             </div>
 
-            <div className="bg-[#121212] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
-              <div className="w-10 h-10 rounded-xl bg-[#35B5D8]/15 border border-[#35B5D8]/30 text-[#35B5D8] flex items-center justify-center mb-3">
+            <div className="bg-[#0B0B0B] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
+              <div className="w-10 h-10 rounded-xl bg-[#35B6DE]/15 border border-[#35B6DE]/30 text-[#35B6DE] flex items-center justify-center mb-3">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">How We Support You</h3>
-              <p className="text-sm text-[#D1D5DB] leading-relaxed font-normal">
+              <p className="text-sm text-[#CFCFCF] leading-relaxed font-normal">
                 {service.serviceOverview.howOtdsHelps || 'We provide police-verified chauffeurs with zero recruitment hassle, fast replacement guarantees, and transparent pricing.'}
               </p>
             </div>
@@ -284,10 +284,10 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {service.useCases.map((uc, i) => (
-                  <div key={i} className="bg-[#121212] p-6 rounded-2xl border border-white/10">
-                    <div className="text-xs font-bold text-[#F2F028] mb-1">Route: {uc.route}</div>
+                  <div key={i} className="bg-[#0B0B0B] p-6 rounded-2xl border border-white/10">
+                    <div className="text-xs font-bold text-[#F3ED1A] mb-1">Route: {uc.route}</div>
                     <h4 className="text-base font-bold text-white mb-2">{uc.title}</h4>
-                    <p className="text-xs sm:text-sm text-[#D1D5DB] leading-relaxed">{uc.description}</p>
+                    <p className="text-xs sm:text-sm text-[#CFCFCF] leading-relaxed">{uc.description}</p>
                   </div>
                 ))}
               </div>
@@ -304,16 +304,16 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
                 {service.faqs.map((faq, idx) => {
                   const isOpen = openFaqIndex === idx;
                   return (
-                    <div key={idx} className="bg-[#121212] rounded-xl border border-white/10 overflow-hidden">
+                    <div key={idx} className="bg-[#0B0B0B] rounded-xl border border-white/10 overflow-hidden">
                       <button
                         onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
                         className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-white"
                       >
                         <span>{faq.question}</span>
-                        <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180 text-[#35B5D8]' : ''}`} />
+                        <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180 text-[#35B6DE]' : ''}`} />
                       </button>
                       {isOpen && (
-                        <div className="px-5 pb-5 text-sm text-[#D1D5DB] leading-relaxed border-t border-white/5 pt-3">
+                        <div className="px-5 pb-5 text-sm text-[#CFCFCF] leading-relaxed border-t border-white/5 pt-3">
                           {faq.answer}
                         </div>
                       )}
@@ -325,18 +325,18 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
           )}
 
           {/* 4. Complete 9-Field Lead Booking Form */}
-          <div className="bg-[#121212] rounded-2xl border border-white/15 p-6 sm:p-8 shadow-2xl max-w-3xl mx-auto">
+          <div className="bg-[#0B0B0B] rounded-2xl border border-white/15 p-6 sm:p-8 shadow-2xl max-w-3xl mx-auto">
             {!submitted ? (
               <div>
                 <div className="text-center mb-6">
-                  <span className="text-xs font-bold text-[#35B5D8] uppercase tracking-wider block mb-1">
+                  <span className="text-xs font-bold text-[#35B6DE] uppercase tracking-wider block mb-1">
                     Instant Booking Concierge
                   </span>
                   <h3 className="text-2xl font-extrabold text-white">
                     Book {service.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#D1D5DB] mt-1">
-                    All 9 fields below are delivered to <span className="text-[#35B5D8]">info@ontimedriverservice.com</span>. We allocate your driver within 15–30 minutes.
+                  <p className="text-xs sm:text-sm text-[#CFCFCF] mt-1">
+                    All 9 fields below are delivered to <span className="text-[#35B6DE]">info@ontimedriverservice.com</span>. We allocate your driver within 15–30 minutes.
                   </p>
                 </div>
 
@@ -362,7 +362,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div>
                       <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                        Full Name <span className="text-[#F2F028]">*</span>
+                        Full Name <span className="text-[#F3ED1A]">*</span>
                       </label>
                       <div className="relative">
                         <User className="absolute left-3.5 top-3.5 w-4 h-4 text-neutral-400" />
@@ -383,7 +383,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
 
                     <div>
                       <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                        Mobile Number <span className="text-[#F2F028]">*</span>
+                        Mobile Number <span className="text-[#F3ED1A]">*</span>
                       </label>
                       <div className="relative">
                         <Phone className="absolute left-3.5 top-3.5 w-4 h-4 text-neutral-400" />
@@ -408,7 +408,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div>
                       <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                        Email Address <span className="text-[#F2F028]">*</span>
+                        Email Address <span className="text-[#F3ED1A]">*</span>
                       </label>
                       <div className="relative">
                         <Mail className="absolute left-3.5 top-3.5 w-4 h-4 text-neutral-400" />
@@ -429,7 +429,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
 
                     <div>
                       <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                        Pickup Location <span className="text-[#F2F028]">*</span>
+                        Pickup Location <span className="text-[#F3ED1A]">*</span>
                       </label>
                       <div className="relative">
                         <MapPin className="absolute left-3.5 top-3.5 w-4 h-4 text-neutral-400" />
@@ -463,7 +463,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
                           type="text"
                           readOnly
                           value={service.title}
-                          className="dark-input w-full pl-10 pr-3 py-2.5 opacity-80 cursor-not-allowed text-[#35B5D8] font-bold"
+                          className="dark-input w-full pl-10 pr-3 py-2.5 opacity-80 cursor-not-allowed text-[#35B6DE] font-bold"
                         />
                       </div>
                     </div>
@@ -548,13 +548,13 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="btn-primary w-full h-[54px] text-base font-bold flex items-center justify-center gap-2 mt-4 shadow-xl shadow-[#F2F028]/25"
+                    className="btn-primary w-full h-[54px] text-base font-bold flex items-center justify-center gap-2 mt-4 shadow-xl shadow-[#F3ED1A]/25"
                   >
                     {isSubmitting ? (
                       <span>Sending to info@ontimedriverservice.com...</span>
                     ) : (
                       <>
-                        <Send className="w-4 h-4 text-[#0A0A0A]" />
+                        <Send className="w-4 h-4 text-[#050505]" />
                         <span>Submit Booking &amp; Allocate Chauffeur</span>
                       </>
                     )}
@@ -568,14 +568,14 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
               </div>
             ) : (
               <div className="text-center py-8">
-                <div className="w-16 h-16 rounded-full bg-[#35B5D8]/20 border border-[#35B5D8] text-[#35B5D8] flex items-center justify-center mx-auto mb-4 animate-bounce">
+                <div className="w-16 h-16 rounded-full bg-[#35B6DE]/20 border border-[#35B6DE] text-[#35B6DE] flex items-center justify-center mx-auto mb-4 animate-bounce">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                 <h3 className="text-2xl font-extrabold text-white mb-2">
                   Booking Request Received!
                 </h3>
-                <p className="text-sm text-[#D1D5DB] mb-5">
-                  Reference: <span className="font-mono font-bold text-[#F2F028]">{bookingRef}</span>
+                <p className="text-sm text-[#CFCFCF] mb-5">
+                  Reference: <span className="font-mono font-bold text-[#F3ED1A]">{bookingRef}</span>
                 </p>
                 <div className="bg-[#181818] rounded-xl p-4 border border-white/10 text-left text-xs space-y-2 mb-6 text-neutral-300">
                   <p>• <strong>Delivered To:</strong> info@ontimedriverservice.com</p>
@@ -602,7 +602,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
           <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-white">
             Need an Immediate Driver for {service.title}?
           </h2>
-          <p className="text-sm text-[#D1D5DB] max-w-xl mx-auto">
+          <p className="text-sm text-[#CFCFCF] max-w-xl mx-auto">
             Our 24/7 concierge is on standby across Mumbai, Thane, Navi Mumbai, Mira Road, Vasai, Virar &amp; Palghar.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3.5 pt-4">
@@ -610,7 +610,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
               href="tel:8652880057"
               className="btn-primary h-[52px] px-8 text-base font-bold flex items-center gap-2"
             >
-              <Phone className="w-4 h-4 text-[#0A0A0A]" />
+              <Phone className="w-4 h-4 text-[#050505]" />
               <span>Call Now: +91 8652880057</span>
             </a>
             <button

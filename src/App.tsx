@@ -94,7 +94,7 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white selection:bg-[#35B5D8]/30 selection:text-white relative font-body antialiased flex flex-col justify-between">
+    <div className="min-h-screen bg-[#050505] text-white selection:bg-[#35B6DE]/30 selection:text-white relative font-body antialiased flex flex-col justify-between overflow-x-hidden">
       {/* 1. Header / Navigation with Luxury Chauffeur Brand Re-Design */}
       <Navbar onOpenBooking={() => handleOpenBooking()} />
 

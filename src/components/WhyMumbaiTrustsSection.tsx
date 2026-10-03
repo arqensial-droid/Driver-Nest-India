@@ -62,17 +62,17 @@ export const WhyMumbaiTrustsSection: React.FC<WhyMumbaiTrustsSectionProps> = ({ 
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-[#0A0A0A] text-white border-b border-white/10 relative overflow-hidden">
+    <section className="py-20 lg:py-28 bg-[#050505] text-white border-b border-white/10 relative overflow-hidden">
       {/* Glows */}
-      <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-[#35B5D8]/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-[#35B6DE]/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121212] border border-[#35B5D8]/40 shadow-md mb-3.5">
-            <Sparkles className="w-3.5 h-3.5 text-[#F2F028]" />
-            <span className="text-xs font-bold uppercase tracking-wider text-[#35B5D8]">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B0B0B] border border-[#35B6DE]/40 shadow-md mb-3.5">
+            <Sparkles className="w-3.5 h-3.5 text-[#F3ED1A]" />
+            <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE]">
               Uncompromising Trust &amp; Safety
             </span>
           </div>
@@ -81,7 +81,7 @@ export const WhyMumbaiTrustsSection: React.FC<WhyMumbaiTrustsSectionProps> = ({ 
             Why Mumbai Trusts On Time Driver Service
           </h2>
 
-          <p className="text-subheading text-[#D1D5DB] leading-relaxed">
+          <p className="text-subheading text-[#CFCFCF] leading-relaxed">
             We eliminate the hazards of unverified roadside drivers and unorganized agencies by delivering vetted, trained, and police-verified chauffeurs with corporate discipline.
           </p>
         </div>
@@ -91,12 +91,12 @@ export const WhyMumbaiTrustsSection: React.FC<WhyMumbaiTrustsSectionProps> = ({ 
           {counters.map((c, i) => (
             <div
               key={i}
-              className="bg-[#121212] rounded-2xl p-6 sm:p-7 border border-white/10 shadow-xl hover:border-[#35B5D8]/50 transition-all text-center group"
+              className="bg-[#0B0B0B] rounded-2xl p-6 sm:p-7 border border-white/10 shadow-xl hover:border-[#35B6DE]/50 transition-all text-center group"
             >
-              <div className="w-12 h-12 rounded-xl bg-[#35B5D8]/15 border border-[#35B5D8]/30 group-hover:bg-[#35B5D8] text-[#35B5D8] group-hover:text-[#0A0A0A] flex items-center justify-center mx-auto mb-3 transition-colors">
+              <div className="w-12 h-12 rounded-xl bg-[#35B6DE]/15 border border-[#35B6DE]/30 group-hover:bg-[#35B6DE] text-[#35B6DE] group-hover:text-[#050505] flex items-center justify-center mx-auto mb-3 transition-colors">
                 <c.icon className="w-6 h-6" />
               </div>
-              <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white font-heading mb-1 group-hover:text-[#F2F028] transition-colors">
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white font-heading mb-1 group-hover:text-[#F3ED1A] transition-colors">
                 {c.number}
               </div>
               <div className="text-xs sm:text-sm font-bold text-white mb-0.5">
@@ -114,7 +114,7 @@ export const WhyMumbaiTrustsSection: React.FC<WhyMumbaiTrustsSectionProps> = ({ 
           
           {/* Left: Professional Indian Driver with Family Image */}
           <div className="lg:col-span-6 relative">
-            <div className="relative rounded-2xl overflow-hidden border border-white/15 shadow-2xl aspect-[4/3] bg-[#121212]">
+            <div className="relative rounded-2xl overflow-hidden border border-white/15 shadow-2xl aspect-[4/3] bg-[#0B0B0B]">
               <ImageWithFallback
                 src="/images/services/senior-citizen-assistance.jpg"
                 alt="Professional Indian driver assisting an Indian family and elderly parents safely into car in Mumbai"
@@ -123,11 +123,11 @@ export const WhyMumbaiTrustsSection: React.FC<WhyMumbaiTrustsSectionProps> = ({ 
                 locationTag="Mumbai Residential Hubs"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent pointer-events-none" />
               
               <div className="absolute bottom-4 left-4 right-4 text-white z-10">
                 <div className="glass-badge rounded-xl px-3.5 py-2.5 inline-flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#F2F028]" />
+                  <CheckCircle2 className="w-4 h-4 text-[#F3ED1A]" />
                   <span className="text-xs font-bold text-white">
                     Assisting Mumbai Families, Corporates &amp; Senior Citizens Since 2014
                   </span>
@@ -144,16 +144,16 @@ export const WhyMumbaiTrustsSection: React.FC<WhyMumbaiTrustsSectionProps> = ({ 
                 return (
                   <div
                     key={i}
-                    className="p-5 rounded-2xl bg-[#121212] border border-white/10 hover:border-[#35B5D8]/40 transition-all flex flex-col justify-between"
+                    className="p-5 rounded-2xl bg-[#0B0B0B] border border-white/10 hover:border-[#35B6DE]/40 transition-all flex flex-col justify-between"
                   >
                     <div>
-                      <div className="w-10 h-10 rounded-xl bg-[#35B5D8]/15 border border-[#35B5D8]/30 flex items-center justify-center text-[#35B5D8] mb-3">
+                      <div className="w-10 h-10 rounded-xl bg-[#35B6DE]/15 border border-[#35B6DE]/30 flex items-center justify-center text-[#35B6DE] mb-3">
                         <Icon className="w-5 h-5" />
                       </div>
                       <h3 className="text-base font-bold text-white mb-1.5">
                         {feat.title}
                       </h3>
-                      <p className="text-xs text-[#D1D5DB] leading-relaxed">
+                      <p className="text-xs text-[#CFCFCF] leading-relaxed">
                         {feat.description}
                       </p>
                     </div>
@@ -166,7 +166,7 @@ export const WhyMumbaiTrustsSection: React.FC<WhyMumbaiTrustsSectionProps> = ({ 
             <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <button
                 onClick={onOpenBooking}
-                className="btn-primary h-[52px] px-8 text-base font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#F2F028]/20"
+                className="btn-primary h-[52px] px-8 text-base font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#F3ED1A]/20"
               >
                 <span>Book a Verified Chauffeur</span>
                 <ArrowRight className="w-4 h-4" />
@@ -176,7 +176,7 @@ export const WhyMumbaiTrustsSection: React.FC<WhyMumbaiTrustsSectionProps> = ({ 
                 href="tel:8652880057"
                 className="btn-secondary h-[52px] px-6 text-sm font-semibold flex items-center justify-center gap-2"
               >
-                <Phone className="w-4 h-4 text-[#35B5D8]" />
+                <Phone className="w-4 h-4 text-[#35B6DE]" />
                 <span>Call Concierge: 8652880057</span>
               </a>
             </div>

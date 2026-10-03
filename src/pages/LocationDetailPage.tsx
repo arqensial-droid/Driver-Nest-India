@@ -68,7 +68,7 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
 
   if (!location) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 pt-24 pb-16 bg-[#0A0A0A] text-white">
+      <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 pt-24 pb-16 bg-[#050505] text-white">
         <h1 className="text-2xl sm:text-3xl font-bold font-heading text-white mb-3">Location Not Found</h1>
         <p className="text-neutral-400 mb-6 max-w-md text-sm">
           The requested service area could not be located. Explore our coverage across Mumbai and MMR.
@@ -142,14 +142,14 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
         schema={locationSchema}
       />
 
-      <div className="pt-24 sm:pt-28 pb-20 bg-[#0A0A0A] text-white overflow-x-hidden">
+      <div className="pt-24 sm:pt-28 pb-20 bg-[#050505] text-white overflow-x-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-neutral-400">
-            <Link href="/" className="hover:text-[#35B5D8] transition-colors">Home</Link>
+            <Link href="/" className="hover:text-[#35B6DE] transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
-            <Link href="/service-areas" className="hover:text-[#35B5D8] transition-colors">Service Areas</Link>
+            <Link href="/service-areas" className="hover:text-[#35B6DE] transition-colors">Service Areas</Link>
             <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
             <span className="text-white font-semibold">{location.name}</span>
           </nav>
@@ -157,9 +157,9 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
           {/* Hero Section */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center mb-16 sm:mb-20">
             <div className="lg:col-span-7 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121212] border border-[#35B5D8]/40 shadow-md">
-                <Sparkles className="w-3.5 h-3.5 text-[#F2F028]" />
-                <span className="text-xs font-bold uppercase tracking-wider text-[#35B5D8]">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B0B0B] border border-[#35B6DE]/40 shadow-md">
+                <Sparkles className="w-3.5 h-3.5 text-[#F3ED1A]" />
+                <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE]">
                   Verified Dispatch: {location.avgDispatchTime}
                 </span>
               </div>
@@ -168,7 +168,7 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                 Driver Service in {location.name}
               </h1>
 
-              <p className="text-subheading text-[#D1D5DB] leading-relaxed">
+              <p className="text-subheading text-[#CFCFCF] leading-relaxed">
                 {location.fullContent}
               </p>
 
@@ -176,9 +176,9 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-4">
                 <button
                   onClick={() => onOpenBooking(undefined, location.name)}
-                  className="btn-primary h-[52px] px-8 text-base font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#F2F028]/20"
+                  className="btn-primary h-[52px] px-8 text-base font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#F3ED1A]/20"
                 >
-                  <Calendar className="w-4 h-4 text-[#0A0A0A]" />
+                  <Calendar className="w-4 h-4 text-[#050505]" />
                   <span>Book Driver in {location.name}</span>
                 </button>
 
@@ -186,7 +186,7 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                   href="tel:8652880057"
                   className="btn-secondary h-[52px] px-6 text-sm font-semibold flex items-center justify-center gap-2"
                 >
-                  <Phone className="w-4 h-4 text-[#35B5D8]" />
+                  <Phone className="w-4 h-4 text-[#35B6DE]" />
                   <span>Call 8652880057</span>
                 </a>
               </div>
@@ -194,7 +194,7 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
 
             {/* Media */}
             <div className="lg:col-span-5">
-              <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#121212]">
+              <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#0B0B0B]">
                 <ImageWithFallback
                   src={location.image}
                   alt={`Driver service in ${location.name}`}
@@ -202,8 +202,8 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                   locationTag={location.name}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-3 left-3 bg-[#121212]/90 border border-white/10 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#F2F028]">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-3 left-3 bg-[#0B0B0B]/90 border border-white/10 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#F3ED1A]">
                   {location.name} Local Staging Pod
                 </div>
               </div>
@@ -212,9 +212,9 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
 
           {/* Local Staging Hubs & Key Corridors */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-            <div className="bg-[#121212] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
+            <div className="bg-[#0B0B0B] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
               <div className="flex items-center gap-2 text-sm font-bold text-white mb-3">
-                <MapPin className="w-4 h-4 text-[#35B5D8]" />
+                <MapPin className="w-4 h-4 text-[#35B6DE]" />
                 <span>Key Staging Hubs in {location.name}</span>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -229,16 +229,16 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
               </div>
             </div>
 
-            <div className="bg-[#121212] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
+            <div className="bg-[#0B0B0B] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
               <div className="flex items-center gap-2 text-sm font-bold text-white mb-3">
-                <Route className="w-4 h-4 text-[#F2F028]" />
+                <Route className="w-4 h-4 text-[#F3ED1A]" />
                 <span>Major Transit Arteries</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {location.keyRoutes.map((route, i) => (
                   <span
                     key={i}
-                    className="px-3 py-1.5 rounded-xl bg-[#35B5D8]/10 border border-[#35B5D8]/20 text-[#35B5D8] text-xs font-medium"
+                    className="px-3 py-1.5 rounded-xl bg-[#35B6DE]/10 border border-[#35B6DE]/20 text-[#35B6DE] text-xs font-medium"
                   >
                     {route}
                   </span>
@@ -256,16 +256,16 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
               {location.localFaqs.map((faq, idx) => {
                 const isOpen = openFaqIndex === idx;
                 return (
-                  <div key={idx} className="bg-[#121212] rounded-xl border border-white/10 overflow-hidden">
+                  <div key={idx} className="bg-[#0B0B0B] rounded-xl border border-white/10 overflow-hidden">
                     <button
                       onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
                       className="w-full p-4 sm:p-5 text-left font-bold text-white text-sm flex items-center justify-between gap-3"
                     >
                       <span>{faq.question}</span>
-                      <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180 text-[#35B5D8]' : ''}`} />
+                      <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180 text-[#35B6DE]' : ''}`} />
                     </button>
                     {isOpen && (
-                      <div className="px-5 pb-5 text-sm text-[#D1D5DB] leading-relaxed border-t border-white/5 pt-3">
+                      <div className="px-5 pb-5 text-sm text-[#CFCFCF] leading-relaxed border-t border-white/5 pt-3">
                         {faq.answer}
                       </div>
                     )}
@@ -276,17 +276,17 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
           </div>
 
           {/* Lead Form for this location */}
-          <div className="max-w-2xl mx-auto bg-[#121212] rounded-2xl border border-white/15 p-6 sm:p-8 shadow-2xl">
+          <div className="max-w-2xl mx-auto bg-[#0B0B0B] rounded-2xl border border-white/15 p-6 sm:p-8 shadow-2xl">
             {submitted ? (
               <div className="py-8 text-center space-y-3">
-                <div className="w-14 h-14 rounded-full bg-[#35B5D8]/20 border border-[#35B5D8] text-[#35B5D8] flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-8 h-8 text-[#35B5D8]" />
+                <div className="w-14 h-14 rounded-full bg-[#35B6DE]/20 border border-[#35B6DE] text-[#35B6DE] flex items-center justify-center mx-auto">
+                  <CheckCircle2 className="w-8 h-8 text-[#35B6DE]" />
                 </div>
                 <h3 className="text-2xl font-extrabold text-white">
                   Booking Request Received!
                 </h3>
-                <p className="text-sm text-[#D1D5DB]">
-                  A booking manager is assigning a driver in {location.name}. Reference ID: <strong className="text-[#F2F028]">{bookingRef}</strong>.
+                <p className="text-sm text-[#CFCFCF]">
+                  A booking manager is assigning a driver in {location.name}. Reference ID: <strong className="text-[#F3ED1A]">{bookingRef}</strong>.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
@@ -298,14 +298,14 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
             ) : (
               <div>
                 <div className="text-center mb-6">
-                  <span className="text-xs font-bold text-[#35B5D8] uppercase tracking-wider block mb-1">
+                  <span className="text-xs font-bold text-[#35B6DE] uppercase tracking-wider block mb-1">
                     Direct Staging Dispatch
                   </span>
                   <h2 className="text-xl sm:text-2xl font-bold font-heading text-white">
                     Book a Driver in {location.name}
                   </h2>
-                  <p className="text-xs sm:text-sm text-[#D1D5DB] mt-1">
-                    Delivered directly to <span className="text-[#35B5D8]">info@ontimedriverservice.com</span>.
+                  <p className="text-xs sm:text-sm text-[#CFCFCF] mt-1">
+                    Delivered directly to <span className="text-[#35B6DE]">info@ontimedriverservice.com</span>.
                   </p>
                 </div>
 
@@ -330,7 +330,7 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                        Full Name <span className="text-[#F2F028]">*</span>
+                        Full Name <span className="text-[#F3ED1A]">*</span>
                       </label>
                       <input
                         type="text"
@@ -348,7 +348,7 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
 
                     <div>
                       <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                        Mobile Number <span className="text-[#F2F028]">*</span>
+                        Mobile Number <span className="text-[#F3ED1A]">*</span>
                       </label>
                       <input
                         type="tel"
@@ -370,7 +370,7 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                        Email Address <span className="text-[#F2F028]">*</span>
+                        Email Address <span className="text-[#F3ED1A]">*</span>
                       </label>
                       <input
                         type="email"
@@ -394,7 +394,7 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                         type="text"
                         readOnly
                         value={location.name}
-                        className="dark-input w-full px-3 py-2.5 opacity-80 cursor-not-allowed text-[#35B5D8] font-bold"
+                        className="dark-input w-full px-3 py-2.5 opacity-80 cursor-not-allowed text-[#35B6DE] font-bold"
                       />
                     </div>
                   </div>
@@ -486,7 +486,7 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="btn-primary w-full h-[52px] text-base font-bold flex items-center justify-center gap-2 mt-4 shadow-lg shadow-[#F2F028]/20"
+                    className="btn-primary w-full h-[52px] text-base font-bold flex items-center justify-center gap-2 mt-4 shadow-lg shadow-[#F3ED1A]/20"
                   >
                     {isSubmitting ? 'Transmitting to Desk...' : `Book Chauffeur in ${location.name}`}
                   </button>

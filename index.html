@@ -43,6 +43,9 @@
     <meta name="geo.position" content="19.076090;72.877426" />
     <meta name="ICBM" content="19.076090, 72.877426" />
 
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#050505" />
+
     <!-- Google Fonts for Modern Clean Corporate Aesthetic -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -52,6 +55,7 @@
     />
 
     <!-- Comprehensive Schema.org Structured Data (JSON-LD) -->
+    <!-- Includes: Organization Schema, LocalBusiness Schema, Service Schema, FAQ Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -63,7 +67,7 @@
           "url": "https://ontimedriverservice.com/",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://ontimedriverservice.com/images/logo.png"
+            "url": "https://ontimedriverservice.com/images/services/chauffeur-service.jpg"
           },
           "contactPoint": {
             "@type": "ContactPoint",
@@ -78,7 +82,7 @@
           "@type": "LocalBusiness",
           "@id": "https://ontimedriverservice.com/#localbusiness",
           "name": "On Time Driver Service",
-          "image": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+          "image": "https://ontimedriverservice.com/images/services/chauffeur-service.jpg",
           "telephone": "+91 8652880057",
           "email": "info@ontimedriverservice.com",
           "priceRange": "$$",
@@ -113,6 +117,58 @@
           ]
         },
         {
+          "@type": "Service",
+          "@id": "https://ontimedriverservice.com/#service",
+          "name": "Professional Driver & Chauffeur Services",
+          "serviceType": "Chauffeur & Designated Driver Service",
+          "provider": {
+            "@id": "https://ontimedriverservice.com/#localbusiness"
+          },
+          "areaServed": ["Mumbai", "Thane", "Navi Mumbai", "Mira Road", "Bhayandar", "Vasai", "Virar", "Palghar"],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Driver Categories",
+            "itemListElement": [
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Personal Driver" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Corporate Driver" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Permanent Driver" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Outstation Driver" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Airport Driver" } },
+              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Hourly Driver" } }
+            ]
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://ontimedriverservice.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How does On Time Driver Service verify drivers in Mumbai?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Every driver undergoes mandatory police verification clearance across Mumbai, Thane, or Navi Mumbai commissionerates, UIDAI biometric Aadhaar authentication, and physical residence verification."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What happens if my assigned chauffeur takes an emergency leave?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We provide a 100% Replacement Guarantee with standby drivers dispatched from our local staging hubs across Mumbai MMR at zero additional cost."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How fast can a driver arrive at my location?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "For urgent bookings in Mumbai, BKC, South Mumbai, Western Suburbs, Thane, and Navi Mumbai, our instant dispatch allocation typical arrival time is 30 to 45 minutes."
+              }
+            }
+          ]
+        },
+        {
           "@type": "WebSite",
           "@id": "https://ontimedriverservice.com/#website",
           "url": "https://ontimedriverservice.com/",
@@ -125,7 +181,7 @@
     }
     </script>
   </head>
-  <body class="bg-[#F8F9FA] text-[#111111] antialiased selection:bg-[#37B5D6]/20 selection:text-[#37B5D6]">
+  <body class="bg-[#050505] text-[#FFFFFF] antialiased selection:bg-[#35B6DE]/30 selection:text-white">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

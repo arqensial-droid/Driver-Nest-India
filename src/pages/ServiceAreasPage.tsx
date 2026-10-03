@@ -37,28 +37,28 @@ export const ServiceAreasPage: React.FC<ServiceAreasPageProps> = ({ onOpenBookin
         schema={schema}
       />
 
-      <div className="pt-24 sm:pt-28 pb-20 bg-[#0A0A0A] text-white overflow-x-hidden">
+      <div className="pt-24 sm:pt-28 pb-20 bg-[#050505] text-white overflow-x-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-neutral-400">
-            <Link href="/" className="hover:text-[#35B5D8] transition-colors">Home</Link>
+            <Link href="/" className="hover:text-[#35B6DE] transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
             <span className="text-white font-semibold">Service Areas</span>
           </nav>
 
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121212] border border-[#35B5D8]/40 shadow-md mb-3.5">
-              <Sparkles className="w-3.5 h-3.5 text-[#F2F028]" />
-              <span className="text-xs font-bold uppercase tracking-wider text-[#35B5D8]">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B0B0B] border border-[#35B6DE]/40 shadow-md mb-3.5">
+              <Sparkles className="w-3.5 h-3.5 text-[#F3ED1A]" />
+              <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE]">
                 Mumbai Metropolitan Region Coverage
               </span>
             </div>
             <h1 className="text-h1 font-extrabold text-white mb-4">
               Driver Service Across Mumbai &amp; MMR
             </h1>
-            <p className="text-subheading text-[#D1D5DB] leading-relaxed">
+            <p className="text-subheading text-[#CFCFCF] leading-relaxed">
               On Time Driver Service operates dedicated driver clusters across key regions in the Mumbai Metropolitan Region. Select your locality to view dispatch times, arterial routes, and book a verified driver.
             </p>
           </div>
@@ -68,7 +68,7 @@ export const ServiceAreasPage: React.FC<ServiceAreasPageProps> = ({ onOpenBookin
             {locationsData.map((location) => (
               <div
                 key={location.id}
-                className="bg-[#121212] rounded-2xl border border-white/10 hover:border-[#35B5D8]/50 flex flex-col justify-between overflow-hidden shadow-xl hover:shadow-[#35B5D8]/10 transition-all duration-300 hover:-translate-y-1 group"
+                className="bg-[#0B0B0B] rounded-2xl border border-white/10 hover:border-[#35B6DE]/50 flex flex-col justify-between overflow-hidden shadow-xl hover:shadow-[#35B6DE]/10 transition-all duration-300 hover:-translate-y-1 group"
               >
                 <div>
                   {/* Image */}
@@ -80,23 +80,23 @@ export const ServiceAreasPage: React.FC<ServiceAreasPageProps> = ({ onOpenBookin
                       locationTag={location.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-transparent to-transparent pointer-events-none" />
 
-                    <div className="absolute top-3 left-3 bg-[#35B5D8] text-[#0A0A0A] text-xs font-extrabold px-3 py-1 rounded-md shadow-md">
+                    <div className="absolute top-3 left-3 bg-[#35B6DE] text-[#050505] text-xs font-extrabold px-3 py-1 rounded-md shadow-md">
                       {location.name}
                     </div>
 
                     <div className="absolute top-3 right-3 bg-black/80 border border-white/10 text-white text-[11px] font-semibold px-2.5 py-1 rounded-md flex items-center gap-1">
-                      <Clock className="w-3 h-3 text-[#F2F028]" />
+                      <Clock className="w-3 h-3 text-[#F3ED1A]" />
                       <span>{location.avgDispatchTime}</span>
                     </div>
                   </div>
 
                   <div className="p-6">
-                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#35B5D8] transition-colors">
+                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#35B6DE] transition-colors">
                       Driver Service in {location.name}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#D1D5DB] line-clamp-2 leading-relaxed mb-4">
+                    <p className="text-xs sm:text-sm text-[#CFCFCF] line-clamp-2 leading-relaxed mb-4">
                       {location.shortSnippet}
                     </p>
 
@@ -125,7 +125,7 @@ export const ServiceAreasPage: React.FC<ServiceAreasPageProps> = ({ onOpenBookin
                     className="flex-1 h-[50px] btn-secondary text-sm font-semibold flex items-center justify-center gap-1.5"
                   >
                     <span>View Hub</span>
-                    <ArrowRight className="w-4 h-4 text-[#35B5D8]" />
+                    <ArrowRight className="w-4 h-4 text-[#35B6DE]" />
                   </Link>
 
                   <button
@@ -140,10 +140,10 @@ export const ServiceAreasPage: React.FC<ServiceAreasPageProps> = ({ onOpenBookin
           </div>
 
           {/* Regional Concierge Banner */}
-          <div className="mt-16 p-8 rounded-2xl bg-[#121212] border border-white/15 text-center flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+          <div className="mt-16 p-8 rounded-2xl bg-[#0B0B0B] border border-white/15 text-center flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
             <div className="text-left">
               <h3 className="text-xl font-bold text-white">Need a driver outside standard municipal zones?</h3>
-              <p className="text-xs sm:text-sm text-[#D1D5DB] mt-1">
+              <p className="text-xs sm:text-sm text-[#CFCFCF] mt-1">
                 We accommodate long-distance outstation routes to Lonavala, Pune, Alibaug, and Shirdi.
               </p>
             </div>
@@ -151,7 +151,7 @@ export const ServiceAreasPage: React.FC<ServiceAreasPageProps> = ({ onOpenBookin
               href="tel:8652880057"
               className="btn-primary h-[50px] px-6 text-sm font-bold inline-flex items-center gap-2"
             >
-              <Phone className="w-4 h-4 text-[#0A0A0A]" />
+              <Phone className="w-4 h-4 text-[#050505]" />
               <span>Call 8652880057</span>
             </a>
           </div>

@@ -55,9 +55,9 @@ export const RecentBookingNotification: React.FC = () => {
       aria-label="Recent booking notification"
       className="fixed bottom-20 left-4 z-40 max-w-sm hidden sm:block animate-fade-in"
     >
-      <div className="bg-[#121212]/95 backdrop-blur-md border border-[#35B5D8]/40 shadow-2xl shadow-[#35B5D8]/10 rounded-xl p-3.5 flex items-start gap-3 text-left">
-        <div className="w-10 h-10 rounded-lg bg-[#35B5D8]/15 border border-[#35B5D8]/30 flex items-center justify-center shrink-0 text-[#35B5D8] mt-0.5">
-          <ShieldCheck className="w-5 h-5 text-[#35B5D8]" />
+      <div className="bg-[#0B0B0B]/95 backdrop-blur-md border border-[#35B6DE]/40 shadow-2xl shadow-[#35B6DE]/10 rounded-xl p-3.5 flex items-start gap-3 text-left">
+        <div className="w-10 h-10 rounded-lg bg-[#35B6DE]/15 border border-[#35B6DE]/30 flex items-center justify-center shrink-0 text-[#35B6DE] mt-0.5">
+          <ShieldCheck className="w-5 h-5 text-[#35B6DE]" />
         </div>
         <div className="flex-1 min-w-0 pr-2">
           <div className="flex items-center gap-1.5 text-xs text-[#9CA3AF] mb-0.5">
@@ -67,15 +67,15 @@ export const RecentBookingNotification: React.FC = () => {
             <span>{current.timeAgo}</span>
           </div>
           <p className="text-sm font-semibold text-white truncate">
-            {current.name} booked <span className="text-[#F2F028]">{current.service}</span>
+            {current.name} booked <span className="text-[#F3ED1A]">{current.service}</span>
           </p>
-          <div className="flex items-center gap-2 mt-1 text-xs text-[#D1D5DB]">
+          <div className="flex items-center gap-2 mt-1 text-xs text-[#CFCFCF]">
             <span className="flex items-center gap-1 truncate text-neutral-300">
-              <MapPin className="w-3 h-3 text-[#35B5D8] shrink-0" />
+              <MapPin className="w-3 h-3 text-[#35B6DE] shrink-0" />
               {current.location}
             </span>
             <span className="text-neutral-500">|</span>
-            <span className="text-[#35B5D8] text-[11px] truncate">{current.vehicle}</span>
+            <span className="text-[#35B6DE] text-[11px] truncate">{current.vehicle}</span>
           </div>
         </div>
         <button

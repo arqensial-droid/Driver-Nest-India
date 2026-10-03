@@ -22,24 +22,24 @@ export const StickyMobileBar: React.FC<StickyMobileBarProps> = ({ onOpenBooking 
   return (
     <nav
       aria-label="Quick mobile booking actions"
-      className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-[#0D0D0D]/95 backdrop-blur-md border-t border-white/15 px-3 py-2.5 shadow-2xl animate-fade-in"
+      className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-[#050505]/95 backdrop-blur-md border-t border-white/15 px-3 py-2.5 shadow-2xl animate-fade-in"
     >
       <div className="max-w-md mx-auto grid grid-cols-2 gap-2.5">
         {/* Sticky Call Button */}
         <a
           href="tel:8652880057"
-          className="h-[50px] rounded-xl bg-[#161616] border border-[#35B5D8]/50 text-white flex items-center justify-center gap-2 text-sm font-bold active:scale-98 transition-transform shadow-md"
+          className="h-[50px] rounded-xl bg-[#0B0B0B] border border-[#35B6DE]/50 text-white flex items-center justify-center gap-2 text-sm font-bold active:scale-98 transition-transform shadow-md"
         >
-          <Phone className="w-4 h-4 text-[#35B5D8]" />
+          <Phone className="w-4 h-4 text-[#35B6DE]" />
           <span>Call Desk</span>
         </a>
 
         {/* Sticky Book Driver Button */}
         <button
           onClick={onOpenBooking}
-          className="h-[50px] rounded-xl bg-[#F2F028] text-[#0A0A0A] flex items-center justify-center gap-2 text-sm font-bold active:scale-98 transition-transform shadow-lg shadow-[#F2F028]/20"
+          className="h-[50px] rounded-xl bg-[#F3ED1A] text-[#050505] flex items-center justify-center gap-2 text-sm font-bold active:scale-98 transition-transform shadow-lg shadow-[#F3ED1A]/20"
         >
-          <Calendar className="w-4 h-4 text-[#0A0A0A]" />
+          <Calendar className="w-4 h-4 text-[#050505]" />
           <span>Book Driver</span>
         </button>
       </div>

@@ -108,10 +108,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-fade-in overflow-y-auto">
-      <div className="relative w-full max-w-lg bg-[#121212] rounded-2xl border border-white/15 shadow-2xl p-6 sm:p-7 my-6 overflow-hidden text-white">
+      <div className="relative w-full max-w-lg bg-[#0B0B0B] rounded-2xl border border-white/15 shadow-2xl p-6 sm:p-7 my-6 overflow-hidden text-white">
         
         {/* Ambient Modal Glow */}
-        <div className="absolute top-0 right-0 w-48 h-48 bg-[#35B5D8]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-48 h-48 bg-[#35B6DE]/10 rounded-full blur-3xl pointer-events-none" />
 
         {/* Close Button */}
         <button
@@ -126,15 +126,15 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           <div>
             {/* Modal Header */}
             <div className="mb-6">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#35B5D8]/15 border border-[#35B5D8]/30 text-[#35B5D8] text-xs font-bold mb-2">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#35B6DE]/15 border border-[#35B6DE]/30 text-[#35B6DE] text-xs font-bold mb-2">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>Verified Chauffeur Dispatch</span>
               </div>
               <h3 className="text-xl sm:text-2xl font-bold font-heading text-white">
                 Book a Verified Driver
               </h3>
-              <p className="text-xs sm:text-sm text-[#D1D5DB] mt-1">
-                All bookings delivered directly to our 24/7 concierge at <span className="text-[#35B5D8]">info@ontimedriverservice.com</span>.
+              <p className="text-xs sm:text-sm text-[#CFCFCF] mt-1">
+                All bookings delivered directly to our 24/7 concierge at <span className="text-[#35B6DE]">info@ontimedriverservice.com</span>.
               </p>
             </div>
 
@@ -163,7 +163,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                    Your Full Name <span className="text-[#F2F028]">*</span>
+                    Your Full Name <span className="text-[#F3ED1A]">*</span>
                   </label>
                   <div className="relative">
                     <User className="w-4 h-4 text-neutral-400 absolute left-3 top-3.5" />
@@ -184,7 +184,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
                 <div>
                   <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                    Mobile Number <span className="text-[#F2F028]">*</span>
+                    Mobile Number <span className="text-[#F3ED1A]">*</span>
                   </label>
                   <div className="relative">
                     <Phone className="w-4 h-4 text-neutral-400 absolute left-3 top-3.5" />
@@ -209,7 +209,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                    Email Address <span className="text-[#F2F028]">*</span>
+                    Email Address <span className="text-[#F3ED1A]">*</span>
                   </label>
                   <div className="relative">
                     <Mail className="w-4 h-4 text-neutral-400 absolute left-3 top-3.5" />
@@ -230,7 +230,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
                 <div>
                   <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                    Location / Pickup Area <span className="text-[#F2F028]">*</span>
+                    Location / Pickup Area <span className="text-[#F3ED1A]">*</span>
                   </label>
                   <div className="relative">
                     <MapPin className="w-4 h-4 text-neutral-400 absolute left-3 top-3.5" />
@@ -357,13 +357,13 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="btn-primary w-full h-[52px] text-base font-bold flex items-center justify-center gap-2 mt-4 shadow-lg shadow-[#F2F028]/25"
+                className="btn-primary w-full h-[52px] text-base font-bold flex items-center justify-center gap-2 mt-4 shadow-lg shadow-[#F3ED1A]/25"
               >
                 {isSubmitting ? (
                   <span>Dispatching to Concierge Desk...</span>
                 ) : (
                   <>
-                    <Send className="w-4 h-4 text-[#0A0A0A]" />
+                    <Send className="w-4 h-4 text-[#050505]" />
                     <span>Confirm Booking &amp; Allocate Chauffeur</span>
                   </>
                 )}
@@ -377,7 +377,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         ) : (
           /* Confirmation Success Screen */
           <div className="text-center py-6">
-            <div className="w-16 h-16 rounded-full bg-[#35B5D8]/20 border border-[#35B5D8] text-[#35B5D8] flex items-center justify-center mx-auto mb-4 animate-bounce">
+            <div className="w-16 h-16 rounded-full bg-[#35B6DE]/20 border border-[#35B6DE] text-[#35B6DE] flex items-center justify-center mx-auto mb-4 animate-bounce">
               <CheckCircle2 className="w-8 h-8" />
             </div>
 
@@ -385,8 +385,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               Booking Request Received!
             </h3>
 
-            <p className="text-sm text-[#D1D5DB] mb-4">
-              Booking Ref: <span className="font-mono font-bold text-[#F2F028]">{bookingRef}</span>
+            <p className="text-sm text-[#CFCFCF] mb-4">
+              Booking Ref: <span className="font-mono font-bold text-[#F3ED1A]">{bookingRef}</span>
             </p>
 
             <div className="bg-[#181818] rounded-xl p-4 border border-white/10 text-left text-xs space-y-2 mb-6 text-neutral-300">

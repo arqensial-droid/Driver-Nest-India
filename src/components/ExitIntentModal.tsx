@@ -35,7 +35,7 @@ export const ExitIntentModal: React.FC<ExitIntentModalProps> = ({ onOpenBooking 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-      <div className="bg-[#121212] border border-white/15 rounded-2xl max-w-md w-full p-6 sm:p-8 relative shadow-2xl text-center text-white">
+      <div className="bg-[#0B0B0B] border border-white/15 rounded-2xl max-w-md w-full p-6 sm:p-8 relative shadow-2xl text-center text-white">
         <button
           onClick={handleDismiss}
           className="absolute top-4 right-4 p-2 text-neutral-400 hover:text-white rounded-xl hover:bg-white/10 transition-colors cursor-pointer"
@@ -44,11 +44,11 @@ export const ExitIntentModal: React.FC<ExitIntentModalProps> = ({ onOpenBooking 
           <X className="w-5 h-5" />
         </button>
 
-        <div className="w-13 h-13 rounded-2xl bg-[#35B5D8]/15 border border-[#35B5D8]/30 flex items-center justify-center mx-auto mb-3.5 text-[#35B5D8]">
+        <div className="w-13 h-13 rounded-2xl bg-[#35B6DE]/15 border border-[#35B6DE]/30 flex items-center justify-center mx-auto mb-3.5 text-[#35B6DE]">
           <Clock className="w-6 h-6" />
         </div>
 
-        <span className="text-xs font-bold uppercase tracking-wider text-[#35B5D8] block mb-1">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE] block mb-1">
           Instant Driver Allocation Desk
         </span>
 
@@ -56,14 +56,14 @@ export const ExitIntentModal: React.FC<ExitIntentModalProps> = ({ onOpenBooking 
           Looking for a Verified Driver in Mumbai?
         </h3>
 
-        <p className="text-xs sm:text-sm text-[#D1D5DB] leading-relaxed mb-6 font-normal">
+        <p className="text-xs sm:text-sm text-[#CFCFCF] leading-relaxed mb-6 font-normal">
           Speak directly with our concierge team. We match your vehicle model and schedule with a 100% police-verified chauffeur within 30 minutes.
         </p>
 
         <div className="space-y-3">
           <button
             onClick={handleClaim}
-            className="btn-primary w-full h-[52px] text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#F2F028]/20"
+            className="btn-primary w-full h-[52px] text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#F3ED1A]/20"
           >
             <span>Book a Driver Online</span>
             <ArrowRight className="w-4 h-4" />
@@ -73,7 +73,7 @@ export const ExitIntentModal: React.FC<ExitIntentModalProps> = ({ onOpenBooking 
             href="tel:8652880057"
             className="btn-secondary w-full h-[52px] text-sm font-semibold flex items-center justify-center gap-2"
           >
-            <Phone className="w-4 h-4 text-[#35B5D8]" />
+            <Phone className="w-4 h-4 text-[#35B6DE]" />
             <span>Call 24/7 Concierge: 8652880057</span>
           </a>
         </div>

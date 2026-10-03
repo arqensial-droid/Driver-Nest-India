@@ -89,34 +89,34 @@ export const ContactPage: React.FC = () => {
         canonicalPath="/contact"
       />
 
-      <div className="pt-24 sm:pt-28 pb-20 bg-[#0A0A0A] text-white overflow-x-hidden">
+      <div className="pt-24 sm:pt-28 pb-20 bg-[#050505] text-white overflow-x-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-neutral-400">
-            <Link href="/" className="hover:text-[#35B5D8] transition-colors">Home</Link>
+            <Link href="/" className="hover:text-[#35B6DE] transition-colors">Home</Link>
             <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
             <span className="text-white font-semibold">Contact Us</span>
           </nav>
 
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121212] border border-[#35B5D8]/40 shadow-md mb-3.5">
-              <Headphones className="w-3.5 h-3.5 text-[#F2F028]" />
-              <span className="text-xs font-bold uppercase tracking-wider text-[#35B5D8]">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B0B0B] border border-[#35B6DE]/40 shadow-md mb-3.5">
+              <Headphones className="w-3.5 h-3.5 text-[#F3ED1A]" />
+              <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE]">
                 24/7 Chauffeur Operations Desk
               </span>
             </div>
             <h1 className="text-h1 font-extrabold text-white mb-4">
               Contact On Time Driver Service
             </h1>
-            <p className="text-subheading text-[#D1D5DB] leading-relaxed">
+            <p className="text-subheading text-[#CFCFCF] leading-relaxed">
               Need a verified driver within 30 minutes? Or planning monthly chauffeur placement for your family or corporate fleet? Reach our concierge team directly.
             </p>
           </div>
 
           {/* Contact Showcase Visual Card */}
-          <div className="bg-[#121212] rounded-2xl p-6 sm:p-8 border border-white/15 shadow-2xl mb-14">
+          <div className="bg-[#0B0B0B] rounded-2xl p-6 sm:p-8 border border-white/15 shadow-2xl mb-14">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               {/* Driver standing beside vehicle visual */}
               <div className="lg:col-span-6 relative">
@@ -129,7 +129,7 @@ export const ContactPage: React.FC = () => {
                     locationTag="Mumbai BKC Support Pod"
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent pointer-events-none" />
                   <div className="absolute bottom-3 left-3 right-3 text-white">
                     <span className="glass-badge px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2">
                       <ShieldCheck className="w-4 h-4 text-[#22C55E]" />
@@ -141,14 +141,14 @@ export const ContactPage: React.FC = () => {
 
               {/* Direct Support Visual Channels */}
               <div className="lg:col-span-6 space-y-4">
-                <div className="text-xs font-bold uppercase tracking-wider text-[#35B5D8] flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-[#F2F028]" />
+                <div className="text-xs font-bold uppercase tracking-wider text-[#35B6DE] flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-[#F3ED1A]" />
                   <span>Immediate Communication Channels</span>
                 </div>
                 <h2 className="text-xl sm:text-2xl font-bold font-heading text-white">
                   Speak Directly with Our Mumbai Concierge Desk
                 </h2>
-                <p className="text-sm text-[#D1D5DB] leading-relaxed font-normal">
+                <p className="text-sm text-[#CFCFCF] leading-relaxed font-normal">
                   Our operations team manages active driver allocations around the clock. Whether for urgent early morning airport transfers or monthly chauffeur interviews, we respond within 15 minutes.
                 </p>
 
@@ -156,20 +156,20 @@ export const ContactPage: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
                   <a
                     href="tel:+918652880057"
-                    className="bg-[#181818] rounded-xl p-4 border border-white/10 hover:border-[#35B5D8] transition-all group flex items-start gap-3"
+                    className="bg-[#181818] rounded-xl p-4 border border-white/10 hover:border-[#35B6DE] transition-all group flex items-start gap-3"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-[#35B5D8]/15 border border-[#35B5D8]/30 text-[#35B5D8] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-xl bg-[#35B6DE]/15 border border-[#35B6DE]/30 text-[#35B6DE] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                       <Phone className="w-5 h-5" />
                     </div>
                     <div>
                       <div className="text-[10px] font-bold uppercase text-neutral-400">Call Support</div>
-                      <div className="text-sm font-bold text-white group-hover:text-[#35B5D8]">+91 8652880057</div>
+                      <div className="text-sm font-bold text-white group-hover:text-[#35B6DE]">+91 8652880057</div>
                       <div className="text-[11px] text-[#22C55E]">24/7 Emergency Line</div>
                     </div>
                   </a>
 
                   <a
-                    href="https://wa.me/918652880057?text=Hello%20On%20Time%20Driver%20Service,%20I%20need%20a%20driver%20in%20Mumbai."
+                    href="https://wa.me/918652880057?text=Hi,%20I%20need%20a%20professional%20driver%20service."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-[#181818] rounded-xl p-4 border border-white/10 hover:border-[#25D366] transition-all group flex items-start gap-3"
@@ -186,9 +186,9 @@ export const ContactPage: React.FC = () => {
                 </div>
 
                 <div className="flex items-center gap-2 pt-1 text-xs text-neutral-400">
-                  <Mail className="w-4 h-4 text-[#35B5D8]" />
+                  <Mail className="w-4 h-4 text-[#35B6DE]" />
                   <span>Official Inquiries:</span>
-                  <a href="mailto:info@ontimedriverservice.com" className="text-white hover:text-[#35B5D8] font-semibold underline">
+                  <a href="mailto:info@ontimedriverservice.com" className="text-white hover:text-[#35B6DE] font-semibold underline">
                     info@ontimedriverservice.com
                   </a>
                 </div>
@@ -200,14 +200,14 @@ export const ContactPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
             
             {/* Left 7 Columns: Complete 9-Field Dark Luxury Contact Form */}
-            <div className="lg:col-span-7 bg-[#121212] rounded-2xl border border-white/15 p-6 sm:p-8 shadow-2xl">
+            <div className="lg:col-span-7 bg-[#0B0B0B] rounded-2xl border border-white/15 p-6 sm:p-8 shadow-2xl">
               {!submitted ? (
                 <div>
                   <h3 className="text-xl sm:text-2xl font-bold font-heading text-white mb-2">
                     Send Driver Requirement
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#D1D5DB] mb-6">
-                    Fill the 9 fields below to dispatch your booking directly to <span className="text-[#35B5D8]">info@ontimedriverservice.com</span>.
+                  <p className="text-xs sm:text-sm text-[#CFCFCF] mb-6">
+                    Fill the 9 fields below to dispatch your booking directly to <span className="text-[#35B6DE]">info@ontimedriverservice.com</span>.
                   </p>
 
                   {errors.form && (
@@ -232,7 +232,7 @@ export const ContactPage: React.FC = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
                         <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                          Full Name <span className="text-[#F2F028]">*</span>
+                          Full Name <span className="text-[#F3ED1A]">*</span>
                         </label>
                         <div className="relative">
                           <User className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
@@ -253,7 +253,7 @@ export const ContactPage: React.FC = () => {
 
                       <div>
                         <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                          Mobile Number <span className="text-[#F2F028]">*</span>
+                          Mobile Number <span className="text-[#F3ED1A]">*</span>
                         </label>
                         <div className="relative">
                           <Phone className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
@@ -278,7 +278,7 @@ export const ContactPage: React.FC = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div>
                         <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                          Email Address <span className="text-[#F2F028]">*</span>
+                          Email Address <span className="text-[#F3ED1A]">*</span>
                         </label>
                         <div className="relative">
                           <Mail className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
@@ -299,7 +299,7 @@ export const ContactPage: React.FC = () => {
 
                       <div>
                         <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                          Location / MMR Sector <span className="text-[#F2F028]">*</span>
+                          Location / MMR Sector <span className="text-[#F3ED1A]">*</span>
                         </label>
                         <div className="relative">
                           <MapPin className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3.5" />
@@ -425,13 +425,13 @@ export const ContactPage: React.FC = () => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="btn-primary w-full h-[54px] text-base font-bold flex items-center justify-center gap-2 mt-4 shadow-xl shadow-[#F2F028]/25"
+                      className="btn-primary w-full h-[54px] text-base font-bold flex items-center justify-center gap-2 mt-4 shadow-xl shadow-[#F3ED1A]/25"
                     >
                       {isSubmitting ? (
                         <span>Transmitting to Central Concierge...</span>
                       ) : (
                         <>
-                          <Send className="w-4 h-4 text-[#0A0A0A]" />
+                          <Send className="w-4 h-4 text-[#050505]" />
                           <span>Submit Requirement &amp; Assign Chauffeur</span>
                         </>
                       )}
@@ -446,7 +446,7 @@ export const ContactPage: React.FC = () => {
               ) : (
                 /* Confirmation Screen */
                 <div className="text-center py-8">
-                  <div className="w-16 h-16 rounded-full bg-[#35B5D8]/20 border border-[#35B5D8] text-[#35B5D8] flex items-center justify-center mx-auto mb-4 animate-bounce">
+                  <div className="w-16 h-16 rounded-full bg-[#35B6DE]/20 border border-[#35B6DE] text-[#35B6DE] flex items-center justify-center mx-auto mb-4 animate-bounce">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
 
@@ -454,8 +454,8 @@ export const ContactPage: React.FC = () => {
                     Inquiry Received!
                   </h3>
 
-                  <p className="text-sm text-[#D1D5DB] mb-5">
-                    Reference: <span className="font-mono font-bold text-[#F2F028]">{bookingRef}</span>
+                  <p className="text-sm text-[#CFCFCF] mb-5">
+                    Reference: <span className="font-mono font-bold text-[#F3ED1A]">{bookingRef}</span>
                   </p>
 
                   <div className="bg-[#181818] rounded-xl p-4 border border-white/10 text-left text-xs space-y-2 mb-6 text-neutral-300">
@@ -490,12 +490,12 @@ export const ContactPage: React.FC = () => {
             {/* Right 5 Columns: Operations Hub Info & FAQ Accordion */}
             <div className="lg:col-span-5 space-y-6">
               {/* Operations Pods Card */}
-              <div className="bg-[#121212] rounded-2xl border border-white/15 p-6 shadow-xl space-y-4">
+              <div className="bg-[#0B0B0B] rounded-2xl border border-white/15 p-6 shadow-xl space-y-4">
                 <h4 className="text-base font-bold text-white flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-[#35B5D8]" />
+                  <MapPin className="w-4 h-4 text-[#35B6DE]" />
                   <span>Central Dispatch Locations</span>
                 </h4>
-                <div className="space-y-3 text-xs text-[#D1D5DB]">
+                <div className="space-y-3 text-xs text-[#CFCFCF]">
                   <div className="p-3 rounded-xl bg-black/40 border border-white/5">
                     <strong className="text-white block mb-0.5">BKC &amp; South Mumbai Hub:</strong>
                     <span>Bandra Kurla Complex, Bandra East, Mumbai, Maharashtra 400051</span>
@@ -512,12 +512,12 @@ export const ContactPage: React.FC = () => {
               </div>
 
               {/* Working Hours Card */}
-              <div className="bg-[#121212] rounded-2xl border border-white/15 p-6 shadow-xl space-y-3">
+              <div className="bg-[#0B0B0B] rounded-2xl border border-white/15 p-6 shadow-xl space-y-3">
                 <h4 className="text-base font-bold text-white flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-[#F2F028]" />
+                  <Clock className="w-4 h-4 text-[#F3ED1A]" />
                   <span>Operations Hours</span>
                 </h4>
-                <div className="text-xs text-[#D1D5DB] space-y-2">
+                <div className="text-xs text-[#CFCFCF] space-y-2">
                   <div className="flex items-center justify-between py-1 border-b border-white/5">
                     <span>Driver Dispatch Operations:</span>
                     <strong className="text-[#22C55E]">24 Hours / 365 Days</strong>
@@ -528,7 +528,7 @@ export const ContactPage: React.FC = () => {
                   </div>
                   <div className="flex items-center justify-between py-1">
                     <span>Average Doorstep Arrival:</span>
-                    <strong className="text-[#35B5D8]">30–45 Minutes</strong>
+                    <strong className="text-[#35B6DE]">30–45 Minutes</strong>
                   </div>
                 </div>
               </div>
