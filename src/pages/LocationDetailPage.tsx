@@ -1,51 +1,36 @@
 import React, { useState } from 'react';
 import { locationsData } from '../data/locationsData';
-import { servicesData } from '../data/servicesData';
-import { Link, useRouter, SEO } from '../router';
+import { Link, SEO, useRouter } from '../router';
 import { ImageWithFallback } from '../components/ImageWithFallback';
 import {
   MapPin,
   Clock,
   Route,
-  ChevronRight,
   ShieldCheck,
-  Calendar,
-  Phone,
-  ArrowRight,
   CheckCircle2,
-  ChevronDown,
-  ChevronUp,
-  User,
-  Mail,
+  Phone,
+  Calendar,
   Send,
+  AlertCircle,
+  MessageSquare,
+  ChevronDown,
+  Sparkles,
+  ChevronRight,
   Car,
   FileText,
-  Sparkles,
-  AlertCircle,
+  User,
+  Mail,
 } from 'lucide-react';
+import { submitLead, validateLeadForm, getWhatsAppFallbackUrl, getWhatsAppSuccessUrl, PRIMARY_PHONE } from '../services/leadService';
 import { LeadFormData } from '../types';
-import { submitLead, validateLeadForm } from '../services/leadService';
 
 interface LocationDetailPageProps {
   slug: string;
   onOpenBooking: (serviceTitle?: string, locationName?: string) => void;
 }
 
-const DEDICATED_SEO_MAP: Record<string, string> = {
-  'personal-driver': '/personal-driver-service',
-  'full-time-driver': '/full-time-driver-service',
-  'part-time-driver': '/part-time-driver-service',
-  'temporary-driver': '/temporary-driver-service',
-  'hourly-driver': '/hourly-driver-service',
-  'corporate-driver': '/corporate-driver-service',
-  'airport-driver': '/airport-driver-service',
-  'outstation-driver': '/outstation-driver-service',
-  'chauffeur-service': '/chauffeur-service',
-};
-
 export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, onOpenBooking }) => {
-  const location = locationsData.find((l) => l.id === slug);
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const location = locationsData.find((l) => (l.slug || l.id) === slug || l.id === slug);
 
   const [formData, setFormData] = useState<LeadFormData>({
     name: '',
@@ -53,11 +38,11 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
     email: '',
     location: location?.name || 'Mumbai',
     serviceType: 'Personal Driver',
-    vehicleType: 'Toyota Innova Crysta / Hycross',
+    vehicleType: 'Sedan / SUV',
     date: new Date().toISOString().split('T')[0],
-    time: 'Immediate Dispatch (30-45 mins)',
+    time: 'Immediate Dispatch',
     message: '',
-    formName: 'Driver Requirement Form',
+    formName: `Driver Requirement Form (${location?.name || 'Mumbai'})`,
   });
 
   const [honeypot, setHoneypot] = useState('');
@@ -65,17 +50,16 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [bookingRef, setBookingRef] = useState('');
+  const [submissionFailed, setSubmissionFailed] = useState(false);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   if (!location) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 pt-24 pb-16 bg-[#050505] text-white">
-        <h1 className="text-2xl sm:text-3xl font-bold font-heading text-white mb-3">Location Not Found</h1>
-        <p className="text-neutral-400 mb-6 max-w-md text-sm">
-          The requested service area could not be located. Explore our coverage across Mumbai and MMR.
-        </p>
-        <Link href="/service-areas" className="btn-primary">
-          <span>View All Service Areas</span>
-          <ArrowRight className="w-4 h-4 ml-2" />
+      <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 pt-24 pb-16 bg-[#F8FAFC] text-[#111827]">
+        <h1 className="text-3xl font-extrabold mb-4 font-heading text-[#111827]">Location Not Found</h1>
+        <p className="text-[#4B5563] mb-6">The location you requested does not exist or has been moved.</p>
+        <Link href="/service-areas" className="btn-primary h-11 px-6 text-sm font-bold">
+          View All Mumbai Service Areas
         </Link>
       </div>
     );
@@ -83,92 +67,110 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const validation = validateLeadForm(formData, honeypot);
+
+    const dataToSubmit = {
+      ...formData,
+      location: location.name,
+      formName: `Driver Requirement Form (${location.name})` as const,
+    };
+
+    const validation = validateLeadForm(dataToSubmit, honeypot);
     if (!validation.isValid) {
       setErrors(validation.errors);
       return;
     }
+
     setErrors({});
+    setSubmissionFailed(false);
     setIsSubmitting(true);
 
     try {
-      const res = await submitLead(formData, 'Driver Requirement Form');
+      console.log(`[CONSOLE LOG] [LOCATION FORM SUBMISSION - ${location.name}]`, dataToSubmit);
+      const res = await submitLead(dataToSubmit, `Driver Requirement Form (${location.name})`);
+
       if (res.success && res.record) {
         setBookingRef(res.record.id);
         setSubmitted(true);
+      } else {
+        setSubmissionFailed(true);
+        setErrors({
+          form: res.error || "We couldn't submit your request right now. Please call 8652880057 or message on WhatsApp.",
+        });
       }
-    } catch (err) {
-      setErrors({ form: 'Transmission error. Please call our 24/7 desk at 8652880057 directly.' });
+    } catch (err: any) {
+      console.error(`[CONSOLE LOG] [LOCATION FORM ERROR - ${location.name}]`, err);
+      setSubmissionFailed(true);
+      setErrors({
+        form: "We couldn't submit your request right now. Please call 8652880057 or message on WhatsApp.",
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const locationSchema = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'LocalBusiness',
-      'name': `On Time Driver Service - ${location.name}`,
-      'telephone': '+91 8652880057',
-      'address': {
-        '@type': 'PostalAddress',
-        'addressLocality': location.name,
-        'addressRegion': 'Maharashtra',
-        'addressCountry': 'IN',
-      },
-      'areaServed': location.name,
+  const handleWhatsAppForward = () => {
+    window.open(getWhatsAppSuccessUrl(formData, bookingRef), '_blank');
+  };
+
+  const handleWhatsAppFallback = () => {
+    window.open(getWhatsAppFallbackUrl(formData), '_blank');
+  };
+
+  const locationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    'name': `On Time Driver Service - ${location.name}`,
+    'image': location.image,
+    'telephone': '+91 8652880057',
+    'email': 'info@ontimedriverservice.com',
+    'url': `https://ontimedriverservice.com/locations/${location.slug || location.id}`,
+    'address': {
+      '@type': 'PostalAddress',
+      'addressLocality': location.name,
+      'addressRegion': 'Maharashtra',
+      'addressCountry': 'IN',
     },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      'mainEntity': location.localFaqs.map((f) => ({
-        '@type': 'Question',
-        'name': f.question,
-        'acceptedAnswer': {
-          '@type': 'Answer',
-          'text': f.answer,
-        },
-      })),
-    },
-  ];
+    'areaServed': location.name,
+    'description': location.metaDescription || location.shortSnippet || location.seoHeadline,
+  };
 
   return (
     <>
       <SEO
-        title={`Driver Service in ${location.name} – Verified Chauffeurs | On Time Driver Service`}
-        description={`Hire police-verified drivers in ${location.name}. Punctual personal, corporate & outstation chauffeurs. Average dispatch time: ${location.avgDispatchTime}.`}
+        title={location.metaTitle || location.seoHeadline}
+        description={location.metaDescription || location.shortSnippet}
         canonicalPath={`/locations/${location.id}`}
         image={location.image}
         schema={locationSchema}
       />
 
-      <div className="pt-24 sm:pt-28 pb-20 bg-[#050505] text-white overflow-x-hidden">
+      <div className="pt-24 sm:pt-28 pb-20 bg-[#F8FAFC] text-[#111827] overflow-x-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-neutral-400">
+          <nav aria-label="Breadcrumb" className="mb-6 flex items-center gap-1.5 text-xs text-[#4B5563]">
             <Link href="/" className="hover:text-[#35B6DE] transition-colors">Home</Link>
-            <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
+            <ChevronRight className="w-3.5 h-3.5 text-[#9CA3AF]" />
             <Link href="/service-areas" className="hover:text-[#35B6DE] transition-colors">Service Areas</Link>
-            <ChevronRight className="w-3.5 h-3.5 text-neutral-600" />
-            <span className="text-white font-semibold">{location.name}</span>
+            <ChevronRight className="w-3.5 h-3.5 text-[#9CA3AF]" />
+            <span className="text-[#111827] font-semibold">{location.name}</span>
           </nav>
 
           {/* Hero Section */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center mb-16 sm:mb-20">
             <div className="lg:col-span-7 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B0B0B] border border-[#35B6DE]/40 shadow-md">
-                <Sparkles className="w-3.5 h-3.5 text-[#F3ED1A]" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#35B6DE]/30 shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-[#35B6DE]" />
                 <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE]">
                   Verified Dispatch: {location.avgDispatchTime}
                 </span>
               </div>
 
-              <h1 className="text-h1 font-extrabold text-white tracking-tight">
+              <h1 className="text-h1 font-extrabold text-[#111827] tracking-tight">
                 Driver Service in {location.name}
               </h1>
 
-              <p className="text-subheading text-[#CFCFCF] leading-relaxed">
+              <p className="text-subheading text-[#4B5563] leading-relaxed text-base sm:text-lg">
                 {location.fullContent}
               </p>
 
@@ -176,15 +178,15 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-4">
                 <button
                   onClick={() => onOpenBooking(undefined, location.name)}
-                  className="btn-primary h-[52px] px-8 text-base font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#F3ED1A]/20"
+                  className="btn-primary h-12 px-8 text-sm font-bold flex items-center justify-center gap-2 shadow-xs"
                 >
-                  <Calendar className="w-4 h-4 text-[#050505]" />
+                  <Calendar className="w-4 h-4 text-[#111827]" />
                   <span>Book Driver in {location.name}</span>
                 </button>
 
                 <a
                   href="tel:8652880057"
-                  className="btn-secondary h-[52px] px-6 text-sm font-semibold flex items-center justify-center gap-2"
+                  className="btn-secondary h-12 px-6 text-sm font-semibold flex items-center justify-center gap-2"
                 >
                   <Phone className="w-4 h-4 text-[#35B6DE]" />
                   <span>Call 8652880057</span>
@@ -194,7 +196,7 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
 
             {/* Media */}
             <div className="lg:col-span-5">
-              <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#0B0B0B]">
+              <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-[#E5E7EB] shadow-md bg-slate-100">
                 <ImageWithFallback
                   src={location.image}
                   alt={`Driver service in ${location.name}`}
@@ -202,8 +204,8 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                   locationTag={location.name}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-3 left-3 bg-[#0B0B0B]/90 border border-white/10 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#F3ED1A]">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#111827]/70 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm border border-[#E5E7EB] px-3 py-1 rounded-md text-xs font-bold text-[#111827] shadow-xs">
                   {location.name} Local Staging Pod
                 </div>
               </div>
@@ -212,8 +214,8 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
 
           {/* Local Staging Hubs & Key Corridors */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-            <div className="bg-[#0B0B0B] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
-              <div className="flex items-center gap-2 text-sm font-bold text-white mb-3">
+            <div className="bg-white p-6 sm:p-7 rounded-2xl border border-[#E5E7EB] shadow-xs">
+              <div className="flex items-center gap-2 text-sm font-bold text-[#111827] mb-3">
                 <MapPin className="w-4 h-4 text-[#35B6DE]" />
                 <span>Key Staging Hubs in {location.name}</span>
               </div>
@@ -221,7 +223,7 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                 {location.popularHubs.map((hub, i) => (
                   <span
                     key={i}
-                    className="px-3 py-1.5 rounded-xl bg-black/40 border border-white/10 text-neutral-300 text-xs font-medium"
+                    className="px-3 py-1.5 rounded-xl bg-[#EEF8FC] border border-[#E5E7EB] text-[#4B5563] text-xs font-medium"
                   >
                     {hub}
                   </span>
@@ -229,16 +231,16 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
               </div>
             </div>
 
-            <div className="bg-[#0B0B0B] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
-              <div className="flex items-center gap-2 text-sm font-bold text-white mb-3">
-                <Route className="w-4 h-4 text-[#F3ED1A]" />
+            <div className="bg-white p-6 sm:p-7 rounded-2xl border border-[#E5E7EB] shadow-xs">
+              <div className="flex items-center gap-2 text-sm font-bold text-[#111827] mb-3">
+                <Route className="w-4 h-4 text-[#35B6DE]" />
                 <span>Major Transit Arteries</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {location.keyRoutes.map((route, i) => (
                   <span
                     key={i}
-                    className="px-3 py-1.5 rounded-xl bg-[#35B6DE]/10 border border-[#35B6DE]/20 text-[#35B6DE] text-xs font-medium"
+                    className="px-3 py-1.5 rounded-xl bg-[#EEF8FC] border border-[#E5E7EB] text-[#35B6DE] text-xs font-medium"
                   >
                     {route}
                   </span>
@@ -249,23 +251,23 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
 
           {/* Local FAQs */}
           <div className="max-w-3xl mx-auto mb-16">
-            <h2 className="text-xl sm:text-2xl font-bold font-heading text-white text-center mb-6">
+            <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#111827] text-center mb-6">
               {location.name} Driver FAQs
             </h2>
             <div className="space-y-3">
               {location.localFaqs.map((faq, idx) => {
                 const isOpen = openFaqIndex === idx;
                 return (
-                  <div key={idx} className="bg-[#0B0B0B] rounded-xl border border-white/10 overflow-hidden">
+                  <div key={idx} className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden shadow-xs">
                     <button
                       onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                      className="w-full p-4 sm:p-5 text-left font-bold text-white text-sm flex items-center justify-between gap-3"
+                      className="w-full p-4 sm:p-5 text-left font-bold text-[#111827] text-sm flex items-center justify-between gap-3"
                     >
                       <span>{faq.question}</span>
                       <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180 text-[#35B6DE]' : ''}`} />
                     </button>
                     {isOpen && (
-                      <div className="px-5 pb-5 text-sm text-[#CFCFCF] leading-relaxed border-t border-white/5 pt-3">
+                      <div className="px-5 pb-5 text-sm text-[#4B5563] leading-relaxed border-t border-[#E5E7EB] pt-3">
                         {faq.answer}
                       </div>
                     )}
@@ -276,24 +278,45 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
           </div>
 
           {/* Lead Form for this location */}
-          <div className="max-w-2xl mx-auto bg-[#0B0B0B] rounded-2xl border border-white/15 p-6 sm:p-8 shadow-2xl">
+          <div className="max-w-2xl mx-auto bg-white rounded-2xl border border-[#E5E7EB] p-6 sm:p-8 shadow-md">
             {submitted ? (
-              <div className="py-8 text-center space-y-3">
-                <div className="w-14 h-14 rounded-full bg-[#35B6DE]/20 border border-[#35B6DE] text-[#35B6DE] flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-8 h-8 text-[#35B6DE]" />
+              <div className="py-8 text-center space-y-4 animate-fade-in">
+                <div className="w-16 h-16 rounded-full bg-[#22C55E]/15 border border-[#22C55E] text-[#22C55E] flex items-center justify-center mx-auto">
+                  <CheckCircle2 className="w-8 h-8 text-[#22C55E]" />
                 </div>
-                <h3 className="text-2xl font-extrabold text-white">
-                  Booking Request Received!
+                <h3 className="text-xl sm:text-2xl font-extrabold text-[#111827] leading-tight">
+                  Thank you. Our team will contact you within 15 minutes.
                 </h3>
-                <p className="text-sm text-[#CFCFCF]">
-                  A booking manager is assigning a driver in {location.name}. Reference ID: <strong className="text-[#F3ED1A]">{bookingRef}</strong>.
+                <p className="text-xs sm:text-sm text-[#4B5563]">
+                  Booking Reference: <strong className="font-mono text-[#35B6DE]">{bookingRef}</strong> · Dispatching in <strong className="text-[#111827]">{location.name}</strong>
                 </p>
-                <button
-                  onClick={() => setSubmitted(false)}
-                  className="btn-primary h-11 px-6 text-xs font-bold mt-2"
-                >
-                  Submit Another Request
-                </button>
+
+                <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                  <a
+                    href={`tel:${PRIMARY_PHONE}`}
+                    className="flex-1 h-11 rounded-xl bg-white border border-[#E5E7EB] text-[#111827] font-bold text-xs flex items-center justify-center gap-2 hover:border-[#35B6DE]"
+                  >
+                    <Phone className="w-4 h-4 text-[#35B6DE]" />
+                    <span>Call Now ({PRIMARY_PHONE})</span>
+                  </a>
+
+                  <button
+                    onClick={handleWhatsAppForward}
+                    className="flex-1 h-11 rounded-xl bg-[#22C55E] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs hover:bg-[#1fa952]"
+                  >
+                    <MessageSquare className="w-4 h-4 text-white" />
+                    <span>WhatsApp Us</span>
+                  </button>
+                </div>
+
+                <div>
+                  <button
+                    onClick={() => setSubmitted(false)}
+                    className="text-xs text-[#4B5563] hover:text-[#111827] underline cursor-pointer mt-2"
+                  >
+                    Submit Another Request
+                  </button>
+                </div>
               </div>
             ) : (
               <div>
@@ -301,17 +324,17 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                   <span className="text-xs font-bold text-[#35B6DE] uppercase tracking-wider block mb-1">
                     Direct Staging Dispatch
                   </span>
-                  <h2 className="text-xl sm:text-2xl font-bold font-heading text-white">
+                  <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#111827]">
                     Book a Driver in {location.name}
                   </h2>
-                  <p className="text-xs sm:text-sm text-[#CFCFCF] mt-1">
-                    Delivered directly to <span className="text-[#35B6DE]">info@ontimedriverservice.com</span>.
+                  <p className="text-xs sm:text-sm text-[#4B5563] mt-1">
+                    Delivered directly to <span className="text-[#35B6DE] font-semibold">info@ontimedriverservice.com</span>.
                   </p>
                 </div>
 
                 {errors.form && (
-                  <div className="p-3 mb-4 rounded-xl bg-red-950/60 border border-red-500/40 text-red-200 text-xs flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+                  <div className="p-3 mb-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
                     <span>{errors.form}</span>
                   </div>
                 )}
@@ -329,8 +352,8 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                   {/* 1. Name & 2. Mobile */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                        Full Name <span className="text-[#F3ED1A]">*</span>
+                      <label className="block text-xs font-semibold text-[#111827] mb-1">
+                        Full Name <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="text"
@@ -341,14 +364,14 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                           if (errors.name) setErrors({ ...errors, name: '' });
                         }}
                         placeholder="Your Name"
-                        className="dark-input w-full px-3 py-2.5"
+                        className="form-input w-full px-3 py-2 text-xs"
                       />
-                      {errors.name && <p className="text-red-400 text-[11px] mt-0.5">{errors.name}</p>}
+                      {errors.name && <p className="text-red-500 text-[11px] mt-0.5">{errors.name}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                        Mobile Number <span className="text-[#F3ED1A]">*</span>
+                      <label className="block text-xs font-semibold text-[#111827] mb-1">
+                        Mobile Number <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="tel"
@@ -360,41 +383,40 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                           if (errors.mobile) setErrors({ ...errors, mobile: '' });
                         }}
                         placeholder="10-digit mobile"
-                        className="dark-input w-full px-3 py-2.5"
+                        className="form-input w-full px-3 py-2 text-xs font-medium"
                       />
-                      {errors.mobile && <p className="text-red-400 text-[11px] mt-0.5">{errors.mobile}</p>}
+                      {errors.mobile && <p className="text-red-500 text-[11px] mt-0.5">{errors.mobile}</p>}
                     </div>
                   </div>
 
                   {/* 3. Email & 4. Location */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                        Email Address <span className="text-[#F3ED1A]">*</span>
+                      <label className="block text-xs font-semibold text-[#111827] mb-1">
+                        Email Address
                       </label>
                       <input
                         type="email"
-                        required
                         value={formData.email}
                         onChange={(e) => {
                           setFormData({ ...formData, email: e.target.value });
                           if (errors.email) setErrors({ ...errors, email: '' });
                         }}
-                        placeholder="name@example.com"
-                        className="dark-input w-full px-3 py-2.5"
+                        placeholder="name@example.com (optional)"
+                        className="form-input w-full px-3 py-2 text-xs"
                       />
-                      {errors.email && <p className="text-red-400 text-[11px] mt-0.5">{errors.email}</p>}
+                      {errors.email && <p className="text-red-500 text-[11px] mt-0.5">{errors.email}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                      <label className="block text-xs font-semibold text-[#111827] mb-1">
                         Location
                       </label>
                       <input
                         type="text"
                         readOnly
                         value={location.name}
-                        className="dark-input w-full px-3 py-2.5 opacity-80 cursor-not-allowed text-[#35B6DE] font-bold"
+                        className="form-input w-full px-3 py-2 text-xs bg-slate-50 cursor-not-allowed text-[#35B6DE] font-bold"
                       />
                     </div>
                   </div>
@@ -402,94 +424,99 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                   {/* 5. Service Type & 6. Vehicle Type */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                      <label className="block text-xs font-semibold text-[#111827] mb-1">
                         Service Type
                       </label>
                       <select
                         value={formData.serviceType}
                         onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
-                        className="dark-input w-full px-3 py-2.5 appearance-none"
+                        className="form-input w-full px-3 py-2 text-xs bg-white font-medium"
                       >
                         <option value="Personal Driver">Personal Driver</option>
+                        <option value="Corporate Driver">Corporate Driver</option>
+                        <option value="Permanent Driver">Permanent Driver</option>
                         <option value="Hourly Driver">Hourly Driver</option>
-                        <option value="Part-Time Driver">Part-Time Driver</option>
-                        <option value="Full-Time Driver">Full-Time Driver</option>
-                        <option value="Corporate Driver">Corporate Chauffeur</option>
-                        <option value="Airport Transfer">Airport Transfer</option>
+                        <option value="Airport Driver">Airport Driver</option>
                         <option value="Outstation Driver">Outstation Driver</option>
                       </select>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                        Vehicle Type
+                      <label className="block text-xs font-semibold text-[#111827] mb-1">
+                        Vehicle Details
                       </label>
-                      <select
+                      <input
+                        type="text"
                         value={formData.vehicleType}
                         onChange={(e) => setFormData({ ...formData, vehicleType: e.target.value })}
-                        className="dark-input w-full px-3 py-2.5 appearance-none"
-                      >
-                        <option value="Toyota Innova Crysta / Hycross">Toyota Innova Crysta / Hycross</option>
-                        <option value="Sedan (Honda City / Dzire / Verna)">Sedan (Honda City / Dzire / Verna)</option>
-                        <option value="SUV (Creta / Fortuner / Seltos)">SUV (Creta / Fortuner / Seltos)</option>
-                        <option value="Luxury (Mercedes / BMW / Audi)">Luxury (Mercedes / BMW / Audi)</option>
-                        <option value="Compact (Swift / i20 / Baleno)">Compact (Swift / i20 / Baleno)</option>
-                      </select>
+                        placeholder="e.g. Innova / Honda City"
+                        className="form-input w-full px-3 py-2 text-xs"
+                      />
                     </div>
                   </div>
 
-                  {/* 7. Date & 8. Time */}
+                  {/* Date & Time */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                      <label className="block text-xs font-semibold text-[#111827] mb-1">
                         Date Required
                       </label>
                       <input
                         type="date"
                         value={formData.date}
                         onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                        className="dark-input w-full px-3 py-2.5"
+                        className="form-input w-full px-3 py-2 text-xs"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                        Time / Urgency
+                      <label className="block text-xs font-semibold text-[#111827] mb-1">
+                        Reporting Time
                       </label>
-                      <select
+                      <input
+                        type="text"
                         value={formData.time}
                         onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                        className="dark-input w-full px-3 py-2.5 appearance-none"
-                      >
-                        <option value="Immediate Dispatch (30-45 mins)">Immediate Dispatch (30–45 mins)</option>
-                        <option value="Morning Shift (07:00 AM - 03:00 PM)">Morning Shift</option>
-                        <option value="Office Hours (09:00 AM - 07:00 PM)">Office Hours</option>
-                        <option value="Evening Return (05:00 PM - 01:00 AM)">Evening Return</option>
-                      </select>
+                        placeholder="e.g. 09:00 AM or Immediate"
+                        className="form-input w-full px-3 py-2 text-xs"
+                      />
                     </div>
                   </div>
 
-                  {/* 9. Message */}
+                  {/* Message */}
                   <div>
-                    <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                      Pickup Address &amp; Instructions
+                    <label className="block text-xs font-semibold text-[#111827] mb-1">
+                      Specific Instructions (Optional)
                     </label>
                     <textarea
                       rows={2}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="e.g. Near Majiwada junction, manual transmission..."
-                      className="dark-input w-full px-3 py-2 text-xs"
+                      placeholder="Add pickup address details or duty duration..."
+                      className="form-input w-full px-3 py-2 text-xs resize-none"
                     />
                   </div>
 
+                  {/* Submit Button */}
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="btn-primary w-full h-[52px] text-base font-bold flex items-center justify-center gap-2 mt-4 shadow-lg shadow-[#F3ED1A]/20"
+                    className="w-full h-11 bg-[#F3ED1A] hover:bg-[#eae415] text-[#111827] font-bold text-xs sm:text-sm rounded-xl flex items-center justify-center gap-2 shadow-xs transition-colors cursor-pointer disabled:opacity-75"
                   >
-                    {isSubmitting ? 'Transmitting to Desk...' : `Book Chauffeur in ${location.name}`}
+                    {isSubmitting ? (
+                      <span>Dispatching Request...</span>
+                    ) : (
+                      <>
+                        <Send className="w-3.5 h-3.5 text-[#111827]" />
+                        <span>Book Driver in {location.name}</span>
+                      </>
+                    )}
                   </button>
+
+                  <div className="flex items-center justify-between text-[11px] text-[#4B5563] pt-1">
+                    <span>✓ Leads sent to info@ontimedriverservice.com</span>
+                    <span>✓ 100% Police Verified</span>
+                  </div>
                 </form>
               </div>
             )}

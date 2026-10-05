@@ -36,7 +36,7 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOpenBookin
     {
       icon: Clock,
       title: 'Fast Response',
-      description: 'Quick turnaround with driver staging pods deployed across all major MMR corridors.',
+      description: 'Quick turnaround with driver staging pods deployed across all major Mumbai MMR corridors.',
     },
     {
       icon: Briefcase,
@@ -61,23 +61,20 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOpenBookin
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-[#050505] text-white border-b border-white/10 relative overflow-hidden">
-      {/* Ambient background glow */}
-      <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[500px] h-[500px] bg-[#35B6DE]/5 rounded-full blur-[140px] pointer-events-none" />
-
+    <section className="py-20 lg:py-24 bg-white text-[#111827] border-b border-[#E5E7EB] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B0B0B] border border-[#35B6DE]/40 shadow-md mb-3.5">
-            <Sparkles className="w-3.5 h-3.5 text-[#F3ED1A]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EEF8FC] border border-[#35B6DE]/30 shadow-xs mb-3.5">
+            <Sparkles className="w-3.5 h-3.5 text-[#35B6DE]" />
             <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE]">
-              The Gold Standard
+              The Corporate Standard
             </span>
           </div>
-          <h2 className="text-h2 font-extrabold text-white mb-4">
+          <h2 className="text-h2 font-extrabold text-[#111827] mb-4">
             Why Choose On Time Driver Service
           </h2>
-          <p className="text-subheading text-[#CFCFCF] font-normal leading-relaxed">
-            We bridge the gap between unorganized local driver agencies and corporate-grade service delivery with guaranteed punctuality and safety.
+          <p className="text-subheading text-[#4B5563] font-normal leading-relaxed text-base sm:text-lg">
+            We bridge the gap between unorganized driver providers and corporate-grade service delivery with guaranteed punctuality, verified safety, and transparent pricing.
           </p>
         </div>
 
@@ -87,15 +84,15 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOpenBookin
             return (
               <div
                 key={idx}
-                className="bg-[#0B0B0B] rounded-2xl p-6 border border-white/10 hover:border-[#35B6DE]/50 flex flex-col justify-start transition-all duration-300 hover:shadow-xl group"
+                className="bg-white rounded-2xl p-6 border border-[#E5E7EB] hover:border-[#35B6DE] flex flex-col justify-start transition-all duration-200 shadow-xs hover:shadow-md group hover:-translate-y-1"
               >
-                <div className="w-12 h-12 rounded-xl bg-[#35B6DE]/15 text-[#35B6DE] group-hover:bg-[#35B6DE] group-hover:text-[#050505] flex items-center justify-center mb-4 transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-[#EEF8FC] text-[#35B6DE] group-hover:bg-[#35B6DE] group-hover:text-white flex items-center justify-center mb-4 transition-colors">
                   <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-base font-bold font-heading text-white mb-2 group-hover:text-[#F3ED1A] transition-colors">
+                <h3 className="text-base font-bold font-heading text-[#111827] mb-2 group-hover:text-[#35B6DE] transition-colors">
                   {card.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-[#CFCFCF] leading-relaxed font-normal">
+                <p className="text-xs sm:text-sm text-[#4B5563] leading-relaxed font-normal">
                   {card.description}
                 </p>
               </div>
@@ -106,10 +103,10 @@ export const WhyChooseSection: React.FC<WhyChooseSectionProps> = ({ onOpenBookin
         <div className="text-center">
           <button
             onClick={onOpenBooking}
-            className="btn-primary h-12 px-8 text-sm font-bold inline-flex items-center gap-2 shadow-lg"
+            className="btn-primary h-12 px-8 text-sm font-bold shadow-xs inline-flex items-center gap-2"
           >
-            <span>Book Your On-Time Driver Now</span>
-            <ArrowRight className="w-4 h-4" />
+            <span>Book a Verified Driver Today</span>
+            <ArrowRight className="w-4 h-4 text-[#111827]" />
           </button>
         </div>
       </div>

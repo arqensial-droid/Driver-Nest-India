@@ -11,7 +11,22 @@ const app = express();
 const PORT = parseInt(process.env.PORT || '3000', 10);
 const isProd = process.env.NODE_ENV === 'production';
 
-// Ensure data directory exists for persistent leads storage
+// Robust CORS Middleware - Supports all domains & avoids preflight issues
+app.use((_req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  if (_req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
+// JSON and URL-encoded body parser
+app.use(express.json({ limit: '5mb' }));
+app.use(express.urlencoded({ extended: true, limit: '5mb' }));
+
+// Persistent leads storage setup
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
 
@@ -23,13 +38,11 @@ if (!fs.existsSync(LEADS_FILE)) {
   fs.writeFileSync(LEADS_FILE, JSON.stringify([], null, 2), 'utf8');
 }
 
-app.use(express.json());
+// Business Email Configuration
+const TARGET_ADMIN_EMAIL = process.env.LEAD_RECEIVER_EMAIL || 'info@ontimedriverservice.com';
+const PRIMARY_PHONE = '8652880057';
 
-// Target Admin Email for Lead Notifications
-const TARGET_ADMIN_EMAIL = 'info@ontimedriverservice.com';
-
-// Setup Nodemailer Transporter using exact env vars:
-// SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM
+// Nodemailer SMTP Transporter
 function getEmailTransporter() {
   const host = process.env.SMTP_HOST;
   const port = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 587;
@@ -42,28 +55,399 @@ function getEmailTransporter() {
       port,
       secure: port === 465,
       auth: { user, pass },
+      tls: {
+        rejectUnauthorized: false,
+      },
     });
   }
 
   return null;
 }
 
+// Send email via Resend API
+async function sendViaResend(to: string, subject: string, html: string, text?: string) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return null;
+
+  const fromEmail = process.env.SMTP_FROM || 'On Time Driver Service <onboarding@resend.dev>';
+  const payload: any = {
+    from: fromEmail,
+    to: [to],
+    subject,
+    html,
+  };
+  if (text) {
+    payload.text = text;
+  }
+
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    const errorData = await res.text();
+    throw new Error(`Resend API error: ${res.status} ${errorData}`);
+  }
+
+  return await res.json();
+}
+
+/**
+ * Dispatch Email with Automatic Retry Logic (Resend & SMTP)
+ */
+async function dispatchLeadEmailWithRetry(
+  lead: any,
+  subject: string,
+  html: string,
+  text: string,
+  maxRetries = 3
+): Promise<{ success: boolean; method: string; error?: string }> {
+  let attempt = 0;
+  let lastError = '';
+
+  while (attempt < maxRetries) {
+    attempt++;
+    console.log(`[SERVER LOG] [EMAIL DISPATCH ATTEMPT ${attempt}/${maxRetries}] To: ${TARGET_ADMIN_EMAIL} for Lead ID: ${lead.id}`);
+
+    // Try Resend first
+    if (process.env.RESEND_API_KEY) {
+      try {
+        await sendViaResend(TARGET_ADMIN_EMAIL, subject, html, text);
+        console.log(`[SERVER LOG] [EMAIL SENT SUCCESSFULLY] via Resend on attempt ${attempt} for Lead ${lead.id}`);
+        return { success: true, method: 'SENT_RESEND' };
+      } catch (err: any) {
+        lastError = err?.message || String(err);
+        console.error(`[SERVER LOG] [RESEND ATTEMPT ${attempt} FAILED]`, lastError);
+      }
+    }
+
+    // Fall back to SMTP
+    const transporter = getEmailTransporter();
+    if (transporter) {
+      try {
+        await transporter.sendMail({
+          from: process.env.SMTP_FROM || `"On Time Driver Service" <${TARGET_ADMIN_EMAIL}>`,
+          to: TARGET_ADMIN_EMAIL,
+          subject,
+          text,
+          html,
+        });
+        console.log(`[SERVER LOG] [EMAIL SENT SUCCESSFULLY] via SMTP on attempt ${attempt} for Lead ${lead.id}`);
+        return { success: true, method: 'SENT_SMTP' };
+      } catch (err: any) {
+        lastError = err?.message || String(err);
+        console.error(`[SERVER LOG] [SMTP ATTEMPT ${attempt} FAILED]`, lastError);
+      }
+    }
+
+    if (!process.env.RESEND_API_KEY && !transporter) {
+      console.warn(`[SERVER LOG] [EMAIL CONFIG MISSING] Neither RESEND_API_KEY nor SMTP credentials configured. Lead ${lead.id} stored in database.`);
+      return { success: false, method: 'SAVED_NO_EMAIL_CONFIG', error: 'No active email provider configured' };
+    }
+
+    // Delay before next retry if attempts remain
+    if (attempt < maxRetries) {
+      const delayMs = attempt * 1500;
+      console.log(`[SERVER LOG] Waiting ${delayMs}ms before retry...`);
+      await new Promise((r) => setTimeout(r, delayMs));
+    }
+  }
+
+  return { success: false, method: `FAILED_AFTER_${maxRetries}_ATTEMPTS`, error: lastError };
+}
+
+// -------------------------------------------------------------
+// CENTRAL LEAD SUBMISSION HANDLER (Used by /api/send-lead and /api/leads)
+// -------------------------------------------------------------
+async function handleLeadSubmission(req: express.Request, res: express.Response) {
+  const requestStartTime = Date.now();
+  console.log(`[SERVER LOG] [LEAD RECEIVED] Source: ${req.headers['x-forwarded-for'] || req.socket.remoteAddress} | URL: ${req.originalUrl}`);
+
+  try {
+    const {
+      name,
+      mobileNumber,
+      phone,
+      mobile,
+      email,
+      location,
+      serviceType,
+      service_type,
+      date,
+      time,
+      vehicle,
+      vehicleType,
+      vehicleDetails,
+      message,
+      sourcePage = '/',
+      pageUrl,
+      formName = 'Website Booking Form',
+      leadSource,
+      submittedAt,
+    } = req.body;
+
+    // 1. INPUT VALIDATION
+    if (!name || typeof name !== 'string' || name.trim().length < 2) {
+      console.warn('[SERVER LOG] [VALIDATION FAILED] Name missing or too short:', name);
+      return res.status(400).json({
+        success: false,
+        error: 'Please enter your full name (minimum 2 characters).',
+      });
+    }
+
+    const rawPhone = mobileNumber || mobile || phone || '';
+    const digitsOnly = String(rawPhone).replace(/\D/g, '');
+
+    let cleanPhone = digitsOnly;
+    if (digitsOnly.length === 12 && digitsOnly.startsWith('91')) {
+      cleanPhone = digitsOnly.slice(2);
+    } else if (digitsOnly.length === 11 && digitsOnly.startsWith('0')) {
+      cleanPhone = digitsOnly.slice(1);
+    }
+
+    if (cleanPhone.length < 10) {
+      console.warn('[SERVER LOG] [VALIDATION FAILED] Invalid Indian phone number:', rawPhone);
+      return res.status(400).json({
+        success: false,
+        error: 'Please enter a valid 10-digit Indian mobile number.',
+      });
+    }
+
+    const resolvedLocation = (location && typeof location === 'string') ? location.trim() : '';
+    if (!resolvedLocation) {
+      console.warn('[SERVER LOG] [VALIDATION FAILED] Location missing');
+      return res.status(400).json({
+        success: false,
+        error: 'Please select or enter your pickup location.',
+      });
+    }
+
+    const resolvedServiceType = serviceType || service_type || 'Personal Driver';
+    if (!resolvedServiceType || typeof resolvedServiceType !== 'string' || !resolvedServiceType.trim()) {
+      console.warn('[SERVER LOG] [VALIDATION FAILED] Service type missing');
+      return res.status(400).json({
+        success: false,
+        error: 'Please select a driver service type.',
+      });
+    }
+
+    // Validate email if provided
+    let cleanEmail = 'Not provided';
+    if (email && typeof email === 'string' && email.trim()) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.trim())) {
+        console.warn('[SERVER LOG] [VALIDATION FAILED] Invalid email address format:', email);
+        return res.status(400).json({
+          success: false,
+          error: 'Please enter a valid email address.',
+        });
+      }
+      cleanEmail = email.trim().toLowerCase();
+    }
+
+    // 2. NORMALIZE & CAPTURE ALL 11 FIELDS
+    const leadId = `OTD-${Date.now().toString(36).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`;
+    const timestampIST = submittedAt || new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) + ' IST';
+    const selectedVehicle = vehicleDetails || vehicle || vehicleType || 'Sedan / SUV';
+    const effectivePageUrl = pageUrl || sourcePage || '/';
+    const effectiveLeadSource = leadSource || formName || 'Quick Booking Widget';
+
+    const newLead = {
+      id: leadId,
+      name: name.trim(),
+      mobileNumber: cleanPhone,
+      phone: cleanPhone,
+      mobile: cleanPhone,
+      email: cleanEmail,
+      location: resolvedLocation,
+      serviceType: resolvedServiceType.trim(),
+      service_type: resolvedServiceType.trim(),
+      date: date || new Date().toISOString().split('T')[0],
+      time: time || 'Immediate / Flexible',
+      vehicleDetails: selectedVehicle,
+      vehicle: selectedVehicle,
+      message: message && String(message).trim() ? String(message).trim() : 'No additional requirement specified',
+      pageUrl: effectivePageUrl,
+      sourcePage: effectivePageUrl,
+      leadSource: effectiveLeadSource,
+      formName: effectiveLeadSource,
+      timestamp: timestampIST,
+      created_at: new Date().toISOString(),
+      email_status: 'PENDING',
+    };
+
+    console.log(`[SERVER LOG] [LEAD VALIDATED & CREATED] ID: ${leadId} | Name: ${newLead.name} | Phone: ${newLead.mobileNumber} | Service: ${newLead.serviceType}`);
+
+    // 3. PERSIST LEAD IN DATABASE BEFORE DISPATCH
+    let currentLeads = [];
+    try {
+      const raw = fs.readFileSync(LEADS_FILE, 'utf8');
+      currentLeads = JSON.parse(raw);
+    } catch {
+      currentLeads = [];
+    }
+
+    currentLeads.unshift(newLead);
+    fs.writeFileSync(LEADS_FILE, JSON.stringify(currentLeads.slice(0, 1000), null, 2), 'utf8');
+    console.log(`[SERVER LOG] [DATABASE SAVE SUCCESS] Lead ${leadId} persisted in data/leads.json`);
+
+    // 4. PREPARE EMAIL CONTENT
+    // Required exact subject format: "New Driver Booking Lead - On Time Driver Service"
+    const emailSubject = 'New Driver Booking Lead - On Time Driver Service';
+
+    const emailHtml = `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 620px; margin: 0 auto; background: #FFFFFF; color: #111827; padding: 28px; border-radius: 12px; border: 1px solid #E5E7EB;">
+        <div style="border-bottom: 2px solid #35B6DE; padding-bottom: 16px; margin-bottom: 20px; text-align: center;">
+          <img src="https://ontimedriverservice.com/images/logo.png" alt="On Time Driver Service" style="max-height: 55px; width: auto; margin-bottom: 10px;" />
+          <h2 style="color: #111827; margin: 0; font-size: 20px; letter-spacing: 0.5px;">ON TIME DRIVER SERVICE</h2>
+          <p style="color: #35B6DE; margin: 4px 0 0; font-weight: bold; font-size: 13px; text-transform: uppercase;">NEW DRIVER BOOKING ENQUIRY RECEIVED</p>
+        </div>
+
+        <p style="color: #4B5563; font-size: 14px; margin-bottom: 20px;">
+          A customer has submitted a driver booking request on <strong>https://ontimedriverservice.com</strong>:
+        </p>
+
+        <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px;">
+          <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 0; color: #4B5563; width: 160px; font-weight: 600;">Customer Name:</td>
+            <td style="padding: 10px 0; font-weight: bold; color: #111827;">${newLead.name}</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 0; color: #4B5563; font-weight: 600;">Mobile Number:</td>
+            <td style="padding: 10px 0;">
+              <a href="tel:${newLead.mobileNumber}" style="color: #35B6DE; text-decoration: none; font-weight: bold; font-size: 16px;">
+                +91 ${newLead.mobileNumber}
+              </a>
+            </td>
+          </tr>
+          <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 0; color: #4B5563; font-weight: 600;">Email:</td>
+            <td style="padding: 10px 0; color: #111827;">${newLead.email || 'Not provided'}</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 0; color: #4B5563; font-weight: 600;">Location:</td>
+            <td style="padding: 10px 0; color: #111827; font-weight: 500;">${newLead.location}</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 0; color: #4B5563; font-weight: 600;">Service Type:</td>
+            <td style="padding: 10px 0; color: #111827; font-weight: bold;">${newLead.serviceType}</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 0; color: #4B5563; font-weight: 600;">Date & Time:</td>
+            <td style="padding: 10px 0; color: #111827;">${newLead.date} at ${newLead.time}</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 0; color: #4B5563; font-weight: 600;">Vehicle Details:</td>
+            <td style="padding: 10px 0; color: #111827;">${newLead.vehicleDetails}</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 0; color: #4B5563; font-weight: 600;">Message / Details:</td>
+            <td style="padding: 10px 0; color: #4B5563; line-height: 1.5;">${newLead.message}</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 0; color: #4B5563; font-weight: 600;">Page URL:</td>
+            <td style="padding: 10px 0; color: #35B6DE;">${newLead.pageUrl}</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #E5E7EB;">
+            <td style="padding: 10px 0; color: #4B5563; font-weight: 600;">Lead Source:</td>
+            <td style="padding: 10px 0; color: #111827;">${newLead.leadSource}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; color: #4B5563; font-weight: 600;">Submission Timestamp:</td>
+            <td style="padding: 10px 0; color: #4B5563;">${newLead.timestamp}</td>
+          </tr>
+        </table>
+
+        <div style="background: #EEF8FC; border: 1px solid #E5E7EB; padding: 16px; border-radius: 8px; margin-top: 24px; font-size: 13px; text-align: center;">
+          <a href="https://wa.me/91${newLead.mobileNumber}?text=Hello%20${encodeURIComponent(newLead.name)},%20we%20received%20your%20request%20for%20a%20${encodeURIComponent(newLead.serviceType)}%20at%20On%20Time%20Driver%20Service." style="background: #25D366; color: white; text-decoration: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; display: inline-block; margin-right: 10px;">
+            WhatsApp Customer
+          </a>
+          <a href="tel:${newLead.mobileNumber}" style="background: #35B6DE; color: white; text-decoration: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; display: inline-block;">
+            Call Customer
+          </a>
+        </div>
+      </div>
+    `;
+
+    const emailText = `ON TIME DRIVER SERVICE - NEW DRIVER BOOKING LEAD
+
+Customer Name: ${newLead.name}
+Mobile Number: +91 ${newLead.mobileNumber}
+Email: ${newLead.email}
+Location: ${newLead.location}
+Service Type: ${newLead.serviceType}
+Date: ${newLead.date}
+Time: ${newLead.time}
+Vehicle Details: ${newLead.vehicleDetails}
+Message: ${newLead.message}
+Page URL: ${newLead.pageUrl}
+Lead Source: ${newLead.leadSource}
+Submission Timestamp: ${newLead.timestamp}
+Lead ID: ${newLead.id}
+`;
+
+    // 5. ATTEMPT EMAIL DISPATCH WITH RETRY
+    const dispatchResult = await dispatchLeadEmailWithRetry(newLead, emailSubject, emailHtml, emailText, 3);
+    newLead.email_status = dispatchResult.success ? dispatchResult.method : `FAILED: ${dispatchResult.error}`;
+
+    // Update stored lead status
+    try {
+      currentLeads[0] = newLead;
+      fs.writeFileSync(LEADS_FILE, JSON.stringify(currentLeads.slice(0, 1000), null, 2), 'utf8');
+    } catch (saveErr) {
+      console.warn('[SERVER LOG] Failed to update lead status in file:', saveErr);
+    }
+
+    const duration = Date.now() - requestStartTime;
+    console.log(`[SERVER LOG] [LEAD COMPLETED] ID: ${leadId} | Status: ${newLead.email_status} | Duration: ${duration}ms`);
+
+    // 6. RETURN SUCCESS RESPONSE
+    return res.status(200).json({
+      success: true,
+      leadId: newLead.id,
+      message: 'Thank you for your enquiry. Our team will contact you shortly.',
+      lead: {
+        id: newLead.id,
+        name: newLead.name,
+        phone: newLead.mobileNumber,
+        mobile: newLead.mobileNumber,
+        location: newLead.location,
+        serviceType: newLead.serviceType,
+      },
+      emailStatus: newLead.email_status,
+    });
+  } catch (err: any) {
+    console.error('[SERVER LOG] [LEAD FATAL ERROR]', err);
+    return res.status(500).json({
+      success: false,
+      error: 'We could not submit your request right now. Please call 8652880057 or contact us on WhatsApp.',
+    });
+  }
+}
+
 // -------------------------------------------------------------
 // API ROUTES
 // -------------------------------------------------------------
 
-// Health Check
+// Health Check Endpoint
 app.get('/api/health', (_req, res) => {
   res.json({
     status: 'healthy',
     timestamp: new Date().toISOString(),
     service: 'On Time Driver Service API',
     adminEmail: TARGET_ADMIN_EMAIL,
+    phone: PRIMARY_PHONE,
+    resendConfigured: Boolean(process.env.RESEND_API_KEY),
     smtpConfigured: Boolean(process.env.SMTP_HOST && process.env.SMTP_USER),
   });
 });
 
-// GET /api/leads - Retrieve saved leads (for admin audit / verification)
+// GET /api/leads - View saved leads for audit
 app.get('/api/leads', (_req, res) => {
   try {
     const raw = fs.readFileSync(LEADS_FILE, 'utf8');
@@ -74,188 +458,14 @@ app.get('/api/leads', (_req, res) => {
   }
 });
 
-// GET /api/recent-bookings - Live social proof activity
-app.get('/api/recent-bookings', (_req, res) => {
-  const recentBookings = [
-    { name: 'Vikram M.', location: 'Bandra Kurla Complex (BKC)', service: 'Corporate Chauffeur', timeAgo: '4 minutes ago', vehicle: 'Toyota Innova Crysta' },
-    { name: 'Pooja S.', location: 'Powai Hiranandani', service: 'Personal Driver', timeAgo: '12 minutes ago', vehicle: 'Honda City' },
-    { name: 'Dr. Anand K.', location: 'Worli Sea Face', service: 'Full-Time Chauffeur', timeAgo: '21 minutes ago', vehicle: 'Mercedes E-Class' },
-    { name: 'Sameer D.', location: 'Ghodbunder Road, Thane', service: 'Hourly Driver', timeAgo: '35 minutes ago', vehicle: 'Hyundai Creta' },
-    { name: 'Meera N.', location: 'Vashi Sector 17, Navi Mumbai', service: 'Airport Transfer Chauffeur', timeAgo: '48 minutes ago', vehicle: 'Toyota Fortuner' },
-    { name: 'Rohit J.', location: 'Andheri West (Lokhandwala)', service: 'Outstation Chauffeur (Pune)', timeAgo: '1 hour ago', vehicle: 'Kia Carnival' }
-  ];
-  res.json({ success: true, bookings: recentBookings });
-});
+// Primary Endpoint requested by user: POST /api/send-lead
+app.post('/api/send-lead', handleLeadSubmission);
 
-// POST /api/leads - Handle comprehensive lead submission
-app.post('/api/leads', async (req, res) => {
-  try {
-    const {
-      name,
-      mobile,
-      phone,
-      email,
-      location,
-      serviceType,
-      message,
-      date,
-      time,
-      vehicle,
-      vehicleType,
-      sourcePage = '/',
-      formName = 'Online Booking Form',
-    } = req.body;
-
-    const contactPhone = mobile || phone || '';
-    const selectedVehicle = vehicle || vehicleType || 'Toyota Innova Crysta / Sedan';
-
-    // Validation
-    if (!name || name.trim().length < 2) {
-      return res.status(400).json({ success: false, error: 'Full name is required (min 2 characters).' });
-    }
-
-    const cleanMobile = contactPhone.replace(/\D/g, '');
-    if (cleanMobile.length < 10) {
-      return res.status(400).json({ success: false, error: 'Valid 10-digit mobile number is required.' });
-    }
-
-    if (!email || !email.includes('@') || !email.includes('.')) {
-      return res.status(400).json({ success: false, error: 'Valid email address is required.' });
-    }
-
-    const leadId = `OTD-${Date.now().toString(36).toUpperCase()}-${Math.floor(1000 + Math.random() * 9000)}`;
-    const timestampIST = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) + ' IST';
-
-    const newLead = {
-      id: leadId,
-      name: name.trim(),
-      mobile: cleanMobile,
-      phone: cleanMobile,
-      email: email.trim().toLowerCase(),
-      location: location || 'Mumbai MMR',
-      serviceType: serviceType || 'Professional Driver Service',
-      date: date || new Date().toISOString().split('T')[0],
-      time: time || 'Immediate / Flexible',
-      vehicle: selectedVehicle,
-      vehicleType: selectedVehicle,
-      message: message ? message.trim() : 'No additional message provided',
-      sourcePage: sourcePage || '/',
-      timestamp: timestampIST,
-      formName,
-      targetAdminEmail: TARGET_ADMIN_EMAIL,
-      status: 'NEW',
-    };
-
-    // 1. ALWAYS Save lead in database first
-    let currentLeads = [];
-    try {
-      const raw = fs.readFileSync(LEADS_FILE, 'utf8');
-      currentLeads = JSON.parse(raw);
-    } catch {
-      currentLeads = [];
-    }
-    currentLeads.unshift(newLead);
-    fs.writeFileSync(LEADS_FILE, JSON.stringify(currentLeads.slice(0, 500), null, 2), 'utf8');
-
-    // 2. Prepare Admin Email Notification
-    // EXACT SUBJECT REQUIRED: "New Driver Booking Lead - On Time Driver Service"
-    const adminEmailSubject = 'New Driver Booking Lead - On Time Driver Service';
-    const adminEmailHtml = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #050505; color: #FFFFFF; padding: 24px; border-radius: 8px; border: 1px solid #35B6DE;">
-        <div style="border-bottom: 2px solid #35B6DE; padding-bottom: 12px; margin-bottom: 20px;">
-          <h2 style="color: #35B6DE; margin: 0; font-size: 22px;">ON TIME DRIVER SERVICE</h2>
-          <p style="color: #F3ED1A; margin: 4px 0 0; font-weight: bold; font-size: 14px;">NEW CHAUFFEUR SERVICE LEAD DISPATCH</p>
-        </div>
-        <p style="color: #CFCFCF; font-size: 14px;">A new driver service booking has been requested through the website:</p>
-        <table style="width: 100%; border-collapse: collapse; margin: 20px 0; color: #FFFFFF; font-size: 14px;">
-          <tr style="border-bottom: 1px solid #222;"><td style="padding: 8px 0; color: #9CA3AF; width: 140px;">Booking Ref:</td><td style="padding: 8px 0; font-weight: bold; color: #35B6DE;">${newLead.id}</td></tr>
-          <tr style="border-bottom: 1px solid #222;"><td style="padding: 8px 0; color: #9CA3AF;">Name:</td><td style="padding: 8px 0; font-weight: bold;">${newLead.name}</td></tr>
-          <tr style="border-bottom: 1px solid #222;"><td style="padding: 8px 0; color: #9CA3AF;">Mobile:</td><td style="padding: 8px 0;"><a href="tel:${newLead.mobile}" style="color: #F3ED1A; text-decoration: none; font-weight: bold;">+91 ${newLead.mobile}</a></td></tr>
-          <tr style="border-bottom: 1px solid #222;"><td style="padding: 8px 0; color: #9CA3AF;">Email:</td><td style="padding: 8px 0;"><a href="mailto:${newLead.email}" style="color: #35B6DE;">${newLead.email}</a></td></tr>
-          <tr style="border-bottom: 1px solid #222;"><td style="padding: 8px 0; color: #9CA3AF;">Location:</td><td style="padding: 8px 0;">${newLead.location}</td></tr>
-          <tr style="border-bottom: 1px solid #222;"><td style="padding: 8px 0; color: #9CA3AF;">Service Type:</td><td style="padding: 8px 0; font-weight: bold; color: #F3ED1A;">${newLead.serviceType}</td></tr>
-          <tr style="border-bottom: 1px solid #222;"><td style="padding: 8px 0; color: #9CA3AF;">Date:</td><td style="padding: 8px 0;">${newLead.date}</td></tr>
-          <tr style="border-bottom: 1px solid #222;"><td style="padding: 8px 0; color: #9CA3AF;">Time:</td><td style="padding: 8px 0;">${newLead.time}</td></tr>
-          <tr style="border-bottom: 1px solid #222;"><td style="padding: 8px 0; color: #9CA3AF;">Vehicle:</td><td style="padding: 8px 0;">${newLead.vehicle}</td></tr>
-          <tr style="border-bottom: 1px solid #222;"><td style="padding: 8px 0; color: #9CA3AF;">Message:</td><td style="padding: 8px 0; color: #CFCFCF;">${newLead.message}</td></tr>
-          <tr style="border-bottom: 1px solid #222;"><td style="padding: 8px 0; color: #9CA3AF;">Source Page:</td><td style="padding: 8px 0; color: #CFCFCF;">${newLead.sourcePage}</td></tr>
-          <tr><td style="padding: 8px 0; color: #9CA3AF;">Timestamp:</td><td style="padding: 8px 0; color: #CFCFCF;">${newLead.timestamp}</td></tr>
-        </table>
-        <div style="background: #0B0B0B; padding: 12px; border-radius: 6px; font-size: 12px; color: #9CA3AF; margin-top: 20px;">
-          Delivered To: ${TARGET_ADMIN_EMAIL} | Phone Desk: 8652880057 | Form: ${newLead.formName}
-        </div>
-      </div>
-    `;
-
-    // 3. Prepare Confirmation Email to Customer
-    const customerEmailSubject = `Your Driver Booking Confirmation - On Time Driver Service [${newLead.id}]`;
-    const customerEmailHtml = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #050505; color: #FFFFFF; padding: 24px; border-radius: 8px; border: 1px solid #35B6DE;">
-        <h2 style="color: #35B6DE; margin: 0 0 10px;">ON TIME DRIVER SERVICE</h2>
-        <h3 style="color: #FFFFFF; margin: 0 0 16px;">Dear ${newLead.name},</h3>
-        <p style="color: #CFCFCF; font-size: 15px; line-height: 1.6;">
-          Thank you for choosing <strong>On Time Driver Service</strong>. We have received your booking request for <strong>${newLead.serviceType}</strong> in ${newLead.location}.
-        </p>
-        <div style="background: #0B0B0B; border-left: 4px solid #35B6DE; padding: 16px; margin: 20px 0; border-radius: 4px;">
-          <p style="margin: 0 0 8px; color: #F3ED1A; font-weight: bold;">Booking Summary (${newLead.id})</p>
-          <ul style="margin: 0; padding-left: 20px; color: #CFCFCF; font-size: 14px; line-height: 1.8;">
-            <li>Service: ${newLead.serviceType}</li>
-            <li>Location: ${newLead.location}</li>
-            <li>Vehicle: ${newLead.vehicle}</li>
-            <li>Date & Time: ${newLead.date} at ${newLead.time}</li>
-            <li>Booking Reference: ${newLead.id}</li>
-          </ul>
-        </div>
-        <p style="color: #CFCFCF; font-size: 14px; line-height: 1.6;">
-          Our dispatch concierge is reviewing driver availability in your sector. A coordinator will call you at <strong>+91 ${newLead.mobile}</strong> within 15–30 minutes to confirm your chauffeur details.
-        </p>
-        <p style="color: #9CA3AF; font-size: 13px; margin-top: 24px;">
-          For urgent requirements, call our 24x7 desk immediately at <strong><a href="tel:8652880057" style="color: #F3ED1A; text-decoration: none;">8652880057</a></strong>.
-        </p>
-      </div>
-    `;
-
-    // 4. Send via Nodemailer (if SMTP configured) with error handling
-    const transporter = getEmailTransporter();
-    if (transporter) {
-      try {
-        await transporter.sendMail({
-          from: process.env.SMTP_FROM || `"On Time Driver Service" <${TARGET_ADMIN_EMAIL}>`,
-          to: TARGET_ADMIN_EMAIL,
-          subject: adminEmailSubject,
-          html: adminEmailHtml,
-        });
-
-        await transporter.sendMail({
-          from: process.env.SMTP_FROM || `"On Time Driver Service" <${TARGET_ADMIN_EMAIL}>`,
-          to: newLead.email,
-          subject: customerEmailSubject,
-          html: customerEmailHtml,
-        });
-        console.log(`[SMTP EMAIL DELIVERED] Admin notification to ${TARGET_ADMIN_EMAIL} and confirmation to ${newLead.email}`);
-      } catch (smtpErr) {
-        // Requirement 6: If email sending fails, still save lead in database and log error in server
-        console.error('[SERVER SMTP ERROR LOG]', smtpErr);
-      }
-    } else {
-      console.log(`[LEAD SAVED TO DB - SMTP NOT CONFIGURED] Dispatched for ${TARGET_ADMIN_EMAIL} Ref: ${newLead.id}`);
-    }
-
-    // Requirement 7: Always return 200 success
-    return res.status(200).json({
-      success: true,
-      message: 'Booking request confirmed! Our concierge will call you within 15-30 minutes.',
-      leadId: newLead.id,
-      lead: newLead,
-    });
-  } catch (err: any) {
-    console.error('Lead processing error:', err);
-    return res.status(500).json({ success: false, error: 'Internal server error while processing booking.' });
-  }
-});
+// Alias Endpoint: POST /api/leads
+app.post('/api/leads', handleLeadSubmission);
 
 // -------------------------------------------------------------
-// VITE OR STATIC SERVING
+// VITE DEV SERVER OR PRODUCTION STATIC SERVING
 // -------------------------------------------------------------
 async function startServer() {
   if (!isProd) {
@@ -273,7 +483,9 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`> On Time Driver Service full-stack server running on http://0.0.0.0:${PORT}`);
+    console.log(`> On Time Driver Service active on http://0.0.0.0:${PORT}`);
+    console.log(`> Primary Lead Endpoint: POST /api/send-lead`);
+    console.log(`> Lead Receiver: ${TARGET_ADMIN_EMAIL}`);
   });
 }
 

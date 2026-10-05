@@ -31,35 +31,35 @@ export const FaqSection: React.FC = () => {
   }, [activeCategory, searchQuery]);
 
   return (
-    <section id="faqs" className="py-20 lg:py-28 bg-[#050505] text-white border-b border-white/10 relative">
+    <section id="faqs" className="py-20 lg:py-24 bg-[#EEF8FC] text-[#111827] border-b border-[#E5E7EB] relative">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B0B0B] border border-[#35B6DE]/40 shadow-md mb-3.5">
-            <Sparkles className="w-3.5 h-3.5 text-[#F3ED1A]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#35B6DE]/30 shadow-xs mb-3.5">
+            <Sparkles className="w-3.5 h-3.5 text-[#35B6DE]" />
             <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE]">
               Frequently Asked Questions
             </span>
           </div>
 
-          <h2 className="text-h2 font-extrabold text-white mb-4">
+          <h2 className="text-h2 font-extrabold text-[#111827] mb-4">
             Frequently Asked Questions
           </h2>
 
-          <p className="text-subheading text-[#CFCFCF] leading-relaxed font-normal">
-            Everything you need to know about our police verification protocols, driver screening, rates, and coverage across Mumbai and MMR.
+          <p className="text-subheading text-[#4B5563] leading-relaxed font-normal text-base sm:text-lg">
+            Everything you need to know about our police verification protocols, driver screening, hourly and monthly rates, and coverage across Mumbai and MMR.
           </p>
 
           {/* Search Box */}
           <div className="mt-8 relative max-w-lg mx-auto">
-            <Search className="w-4 h-4 text-neutral-400 absolute left-4 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[#9CA3AF] absolute left-4 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search verification, rates, routes, replacement..."
-              className="w-full pl-11 pr-4 py-3 bg-[#0B0B0B] border border-white/15 focus:border-[#35B6DE] rounded-xl text-sm text-white placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-[#35B6DE] transition-all shadow-inner"
+              className="w-full pl-11 pr-4 py-3 bg-white border border-[#E5E7EB] focus:border-[#35B6DE] rounded-xl text-sm text-[#111827] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#35B6DE]/20 transition-all shadow-xs"
             />
           </div>
 
@@ -71,8 +71,8 @@ export const FaqSection: React.FC = () => {
                 onClick={() => setActiveCategory(cat)}
                 className={`px-4 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer whitespace-nowrap ${
                   activeCategory === cat
-                    ? 'bg-[#35B6DE] text-[#050505] font-bold shadow-md'
-                    : 'bg-[#0B0B0B] text-[#CFCFCF] border border-white/10 hover:border-white/20'
+                    ? 'bg-[#35B6DE] text-white font-bold shadow-xs'
+                    : 'bg-white text-[#4B5563] border border-[#E5E7EB] hover:text-[#111827]'
                 }`}
               >
                 {cat}
@@ -89,21 +89,19 @@ export const FaqSection: React.FC = () => {
               return (
                 <div
                   key={faq.id}
-                  className="bg-[#0B0B0B] rounded-2xl border border-white/10 overflow-hidden transition-all duration-200 hover:border-[#35B6DE]/40"
+                  className="bg-white rounded-2xl border border-[#E5E7EB] overflow-hidden transition-all duration-200 shadow-xs hover:border-[#35B6DE]"
                 >
                   <button
                     onClick={() => toggleFaq(faq.id)}
                     className="w-full px-6 py-5 flex items-center justify-between text-left gap-4 cursor-pointer focus:outline-none"
                     aria-expanded={isOpen}
                   >
-                    <span className="font-heading font-bold text-sm sm:text-base text-white hover:text-[#35B6DE] transition-colors">
+                    <span className="font-heading font-bold text-sm sm:text-base text-[#111827] hover:text-[#35B6DE] transition-colors">
                       {faq.question}
                     </span>
                     <div
-                      className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-transform duration-300 ${
-                        isOpen
-                          ? 'bg-[#35B6DE] text-[#050505] rotate-180'
-                          : 'bg-white/5 text-neutral-400'
+                      className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 ${
+                        isOpen ? 'bg-[#EEF8FC] text-[#35B6DE] rotate-180' : 'bg-slate-100 text-[#4B5563]'
                       }`}
                     >
                       <ChevronDown className="w-4 h-4" />
@@ -111,7 +109,7 @@ export const FaqSection: React.FC = () => {
                   </button>
 
                   {isOpen && (
-                    <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-[#CFCFCF] leading-relaxed border-t border-white/5 animate-fade-in font-normal">
+                    <div className="px-6 pb-6 pt-1 text-sm text-[#4B5563] leading-relaxed border-t border-[#E5E7EB] animate-fade-in">
                       <p>{faq.answer}</p>
                     </div>
                   )}
@@ -119,8 +117,8 @@ export const FaqSection: React.FC = () => {
               );
             })
           ) : (
-            <div className="text-center py-12 bg-[#0B0B0B] rounded-2xl border border-white/10">
-              <p className="text-neutral-400 text-sm mb-3">No matching FAQs found for "{searchQuery}".</p>
+            <div className="text-center py-10 bg-white rounded-2xl border border-[#E5E7EB] p-8">
+              <p className="text-sm text-[#4B5563] mb-3">No questions matched your search query.</p>
               <button
                 onClick={() => {
                   setSearchQuery('');
@@ -128,24 +126,10 @@ export const FaqSection: React.FC = () => {
                 }}
                 className="text-xs font-bold text-[#35B6DE] hover:underline"
               >
-                Clear Search &amp; Reset Filters
+                Reset Search Filters
               </button>
             </div>
           )}
-        </div>
-
-        {/* Support Help Banner */}
-        <div className="mt-12 p-6 rounded-2xl bg-[#0B0B0B] border border-white/10 text-center flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-left">
-            <h4 className="text-sm font-bold text-white mb-1">Have a specific route or fleet query?</h4>
-            <p className="text-xs text-[#CFCFCF]">Our central dispatch concierge desk operates 24/7 across Mumbai MMR.</p>
-          </div>
-          <a
-            href="tel:8652880057"
-            className="btn-secondary h-10 px-5 text-xs font-bold shrink-0"
-          >
-            Call Desk: 8652880057
-          </a>
         </div>
 
       </div>

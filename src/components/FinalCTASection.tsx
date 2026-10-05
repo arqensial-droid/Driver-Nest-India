@@ -1,116 +1,237 @@
-import React from 'react';
-import { Phone, Calendar, MessageSquare, ShieldCheck, ArrowRight, CheckCircle2, Sparkles, Clock, MapPin } from 'lucide-react';
-import { ImageWithFallback } from './ImageWithFallback';
+import React, { useState } from 'react';
+import {
+  Phone,
+  Calendar,
+  MessageSquare,
+  ShieldCheck,
+  ArrowRight,
+  CheckCircle2,
+  Sparkles,
+  Send,
+  User,
+  AlertCircle,
+  MapPin,
+} from 'lucide-react';
+import { submitLead, validateLeadForm, getWhatsAppSuccessUrl, getWhatsAppFallbackUrl, PRIMARY_PHONE } from '../services/leadService';
 
 interface FinalCTASectionProps {
   onOpenBooking: () => void;
 }
 
 export const FinalCTASection: React.FC<FinalCTASectionProps> = ({ onOpenBooking }) => {
+  const [ctaName, setCtaName] = useState('');
+  const [ctaMobile, setCtaMobile] = useState('');
+  const [ctaLocation, setCtaLocation] = useState('Mumbai');
+  const [ctaService, setCtaService] = useState('Personal Driver');
+  const [ctaSubmitting, setCtaSubmitting] = useState(false);
+  const [ctaSubmitted, setCtaSubmitted] = useState(false);
+  const [ctaRef, setCtaRef] = useState('');
+  const [ctaError, setCtaError] = useState('');
+
+  const handleCtaSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const data = {
+      name: ctaName,
+      mobile: ctaMobile,
+      location: ctaLocation,
+      serviceType: ctaService,
+      email: '',
+      formName: 'CTA Section Form',
+    };
+
+    const validation = validateLeadForm(data);
+    if (!validation.isValid) {
+      setCtaError(validation.errors.name || validation.errors.mobile || 'Please enter valid details.');
+      return;
+    }
+
+    setCtaError('');
+    setCtaSubmitting(true);
+
+    try {
+      console.log('[CONSOLE LOG] [CTA FORM SUBMISSION]', data);
+      const res = await submitLead(data, 'CTA Section Form');
+      if (res.success && res.record) {
+        setCtaRef(res.record.id);
+        setCtaSubmitted(true);
+      } else {
+        setCtaError(res.error || 'Failed to submit. Please call 8652880057 or message on WhatsApp.');
+      }
+    } catch (err: any) {
+      console.error('[CONSOLE LOG] [CTA FORM ERROR]', err);
+      setCtaError('Failed to submit. Please call 8652880057 or message on WhatsApp.');
+    } finally {
+      setCtaSubmitting(false);
+    }
+  };
+
   const handleWhatsApp = () => {
-    const text = encodeURIComponent('Hi, I need a professional driver service.');
+    const text = encodeURIComponent('Hi, I need a professional driver service in Mumbai.');
     window.open(`https://wa.me/918652880057?text=${text}`, '_blank');
   };
 
   return (
-    <section className="relative py-20 lg:py-28 overflow-hidden bg-[#050505] text-white border-t border-b border-white/10">
-      {/* Background Chauffeur & Executive Atmosphere with 75% Dark Overlay */}
-      <div className="absolute inset-0 z-0">
-        <ImageWithFallback
-          src="/images/services/chauffeur-service.jpg"
-          alt="Professional Indian chauffeur opening luxury car door politely for passenger in Mumbai"
-          fallbackTitle="Executive Chauffeur Service Mumbai"
-          className="w-full h-full object-cover opacity-20 filter grayscale contrast-125"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/95 to-[#050505]/80" />
-      </div>
-
-      {/* Ambient Glows */}
-      <div className="glow-blue-lg top-10 left-10 pointer-events-none" />
-      <div className="glow-yellow-sm bottom-10 right-10 pointer-events-none" />
-
+    <section className="relative py-20 lg:py-24 overflow-hidden bg-[#EEF8FC] text-[#111827] border-b border-[#E5E7EB]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="bg-[#0B0B0B]/90 backdrop-blur-md rounded-3xl border border-white/15 p-8 sm:p-12 lg:p-16 shadow-2xl relative overflow-hidden">
+        <div className="bg-white rounded-3xl border border-[#E5E7EB] p-8 sm:p-12 lg:p-16 shadow-lg relative overflow-hidden">
           
           <div className="max-w-3xl mx-auto text-center">
-            {/* Elegant Header Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#050505] border border-[#35B6DE]/50 text-[#35B6DE] text-xs font-bold uppercase tracking-wider mb-5 shadow-lg">
-              <Sparkles className="w-3.5 h-3.5 text-[#F3ED1A]" />
-              <span>Premium Chauffeur Experience</span>
+            {/* Header Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EEF8FC] border border-[#35B6DE]/30 text-[#35B6DE] text-xs font-bold uppercase tracking-wider mb-5 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#35B6DE]" />
+              <span>Instant Driver Allocation</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-heading text-white tracking-tight mb-5 leading-tight">
-              Ready to Hire a Verified Chauffeur{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#35B6DE] to-[#F3ED1A]">
-                in Mumbai?
-              </span>
+            {/* Headline */}
+            <h2 className="text-h2 font-extrabold text-[#111827] tracking-tight mb-4">
+              Ready to Hire a Verified Driver in Mumbai?
             </h2>
 
-            <p className="text-sm sm:text-base lg:text-lg text-[#CFCFCF] font-normal mb-8 leading-relaxed">
-              Experience the unmatched luxury and peace of mind of having your own 100% police-verified, punctual chauffeur behind the wheel of your Honda City, Toyota Innova Crysta, or luxury car across Mumbai, Thane &amp; Navi Mumbai.
+            {/* Subheadline */}
+            <p className="text-subheading text-[#4B5563] leading-relaxed mb-8 max-w-2xl mx-auto font-normal text-base sm:text-lg">
+              Get an experienced chauffeur matched to your car model, schedule, and route within 30 minutes. Safe, punctual, and police-verified.
             </p>
 
-            {/* Badges Strip */}
-            <div className="flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm text-neutral-300 mb-10">
-              <div className="flex items-center gap-1.5 bg-[#050505] px-3 py-1.5 rounded-lg border border-white/10">
-                <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
-                <span className="text-white font-medium">Police Verified Chauffeurs</span>
-              </div>
-              <div className="flex items-center gap-1.5 bg-[#050505] px-3 py-1.5 rounded-lg border border-white/10">
-                <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
-                <span className="text-white font-medium">Rapid 30-Min Dispatch</span>
-              </div>
-              <div className="flex items-center gap-1.5 bg-[#050505] px-3 py-1.5 rounded-lg border border-white/10">
-                <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
-                <span className="text-white font-medium">Replacement Guarantee</span>
-              </div>
-            </div>
+            {/* CTA Quick Form */}
+            {!ctaSubmitted ? (
+              <div className="bg-[#EEF8FC] p-6 rounded-2xl border border-[#E5E7EB] mb-8 text-left max-w-2xl mx-auto shadow-xs">
+                {ctaError && (
+                  <div className="p-3 mb-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
+                    <span>{ctaError}</span>
+                  </div>
+                )}
 
-            {/* CTA Buttons: All exactly same height (52px). Stack on mobile, inline on desktop */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 max-w-xl mx-auto mb-8">
-              {/* Primary: Book Driver */}
-              <button
-                onClick={onOpenBooking}
-                className="btn-primary w-full sm:w-auto h-[52px] px-8 text-base font-bold flex items-center justify-center gap-2 shadow-xl shadow-[#F3ED1A]/20 transition-all hover:scale-[1.02]"
-              >
-                <Calendar className="w-4 h-4 text-[#050505]" />
-                <span>Book Driver</span>
-              </button>
+                <form onSubmit={handleCtaSubmit} className="space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="relative">
+                      <User className="w-4 h-4 text-[#9CA3AF] absolute left-3.5 top-3.5" />
+                      <input
+                        type="text"
+                        required
+                        placeholder="Your Full Name"
+                        value={ctaName}
+                        onChange={(e) => setCtaName(e.target.value)}
+                        className="form-input pl-10 pr-3 py-2.5 text-xs"
+                      />
+                    </div>
 
-              {/* Secondary: Call Now */}
+                    <div className="relative">
+                      <Phone className="w-4 h-4 text-[#9CA3AF] absolute left-3.5 top-3.5" />
+                      <input
+                        type="tel"
+                        required
+                        maxLength={10}
+                        placeholder="10-digit Mobile"
+                        value={ctaMobile}
+                        onChange={(e) => setCtaMobile(e.target.value)}
+                        className="form-input pl-10 pr-3 py-2.5 text-xs font-medium"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="relative">
+                      <MapPin className="w-4 h-4 text-[#9CA3AF] absolute left-3.5 top-3.5" />
+                      <input
+                        type="text"
+                        required
+                        placeholder="Pickup Location in Mumbai"
+                        value={ctaLocation}
+                        onChange={(e) => setCtaLocation(e.target.value)}
+                        className="form-input pl-10 pr-3 py-2.5 text-xs"
+                      />
+                    </div>
+
+                    <select
+                      value={ctaService}
+                      onChange={(e) => setCtaService(e.target.value)}
+                      className="form-input px-3 py-2.5 text-xs font-medium bg-white"
+                    >
+                      <option value="Personal Driver">Personal Driver</option>
+                      <option value="Corporate Driver">Corporate Driver</option>
+                      <option value="Permanent Driver">Permanent Driver</option>
+                      <option value="Hourly Driver">Hourly Driver</option>
+                      <option value="Airport Driver">Airport Driver</option>
+                      <option value="Outstation Driver">Outstation Driver</option>
+                    </select>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={ctaSubmitting}
+                    className="w-full h-11 bg-[#F3ED1A] hover:bg-[#eae415] text-[#111827] font-bold text-xs sm:text-sm rounded-xl flex items-center justify-center gap-2 shadow-xs transition-colors cursor-pointer"
+                  >
+                    {ctaSubmitting ? (
+                      <span>Dispatching to 24/7 Desk...</span>
+                    ) : (
+                      <>
+                        <Send className="w-3.5 h-3.5 text-[#111827]" />
+                        <span>Book Verified Driver Now</span>
+                      </>
+                    )}
+                  </button>
+                </form>
+              </div>
+            ) : (
+              <div className="p-6 rounded-2xl bg-[#EEF8FC] border border-[#E5E7EB] mb-8 text-center max-w-md mx-auto">
+                <CheckCircle2 className="w-10 h-10 text-[#22C55E] mx-auto mb-2" />
+                <h4 className="text-base font-bold text-[#111827] mb-1">Request Received</h4>
+                <p className="text-xs font-semibold text-[#22C55E] mb-2">
+                  Thank you. Our team will contact you within 15 minutes.
+                </p>
+                <p className="text-[11px] text-[#4B5563] mb-4">
+                  Reference: <strong>{ctaRef}</strong> &middot; Target: info@ontimedriverservice.com
+                </p>
+                <a
+                  href={`https://wa.me/918652880057?text=Hello%2C%20I%20just%20submitted%20booking%20${ctaRef}%20for%20${encodeURIComponent(ctaService)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-whatsapp w-full h-10 text-xs font-bold flex items-center justify-center gap-2"
+                >
+                  <MessageSquare className="w-3.5 h-3.5" />
+                  <span>WhatsApp Priority Allocation</span>
+                </a>
+              </div>
+            )}
+
+            {/* Direct Contact Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-8">
               <a
                 href="tel:8652880057"
-                className="btn-secondary w-full sm:w-auto h-[52px] px-7 text-base font-bold flex items-center justify-center gap-2 transition-all hover:border-[#35B6DE]"
+                className="btn-secondary w-full sm:w-auto h-12 px-7 text-sm font-bold flex items-center justify-center gap-2"
               >
                 <Phone className="w-4 h-4 text-[#35B6DE]" />
-                <span>Call Now</span>
+                <span>Call Concierge: 8652880057</span>
               </a>
 
-              {/* Tertiary: Whatsapp */}
               <button
                 onClick={handleWhatsApp}
-                className="btn-whatsapp w-full sm:w-auto h-[52px] px-7 text-base font-bold flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
-                aria-label="WhatsApp Concierge"
+                className="btn-whatsapp w-full sm:w-auto h-12 px-7 text-sm font-bold flex items-center justify-center gap-2"
               >
-                <MessageSquare className="w-4 h-4 text-white" />
-                <span>Whatsapp</span>
+                <MessageSquare className="w-4 h-4" />
+                <span>WhatsApp: 8652880057</span>
               </button>
             </div>
 
-            {/* Direct Contact Reference */}
-            <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-[#CFCFCF] pt-4 border-t border-white/10">
+            {/* Guarantees Row */}
+            <div className="pt-6 border-t border-[#E5E7EB] flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs font-semibold text-[#4B5563]">
               <span className="flex items-center gap-1.5">
-                <Phone className="w-3.5 h-3.5 text-[#35B6DE]" />
-                Direct Concierge: <strong className="text-white">8652880057</strong>
+                <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
+                100% Police Verified
               </span>
               <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#35B6DE]" />
-                Lead Email: <strong className="text-white">info@ontimedriverservice.com</strong>
+                <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
+                Replacement Guarantee
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
+                Zero Cancellation Fee
               </span>
             </div>
 
           </div>
-
         </div>
       </div>
     </section>

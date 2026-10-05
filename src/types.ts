@@ -9,6 +9,9 @@ export interface ServiceItem {
   sceneDescription: string;
   shortHeadline: string;
   shortDescription: string;
+  pricing?: string;
+  shortDesc?: string;
+  features?: string[];
   fullDescription: string;
   iconName: string;
   image: string;
@@ -24,7 +27,6 @@ export interface ServiceItem {
     whatIs: string;
     whoSuitable: string;
     howOtdsHelps?: string;
-    howDniHelps?: string;
   };
   whoIsThisFor: {
     title: string;
@@ -52,6 +54,7 @@ export interface ServiceItem {
 
 export interface LocationItem {
   id: string;
+  slug?: string;
   name: string;
   district: string;
   image: string;
@@ -65,6 +68,10 @@ export interface LocationItem {
     question: string;
     answer: string;
   }[];
+  heroSubtitle?: string;
+  keyHubs?: string[];
+  metaTitle?: string;
+  metaDescription?: string;
 }
 
 export interface FaqItem {
@@ -85,16 +92,29 @@ export interface TestimonialItem {
   rating: number;
   text: string;
   carModel?: string;
+  car?: string;
   date: string;
 }
 
 export type FormType =
-  | 'Quick Booking Form'
+  | 'Homepage Quick Booking Form'
+  | 'Book a Driver Form'
   | 'Contact Form'
+  | 'Personal Driver Service Form'
+  | 'Hourly Driver Form'
+  | 'Part-Time Driver Form'
+  | 'Full-Time Driver Form'
+  | 'Permanent Driver Form'
+  | 'Corporate Driver Form'
+  | 'Outstation Driver Form'
+  | 'Airport Driver Form'
+  | 'Chauffeur Service Form'
+  | 'Senior Citizen Driver Form'
+  | 'Event Driver Form'
+  | 'Temporary Driver Form'
+  | 'Family Driver Form'
   | 'Driver Requirement Form'
-  | 'Corporate Driver Request Form'
-  | 'Chauffeur Request Form'
-  | 'Airport Transfer Request Form';
+  | string;
 
 export interface LeadFormData {
   name: string;

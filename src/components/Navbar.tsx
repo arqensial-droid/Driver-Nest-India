@@ -71,76 +71,78 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300">
       {/* 1. Top Executive Announcement Strip (Desktop only) */}
-      <div className="hidden lg:block bg-[#050505] text-[#CFCFCF] text-[11px] py-1.5 px-6 border-b border-white/10">
+      <div className="hidden lg:block bg-[#EEF8FC] text-[#4B5563] text-[12px] py-1.5 px-6 border-b border-[#E5E7EB]">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 font-bold text-[#F3ED1A]">
+            <span className="inline-flex items-center gap-1.5 font-bold text-[#111827]">
               <Sparkles className="w-3.5 h-3.5 text-[#35B6DE]" />
-              MUMBAI EXECUTIVE CHAUFFEUR NETWORK:
+              MUMBAI EXECUTIVE DRIVER SERVICE:
             </span>
-            <span className="text-[#CFCFCF]">
-              Verified Drivers for Personal, Corporate &amp; Outstation Fleets
+            <span className="text-[#4B5563]">
+              Verified Drivers for Personal, Corporate, Airport &amp; Outstation Travel
             </span>
           </div>
 
-          <div className="flex items-center gap-6 text-[#CFCFCF]">
-            <span className="flex items-center gap-1.5 text-xs">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#35B6DE]" />
-              100% Police Verified
+          <div className="flex items-center gap-5 text-[#4B5563]">
+            <span className="flex items-center gap-1.5 text-xs font-semibold text-[#111827]">
+              <ShieldCheck className="w-4 h-4 text-[#22C55E]" />
+              100% Police Verified Drivers
             </span>
-            <span className="text-white/20">|</span>
+            <span className="text-[#E5E7EB]">|</span>
             <a
               href="mailto:info@ontimedriverservice.com"
               className="hover:text-[#35B6DE] transition-colors"
             >
               info@ontimedriverservice.com
             </a>
-            <span className="text-white/20">|</span>
+            <span className="text-[#E5E7EB]">|</span>
             <a
               href="tel:8652880057"
-              className="font-bold text-white hover:text-[#35B6DE] transition-colors flex items-center gap-1.5"
+              className="font-bold text-[#111827] hover:text-[#35B6DE] transition-colors flex items-center gap-1.5"
             >
-              <Phone className="w-3 h-3 text-[#35B6DE]" />
+              <Phone className="w-3.5 h-3.5 text-[#35B6DE]" />
               8652880057
             </a>
           </div>
         </div>
       </div>
 
-      {/* 2. Main Navigation Bar - Sticky Glassmorphism Header (Max 72px on mobile) */}
+      {/* 2. Main Navigation Bar - Sticky White Corporate Header with Scroll Shadow */}
       <nav
-        className={`w-full transition-all duration-300 ${
-          isScrolled
-            ? 'bg-[#050505]/95 backdrop-blur-md shadow-2xl border-b border-white/10'
-            : 'bg-[#050505]/90 backdrop-blur-md border-b border-white/10'
+        className={`w-full transition-all duration-300 bg-white/95 backdrop-blur-md border-b ${
+          isScrolled ? 'shadow-md border-[#E5E7EB]' : 'border-[#E5E7EB]/80'
         }`}
       >
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-          {/* Header Row: exactly maximum 72px on mobile, single row only */}
           <div className="h-16 sm:h-[70px] max-h-[72px] flex items-center justify-between gap-2 sm:gap-4">
             
-            {/* Logo Left: ON TIME DRIVER SERVICE (Never wraps, never breaks into multiple lines) */}
+            {/* Logo Left: ON TIME DRIVER SERVICE */}
             <Link
               href="/"
-              className="flex items-center gap-2 sm:gap-2.5 shrink-0 focus:outline-none min-w-0"
+              className="flex items-center gap-2.5 shrink-0 focus:outline-none min-w-0"
               aria-label="On Time Driver Service Home"
             >
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br from-[#35B6DE] to-[#1e85a3] flex items-center justify-center text-[#050505] shadow-md shadow-[#35B6DE]/20 shrink-0 border border-white/15">
-                <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#35B6DE] flex items-center justify-center text-white shadow-sm shrink-0">
+                <Clock className="w-5 h-5 text-white" />
               </div>
-              <span className="font-heading font-extrabold text-xs sm:text-base lg:text-lg tracking-tight text-white whitespace-nowrap overflow-hidden">
-                ON TIME DRIVER SERVICE
-              </span>
+              <div className="flex flex-col">
+                <span className="font-heading font-extrabold text-sm sm:text-base lg:text-lg tracking-tight text-[#111827] whitespace-nowrap overflow-hidden">
+                  ON TIME DRIVER SERVICE
+                </span>
+                <span className="text-[10px] text-[#4B5563] font-semibold hidden sm:block tracking-wider uppercase">
+                  Verified Drivers Across Mumbai
+                </span>
+              </div>
             </Link>
 
-            {/* Desktop Navigation Links (hidden on mobile/tablet < 1024px) */}
+            {/* Desktop Navigation Links */}
             <div className="hidden lg:flex items-center gap-1 xl:gap-2">
               <Link
                 href="/"
                 className={`px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
                   currentPath === '/'
-                    ? 'text-[#35B6DE] bg-[#35B6DE]/10'
-                    : 'text-[#CFCFCF] hover:text-white hover:bg-white/5'
+                    ? 'text-[#35B6DE] bg-[#EEF8FC]'
+                    : 'text-[#4B5563] hover:text-[#111827] hover:bg-slate-50'
                 }`}
               >
                 Home
@@ -156,8 +158,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                   href="/services"
                   className={`px-3 py-2 text-sm font-semibold rounded-lg flex items-center gap-1.5 transition-colors ${
                     currentPath.startsWith('/services') || currentPath.endsWith('-service')
-                      ? 'text-[#35B6DE] bg-[#35B6DE]/10'
-                      : 'text-[#CFCFCF] hover:text-white hover:bg-white/5'
+                      ? 'text-[#35B6DE] bg-[#EEF8FC]'
+                      : 'text-[#4B5563] hover:text-[#111827] hover:bg-slate-50'
                   }`}
                 >
                   <span>Services</span>
@@ -169,14 +171,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                 </Link>
 
                 {servicesDropdownOpen && (
-                  <div className="absolute top-full left-0 w-[500px] bg-[#0B0B0B] rounded-2xl shadow-2xl border border-white/15 p-4 animate-fade-in mt-1 z-50">
-                    <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3">
+                  <div className="absolute top-full left-0 w-[500px] bg-white rounded-2xl shadow-xl border border-[#E5E7EB] p-4 animate-fade-in mt-1 z-50">
+                    <div className="flex items-center justify-between pb-3 border-b border-[#E5E7EB] mb-3">
                       <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE]">
-                        Chauffeur Categories
+                        Driver Services
                       </span>
                       <Link
                         href="/services"
-                        className="text-xs font-semibold text-[#F3ED1A] hover:underline flex items-center gap-1"
+                        className="text-xs font-semibold text-[#111827] hover:text-[#35B6DE] flex items-center gap-1"
                       >
                         All Services <ChevronRight className="w-3 h-3" />
                       </Link>
@@ -185,45 +187,45 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                     <div className="grid grid-cols-2 gap-2 text-xs">
                       <Link
                         href="/personal-driver-service"
-                        className="p-2.5 rounded-xl hover:bg-white/5 transition-colors flex items-center gap-2.5 font-medium text-[#CFCFCF] hover:text-[#35B6DE]"
+                        className="p-2.5 rounded-xl hover:bg-[#EEF8FC] transition-colors flex items-center gap-2.5 font-medium text-[#4B5563] hover:text-[#111827]"
                       >
                         <Car className="w-4 h-4 text-[#35B6DE]" />
                         <span>Personal Driver</span>
                       </Link>
                       <Link
                         href="/corporate-driver-service"
-                        className="p-2.5 rounded-xl hover:bg-white/5 transition-colors flex items-center gap-2.5 font-medium text-[#CFCFCF] hover:text-[#35B6DE]"
+                        className="p-2.5 rounded-xl hover:bg-[#EEF8FC] transition-colors flex items-center gap-2.5 font-medium text-[#4B5563] hover:text-[#111827]"
                       >
                         <Car className="w-4 h-4 text-[#35B6DE]" />
                         <span>Corporate Driver</span>
                       </Link>
                       <Link
                         href="/permanent-driver-service"
-                        className="p-2.5 rounded-xl hover:bg-white/5 transition-colors flex items-center gap-2.5 font-medium text-[#CFCFCF] hover:text-[#35B6DE]"
+                        className="p-2.5 rounded-xl hover:bg-[#EEF8FC] transition-colors flex items-center gap-2.5 font-medium text-[#4B5563] hover:text-[#111827]"
                       >
                         <Car className="w-4 h-4 text-[#35B6DE]" />
                         <span>Permanent Driver</span>
                       </Link>
                       <Link
-                        href="/outstation-driver-service"
-                        className="p-2.5 rounded-xl hover:bg-white/5 transition-colors flex items-center gap-2.5 font-medium text-[#CFCFCF] hover:text-[#35B6DE]"
+                        href="/hourly-driver-service"
+                        className="p-2.5 rounded-xl hover:bg-[#EEF8FC] transition-colors flex items-center gap-2.5 font-medium text-[#4B5563] hover:text-[#111827]"
                       >
                         <Car className="w-4 h-4 text-[#35B6DE]" />
-                        <span>Outstation Driver</span>
+                        <span>Hourly Driver</span>
                       </Link>
                       <Link
                         href="/airport-driver-service"
-                        className="p-2.5 rounded-xl hover:bg-white/5 transition-colors flex items-center gap-2.5 font-medium text-[#CFCFCF] hover:text-[#35B6DE]"
+                        className="p-2.5 rounded-xl hover:bg-[#EEF8FC] transition-colors flex items-center gap-2.5 font-medium text-[#4B5563] hover:text-[#111827]"
                       >
                         <Car className="w-4 h-4 text-[#35B6DE]" />
                         <span>Airport Driver</span>
                       </Link>
                       <Link
-                        href="/hourly-driver-service"
-                        className="p-2.5 rounded-xl hover:bg-white/5 transition-colors flex items-center gap-2.5 font-medium text-[#CFCFCF] hover:text-[#35B6DE]"
+                        href="/outstation-driver-service"
+                        className="p-2.5 rounded-xl hover:bg-[#EEF8FC] transition-colors flex items-center gap-2.5 font-medium text-[#4B5563] hover:text-[#111827]"
                       >
                         <Car className="w-4 h-4 text-[#35B6DE]" />
-                        <span>Hourly Driver</span>
+                        <span>Outstation Driver</span>
                       </Link>
                     </div>
                   </div>
@@ -234,8 +236,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                 href="/service-areas"
                 className={`px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
                   currentPath === '/service-areas'
-                    ? 'text-[#35B6DE] bg-[#35B6DE]/10'
-                    : 'text-[#CFCFCF] hover:text-white hover:bg-white/5'
+                    ? 'text-[#35B6DE] bg-[#EEF8FC]'
+                    : 'text-[#4B5563] hover:text-[#111827] hover:bg-slate-50'
                 }`}
               >
                 Service Areas
@@ -245,19 +247,30 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                 href="/about"
                 className={`px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
                   currentPath === '/about'
-                    ? 'text-[#35B6DE] bg-[#35B6DE]/10'
-                    : 'text-[#CFCFCF] hover:text-white hover:bg-white/5'
+                    ? 'text-[#35B6DE] bg-[#EEF8FC]'
+                    : 'text-[#4B5563] hover:text-[#111827] hover:bg-slate-50'
                 }`}
               >
                 About Us
               </Link>
 
               <Link
+                href="/faqs"
+                className={`px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
+                  currentPath === '/faqs'
+                    ? 'text-[#35B6DE] bg-[#EEF8FC]'
+                    : 'text-[#4B5563] hover:text-[#111827] hover:bg-slate-50'
+                }`}
+              >
+                FAQs
+              </Link>
+
+              <Link
                 href="/contact"
                 className={`px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
                   currentPath === '/contact'
-                    ? 'text-[#35B6DE] bg-[#35B6DE]/10'
-                    : 'text-[#CFCFCF] hover:text-white hover:bg-white/5'
+                    ? 'text-[#35B6DE] bg-[#EEF8FC]'
+                    : 'text-[#4B5563] hover:text-[#111827] hover:bg-slate-50'
                 }`}
               >
                 Contact
@@ -268,7 +281,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
             <div className="hidden lg:flex items-center gap-3">
               <a
                 href="tel:8652880057"
-                className="h-11 px-4 rounded-xl bg-[#0B0B0B] hover:bg-[#161616] text-white border border-white/15 font-bold text-xs flex items-center gap-2 transition-all hover:border-[#35B6DE]"
+                className="h-11 px-4 rounded-xl bg-white hover:bg-[#EEF8FC] text-[#111827] border border-[#E5E7EB] font-bold text-xs flex items-center gap-2 transition-all hover:border-[#35B6DE]"
                 title="Call 24/7 Concierge"
               >
                 <Phone className="w-3.5 h-3.5 text-[#35B6DE]" />
@@ -277,44 +290,39 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
 
               <button
                 onClick={onOpenBooking}
-                className="btn-primary h-11 px-6 text-sm font-bold shadow-md shadow-[#F3ED1A]/15"
+                className="btn-primary h-11 px-6 text-sm font-bold shadow-sm"
               >
-                <Calendar className="w-4 h-4 text-[#050505] mr-2" />
+                <Calendar className="w-4 h-4 mr-2 text-[#111827]" />
                 <span>Book Driver</span>
               </button>
             </div>
 
-            {/* Mobile Header Single Row Layout:
-                Logo left | Call button center | Book button right | Menu icon far right
-                Max height 72px, single row, no wrapping. */}
+            {/* Mobile Header Layout */}
             <div className="flex lg:hidden items-center gap-1.5 sm:gap-2 shrink-0">
-              {/* Call button center */}
               <a
                 href="tel:8652880057"
-                className="h-9 px-2.5 sm:px-3 rounded-lg bg-[#0B0B0B] border border-white/15 text-white flex items-center justify-center gap-1 text-xs font-bold hover:border-[#35B6DE] transition-colors shrink-0"
+                className="h-9 px-2.5 sm:px-3 rounded-lg bg-white border border-[#E5E7EB] text-[#111827] flex items-center justify-center gap-1 text-xs font-bold hover:border-[#35B6DE] transition-colors shrink-0"
                 aria-label="Call 8652880057"
               >
                 <Phone className="w-3.5 h-3.5 text-[#35B6DE]" />
                 <span className="text-[11px] sm:text-xs">Call</span>
               </a>
 
-              {/* Book button right */}
               <button
                 onClick={onOpenBooking}
-                className="h-9 px-2.5 sm:px-3.5 rounded-lg bg-[#F3ED1A] text-[#050505] text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 shadow-sm hover:bg-[#e5df15] transition-colors shrink-0"
+                className="h-9 px-2.5 sm:px-3.5 rounded-lg bg-[#F3ED1A] text-[#111827] text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 shadow-sm hover:bg-[#e5df15] transition-colors shrink-0"
                 aria-label="Book Driver"
               >
-                <Calendar className="w-3.5 h-3.5 text-[#050505]" />
+                <Calendar className="w-3.5 h-3.5 text-[#111827]" />
                 <span>Book</span>
               </button>
 
-              {/* Menu icon far right */}
               <button
                 onClick={() => setMobileMenuOpen(true)}
-                className="w-9 h-9 flex items-center justify-center rounded-lg bg-[#0B0B0B] border border-white/15 text-white hover:border-white/30 transition-colors shrink-0"
+                className="w-9 h-9 flex items-center justify-center rounded-lg bg-white border border-[#E5E7EB] text-[#111827] hover:border-slate-400 transition-colors shrink-0"
                 aria-label="Open Navigation Menu"
               >
-                <Menu className="w-4 h-4 text-white" />
+                <Menu className="w-4 h-4 text-[#111827]" />
               </button>
             </div>
 
@@ -322,31 +330,31 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
         </div>
       </nav>
 
-      {/* Slide-Out Drawer Menu on Mobile (Clean slide-in from right) */}
+      {/* Slide-Out Drawer Menu on Mobile */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
             onClick={() => setMobileMenuOpen(false)}
           />
 
-          <div className="fixed right-0 top-0 bottom-0 w-full max-w-sm bg-[#0B0B0B] border-l border-white/15 shadow-2xl flex flex-col justify-between overflow-y-auto z-10 p-5 sm:p-6 animate-fade-in text-left">
+          <div className="fixed right-0 top-0 bottom-0 w-full max-w-sm bg-white border-l border-[#E5E7EB] shadow-2xl flex flex-col justify-between overflow-y-auto z-10 p-5 sm:p-6 animate-fade-in text-left">
             <div>
               {/* Drawer Header */}
-              <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-[#35B6DE] flex items-center justify-center text-[#050505]">
-                    <Clock className="w-4 h-4 text-[#050505]" />
+              <div className="flex items-center justify-between pb-4 border-b border-[#E5E7EB]">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-[#35B6DE] flex items-center justify-center text-white">
+                    <Clock className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <p className="font-heading font-bold text-sm text-white">ON TIME DRIVER SERVICE</p>
-                    <p className="text-[10px] text-[#F3ED1A]">Executive Chauffeur Network</p>
+                    <p className="font-heading font-bold text-sm text-[#111827]">ON TIME DRIVER SERVICE</p>
+                    <p className="text-[10px] text-[#4B5563]">Verified Drivers Across Mumbai</p>
                   </div>
                 </div>
 
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-1.5 rounded-lg text-[#CFCFCF] hover:text-white hover:bg-white/10 transition-colors"
+                  className="p-1.5 rounded-lg text-[#4B5563] hover:text-[#111827] hover:bg-slate-100 transition-colors"
                   aria-label="Close menu"
                 >
                   <X className="w-5 h-5" />
@@ -358,65 +366,65 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                 <Link
                   href="/"
                   className={`block px-3 py-2.5 rounded-xl font-bold text-sm transition-colors ${
-                    currentPath === '/' ? 'bg-[#35B6DE]/10 text-[#35B6DE]' : 'text-white hover:bg-white/5'
+                    currentPath === '/' ? 'bg-[#EEF8FC] text-[#35B6DE]' : 'text-[#111827] hover:bg-slate-50'
                   }`}
                 >
                   Home
                 </Link>
 
-                {/* Services Section with Accordion-like list */}
+                {/* Services Section */}
                 <div className="pt-2">
                   <div className="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#35B6DE]">
-                    Driver Categories
+                    Driver Services
                   </div>
                   <div className="mt-1 space-y-1">
                     <Link
                       href="/personal-driver-service"
-                      className="block px-3 py-2 rounded-lg text-xs font-semibold text-[#CFCFCF] hover:text-white hover:bg-white/5"
+                      className="block px-3 py-2 rounded-lg text-xs font-semibold text-[#4B5563] hover:text-[#111827] hover:bg-slate-50"
                     >
                       • Personal Driver
                     </Link>
                     <Link
                       href="/corporate-driver-service"
-                      className="block px-3 py-2 rounded-lg text-xs font-semibold text-[#CFCFCF] hover:text-white hover:bg-white/5"
+                      className="block px-3 py-2 rounded-lg text-xs font-semibold text-[#4B5563] hover:text-[#111827] hover:bg-slate-50"
                     >
                       • Corporate Driver
                     </Link>
                     <Link
                       href="/permanent-driver-service"
-                      className="block px-3 py-2 rounded-lg text-xs font-semibold text-[#CFCFCF] hover:text-white hover:bg-white/5"
+                      className="block px-3 py-2 rounded-lg text-xs font-semibold text-[#4B5563] hover:text-[#111827] hover:bg-slate-50"
                     >
                       • Permanent Driver
                     </Link>
                     <Link
-                      href="/outstation-driver-service"
-                      className="block px-3 py-2 rounded-lg text-xs font-semibold text-[#CFCFCF] hover:text-white hover:bg-white/5"
+                      href="/hourly-driver-service"
+                      className="block px-3 py-2 rounded-lg text-xs font-semibold text-[#4B5563] hover:text-[#111827] hover:bg-slate-50"
                     >
-                      • Outstation Driver
+                      • Hourly Driver
                     </Link>
                     <Link
                       href="/airport-driver-service"
-                      className="block px-3 py-2 rounded-lg text-xs font-semibold text-[#CFCFCF] hover:text-white hover:bg-white/5"
+                      className="block px-3 py-2 rounded-lg text-xs font-semibold text-[#4B5563] hover:text-[#111827] hover:bg-slate-50"
                     >
                       • Airport Driver
                     </Link>
                     <Link
-                      href="/hourly-driver-service"
-                      className="block px-3 py-2 rounded-lg text-xs font-semibold text-[#CFCFCF] hover:text-white hover:bg-white/5"
+                      href="/outstation-driver-service"
+                      className="block px-3 py-2 rounded-lg text-xs font-semibold text-[#4B5563] hover:text-[#111827] hover:bg-slate-50"
                     >
-                      • Hourly Driver
+                      • Outstation Driver
                     </Link>
                   </div>
                 </div>
 
                 <div className="pt-2">
                   <div className="px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#35B6DE]">
-                    Service Areas
+                    Coverage Areas
                   </div>
                   <div className="mt-1 space-y-1">
                     <Link
                       href="/service-areas"
-                      className="block px-3 py-2 rounded-lg text-xs font-semibold text-[#CFCFCF] hover:text-white hover:bg-white/5"
+                      className="block px-3 py-2 rounded-lg text-xs font-semibold text-[#4B5563] hover:text-[#111827] hover:bg-slate-50"
                     >
                       • Mumbai, Thane, Navi Mumbai, Mira Road &amp; MMR
                     </Link>
@@ -426,34 +434,34 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                 <Link
                   href="/about"
                   className={`block px-3 py-2.5 rounded-xl font-bold text-sm transition-colors ${
-                    currentPath === '/about' ? 'bg-[#35B6DE]/10 text-[#35B6DE]' : 'text-white hover:bg-white/5'
+                    currentPath === '/about' ? 'bg-[#EEF8FC] text-[#35B6DE]' : 'text-[#111827] hover:bg-slate-50'
                   }`}
                 >
                   About Us
                 </Link>
 
                 <Link
-                  href="/contact"
-                  className={`block px-3 py-2.5 rounded-xl font-bold text-sm transition-colors ${
-                    currentPath === '/contact' ? 'bg-[#35B6DE]/10 text-[#35B6DE]' : 'text-white hover:bg-white/5'
-                  }`}
-                >
-                  Contact
-                </Link>
-
-                <Link
                   href="/faqs"
                   className={`block px-3 py-2.5 rounded-xl font-bold text-sm transition-colors ${
-                    currentPath === '/faqs' ? 'bg-[#35B6DE]/10 text-[#35B6DE]' : 'text-white hover:bg-white/5'
+                    currentPath === '/faqs' ? 'bg-[#EEF8FC] text-[#35B6DE]' : 'text-[#111827] hover:bg-slate-50'
                   }`}
                 >
                   FAQs
+                </Link>
+
+                <Link
+                  href="/contact"
+                  className={`block px-3 py-2.5 rounded-xl font-bold text-sm transition-colors ${
+                    currentPath === '/contact' ? 'bg-[#EEF8FC] text-[#35B6DE]' : 'text-[#111827] hover:bg-slate-50'
+                  }`}
+                >
+                  Contact
                 </Link>
               </div>
             </div>
 
             {/* Drawer Bottom Actions */}
-            <div className="pt-4 border-t border-white/10 space-y-3">
+            <div className="pt-4 border-t border-[#E5E7EB] space-y-3">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
@@ -461,7 +469,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                 }}
                 className="btn-primary w-full h-12 text-sm font-bold flex items-center justify-center gap-2"
               >
-                <Calendar className="w-4 h-4 text-[#050505]" />
+                <Calendar className="w-4 h-4 text-[#111827]" />
                 <span>Book Driver</span>
               </button>
 
@@ -481,12 +489,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                 className="btn-whatsapp w-full h-12 text-sm font-bold flex items-center justify-center gap-2"
               >
                 <MessageSquare className="w-4 h-4" />
-                <span>WhatsApp Concierge</span>
+                <span>WhatsApp: 8652880057</span>
               </button>
 
-              <div className="pt-2 text-center text-[11px] text-[#CFCFCF]">
+              <div className="pt-2 text-center text-[12px] text-[#4B5563]">
                 <span>Email: </span>
-                <a href="mailto:info@ontimedriverservice.com" className="text-[#35B6DE] hover:underline">
+                <a href="mailto:info@ontimedriverservice.com" className="text-[#35B6DE] font-semibold hover:underline">
                   info@ontimedriverservice.com
                 </a>
               </div>

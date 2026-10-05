@@ -14,8 +14,8 @@ const SAMPLE_ACTIVITIES: BookingNotification[] = [
   { name: 'Pooja S.', location: 'Powai Hiranandani', service: 'Personal Driver', timeAgo: '11 mins ago', vehicle: 'Honda City' },
   { name: 'Dr. Anand K.', location: 'Worli Sea Face', service: 'Full-Time Chauffeur', timeAgo: '19 mins ago', vehicle: 'Mercedes E-Class' },
   { name: 'Sameer D.', location: 'Ghodbunder Road, Thane', service: 'Hourly Driver', timeAgo: '32 mins ago', vehicle: 'Hyundai Creta' },
-  { name: 'Meera N.', location: 'Vashi Sector 17, Navi Mumbai', service: 'Airport Transfer Chauffeur', timeAgo: '45 mins ago', vehicle: 'Toyota Fortuner' },
-  { name: 'Kunal P.', location: 'Juhu Tara Road', service: 'Outstation Chauffeur (Lonavala)', timeAgo: '58 mins ago', vehicle: 'Kia Carnival' }
+  { name: 'Meera N.', location: 'Vashi Sector 17, Navi Mumbai', service: 'Airport Transfer Driver', timeAgo: '45 mins ago', vehicle: 'Toyota Fortuner' },
+  { name: 'Kunal P.', location: 'Juhu Tara Road', service: 'Outstation Driver (Lonavala)', timeAgo: '58 mins ago', vehicle: 'Kia Carnival' }
 ];
 
 export const RecentBookingNotification: React.FC = () => {
@@ -55,32 +55,32 @@ export const RecentBookingNotification: React.FC = () => {
       aria-label="Recent booking notification"
       className="fixed bottom-20 left-4 z-40 max-w-sm hidden sm:block animate-fade-in"
     >
-      <div className="bg-[#0B0B0B]/95 backdrop-blur-md border border-[#35B6DE]/40 shadow-2xl shadow-[#35B6DE]/10 rounded-xl p-3.5 flex items-start gap-3 text-left">
-        <div className="w-10 h-10 rounded-lg bg-[#35B6DE]/15 border border-[#35B6DE]/30 flex items-center justify-center shrink-0 text-[#35B6DE] mt-0.5">
-          <ShieldCheck className="w-5 h-5 text-[#35B6DE]" />
+      <div className="bg-white/95 backdrop-blur-md border border-[#E5E7EB] shadow-lg rounded-xl p-3.5 flex items-start gap-3 text-left text-[#111827]">
+        <div className="w-10 h-10 rounded-lg bg-[#EEF8FC] border border-[#35B6DE]/20 flex items-center justify-center shrink-0 text-[#35B6DE] mt-0.5">
+          <ShieldCheck className="w-5 h-5 text-[#22C55E]" />
         </div>
         <div className="flex-1 min-w-0 pr-2">
-          <div className="flex items-center gap-1.5 text-xs text-[#9CA3AF] mb-0.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <div className="flex items-center gap-1.5 text-xs text-[#4B5563] mb-0.5">
+            <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse"></span>
             <span>Recent Booking Verified</span>
             <span>·</span>
             <span>{current.timeAgo}</span>
           </div>
-          <p className="text-sm font-semibold text-white truncate">
-            {current.name} booked <span className="text-[#F3ED1A]">{current.service}</span>
+          <p className="text-sm font-semibold text-[#111827] truncate">
+            {current.name} booked <span className="text-[#35B6DE] font-bold">{current.service}</span>
           </p>
-          <div className="flex items-center gap-2 mt-1 text-xs text-[#CFCFCF]">
-            <span className="flex items-center gap-1 truncate text-neutral-300">
+          <div className="flex items-center gap-2 mt-1 text-xs text-[#4B5563]">
+            <span className="flex items-center gap-1 truncate text-[#4B5563]">
               <MapPin className="w-3 h-3 text-[#35B6DE] shrink-0" />
               {current.location}
             </span>
-            <span className="text-neutral-500">|</span>
-            <span className="text-[#35B6DE] text-[11px] truncate">{current.vehicle}</span>
+            <span className="text-[#E5E7EB]">|</span>
+            <span className="text-[#111827] text-[11px] font-medium truncate">{current.vehicle}</span>
           </div>
         </div>
         <button
           onClick={() => setIsDismissed(true)}
-          className="text-neutral-400 hover:text-white p-1 rounded-md transition-colors"
+          className="text-[#9CA3AF] hover:text-[#111827] p-1 rounded-md transition-colors"
           aria-label="Dismiss notification"
         >
           <X className="w-3.5 h-3.5" />

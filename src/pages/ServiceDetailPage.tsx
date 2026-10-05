@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { servicesData } from '../data/servicesData';
-import { testimonialsData } from '../data/testimonialsData';
 import { FormType, LeadFormData } from '../types';
 import { Link, useRouter, SEO } from '../router';
 import { ImageWithFallback } from '../components/ImageWithFallback';
@@ -20,16 +19,18 @@ import {
   Send,
   ChevronDown,
   FileCheck2,
-  Award,
   Users,
-  Briefcase,
-  Home,
-  Star,
   FileText,
   Sparkles,
   AlertCircle,
 } from 'lucide-react';
-import { submitLead, validateLeadForm } from '../services/leadService';
+import {
+  submitLead,
+  validateLeadForm,
+  getWhatsAppSuccessUrl,
+  getWhatsAppFallbackUrl,
+  PRIMARY_PHONE,
+} from '../services/leadService';
 
 interface ServiceDetailPageProps {
   slug: string;
@@ -37,15 +38,19 @@ interface ServiceDetailPageProps {
 }
 
 const SERVICE_FORM_NAMES: Record<string, FormType> = {
-  'corporate-driver': 'Corporate Driver Request Form',
-  'chauffeur-service': 'Chauffeur Request Form',
-  'airport-driver': 'Airport Transfer Request Form',
-  'personal-driver': 'Driver Requirement Form',
-  'full-time-driver': 'Driver Requirement Form',
-  'part-time-driver': 'Driver Requirement Form',
-  'temporary-driver': 'Driver Requirement Form',
-  'hourly-driver': 'Quick Booking Form',
-  'outstation-driver': 'Driver Requirement Form',
+  'personal-driver': 'Personal Driver Service Form',
+  'hourly-driver': 'Hourly Driver Form',
+  'part-time-driver': 'Part-Time Driver Form',
+  'full-time-driver': 'Full-Time Driver Form',
+  'permanent-driver': 'Permanent Driver Form',
+  'corporate-driver': 'Corporate Driver Form',
+  'outstation-driver': 'Outstation Driver Form',
+  'airport-driver': 'Airport Driver Form',
+  'chauffeur-service': 'Chauffeur Service Form',
+  'senior-citizen-driver': 'Senior Citizen Driver Form',
+  'event-driver': 'Event Driver Form',
+  'temporary-driver': 'Temporary Driver Form',
+  'family-driver': 'Family Driver Form',
 };
 
 export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOpenBooking }) => {
@@ -73,12 +78,13 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [bookingRef, setBookingRef] = useState('');
+  const [submissionFailed, setSubmissionFailed] = useState(false);
 
   if (!service) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 pt-24 pb-16 bg-[#050505] text-white">
-        <h1 className="text-2xl sm:text-3xl font-bold font-heading text-white mb-3">Service Not Found</h1>
-        <p className="text-neutral-400 mb-6 max-w-md text-sm">
+      <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 pt-28 pb-16 bg-[#F8FAFC] text-[#111827]">
+        <h1 className="text-2xl sm:text-3xl font-bold font-heading text-[#111827] mb-3">Service Not Found</h1>
+        <p className="text-[#4B5563] mb-6 max-w-md text-sm">
           The requested driver service could not be located. Explore our range of verified driver solutions.
         </p>
         <Link href="/services" className="btn-primary">
@@ -97,6 +103,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
       return;
     }
     setErrors({});
+    setSubmissionFailed(false);
     setIsSubmitting(true);
 
     try {
@@ -104,12 +111,29 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
       if (res.success && res.record) {
         setBookingRef(res.record.id);
         setSubmitted(true);
+      } else {
+        setSubmissionFailed(true);
+        setErrors({
+          form: res.error || "We couldn't submit your request right now. Please call 8652880057 or contact us on WhatsApp.",
+        });
       }
-    } catch (err) {
-      setErrors({ form: 'Transmission error. Please call our 24/7 desk at 8652880057 directly.' });
+    } catch (err: any) {
+      console.error('[SERVICE DETAIL FORM ERROR]', err);
+      setSubmissionFailed(true);
+      setErrors({
+        form: "We couldn't submit your request right now. Please call 8652880057 or contact us on WhatsApp.",
+      });
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleWhatsAppForward = () => {
+    window.open(getWhatsAppSuccessUrl(formData, bookingRef), '_blank');
+  };
+
+  const handleWhatsAppFallback = () => {
+    window.open(getWhatsAppFallbackUrl(formData), '_blank');
   };
 
   const handleWhatsAppDirect = () => {
@@ -120,7 +144,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
   };
 
   return (
-    <div className="bg-[#050505] text-white overflow-x-hidden">
+    <div className="bg-[#F8FAFC] text-[#111827] overflow-x-hidden">
       <SEO
         title={`${service.h1Title || service.title} | On Time Driver Service`}
         description={service.metaDescription}
@@ -129,69 +153,69 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
       />
 
       {/* 1. Breadcrumb Bar */}
-      <nav aria-label="Breadcrumb" className="bg-[#050505] border-b border-white/10 pt-24 pb-4">
+      <nav aria-label="Breadcrumb" className="bg-white border-b border-[#E5E7EB] pt-24 pb-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ol className="flex items-center gap-1.5 text-xs text-neutral-400 overflow-x-auto no-scrollbar whitespace-nowrap">
+          <ol className="flex items-center gap-1.5 text-xs text-[#4B5563] overflow-x-auto no-scrollbar whitespace-nowrap">
             <li>
               <Link href="/" className="hover:text-[#35B6DE] transition-colors">
                 Home
               </Link>
             </li>
-            <li><ChevronRight className="w-3.5 h-3.5 text-neutral-600 shrink-0" /></li>
+            <li><ChevronRight className="w-3.5 h-3.5 text-[#9CA3AF] shrink-0" /></li>
             <li>
               <Link href="/services" className="hover:text-[#35B6DE] transition-colors">
                 Driver Services
               </Link>
             </li>
-            <li><ChevronRight className="w-3.5 h-3.5 text-neutral-600 shrink-0" /></li>
-            <li className="font-semibold text-white truncate">{service.title}</li>
+            <li><ChevronRight className="w-3.5 h-3.5 text-[#9CA3AF] shrink-0" /></li>
+            <li className="font-semibold text-[#111827] truncate">{service.title}</li>
           </ol>
         </div>
       </nav>
 
       {/* 2. Hero Section */}
-      <section className="py-12 sm:py-20 bg-[#050505] border-b border-white/10 relative">
+      <section className="py-12 sm:py-16 bg-white border-b border-[#E5E7EB] relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B0B0B] border border-[#35B6DE]/40 shadow-md">
-                <Sparkles className="w-3.5 h-3.5 text-[#F3ED1A]" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EEF8FC] border border-[#35B6DE]/30 shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-[#35B6DE]" />
                 <span className="text-xs font-bold text-[#35B6DE] uppercase tracking-wider">{service.trustStatement}</span>
               </div>
 
-              <h1 className="text-h1 text-white font-extrabold tracking-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#111827] tracking-tight font-heading leading-tight">
                 {service.h1Title}
               </h1>
 
-              <p className="text-subheading text-[#CFCFCF] font-normal leading-relaxed">
+              <p className="text-sm sm:text-base text-[#4B5563] font-normal leading-relaxed">
                 {service.fullDescription}
               </p>
 
               {/* Benefits Checklist */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2">
                 {service.keyFeatures.map((feat, idx) => (
-                  <div key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-neutral-300">
-                    <CheckCircle2 className="w-4 h-4 text-[#35B6DE] shrink-0 mt-0.5" />
+                  <div key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-[#4B5563]">
+                    <CheckCircle2 className="w-4 h-4 text-[#22C55E] shrink-0 mt-0.5" />
                     <span>{feat}</span>
                   </div>
                 ))}
               </div>
 
               {/* Call to Actions */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-4">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-4">
                 <button
                   onClick={() => onOpenBooking(service.title)}
-                  className="btn-primary h-[52px] px-8 text-base font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#F3ED1A]/20"
+                  className="btn-primary h-12 px-7 text-sm sm:text-base font-bold flex items-center justify-center gap-2 shadow-xs cursor-pointer"
                 >
-                  <Calendar className="w-4 h-4 text-[#050505]" />
+                  <Calendar className="w-4 h-4 text-[#111827]" />
                   <span>Book {service.title}</span>
                 </button>
 
                 <a
                   href="tel:8652880057"
-                  className="btn-secondary h-[52px] px-6 text-sm font-semibold flex items-center justify-center gap-2"
+                  className="btn-secondary h-12 px-6 text-sm font-semibold flex items-center justify-center gap-2"
                 >
                   <Phone className="w-4 h-4 text-[#35B6DE]" />
                   <span>Call 8652880057</span>
@@ -199,30 +223,29 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
 
                 <button
                   onClick={handleWhatsAppDirect}
-                  className="h-[52px] px-5 rounded-xl bg-[#25D366]/20 border border-[#25D366]/40 text-[#25D366] font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#25D366]/30 transition-colors"
+                  className="h-12 px-5 rounded-xl bg-[#25D366] text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#20ba59] transition-colors cursor-pointer shadow-xs"
                 >
                   <MessageSquare className="w-4 h-4" />
                   <span>WhatsApp</span>
                 </button>
               </div>
 
-              <div className="text-xs text-neutral-400 pt-2 flex items-center gap-4">
+              <div className="text-xs text-[#4B5563] pt-2 flex flex-wrap items-center gap-4">
                 <span>✓ Police Clearance Verified</span>
                 <span>✓ Local Mumbai Route Specialists</span>
                 <span>✓ 30–45 Min Dispatch</span>
               </div>
             </div>
 
-            {/* Right Media (16:9 Image with Dark Overlay) */}
+            {/* Right Media (16:9 Image with Light Border) */}
             <div className="lg:col-span-5">
-              <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-[#0B0B0B]">
+              <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-[#E5E7EB] shadow-xs bg-slate-100">
                 <ImageWithFallback
                   src={service.image}
                   alt={`${service.title} in Mumbai`}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-3 left-3 bg-[#0B0B0B]/90 border border-white/10 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#F3ED1A] shadow-md">
+                <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm border border-[#E5E7EB] px-3 py-1.5 rounded-lg text-xs font-semibold text-[#111827] shadow-xs">
                   {service.vehicleTag}
                 </div>
               </div>
@@ -233,44 +256,44 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
       </section>
 
       {/* 3. Service Details & Who Is This For */}
-      <section className="py-16 sm:py-24 bg-[#050505] border-b border-white/10">
+      <section className="py-14 sm:py-20 bg-[#EEF8FC] border-b border-[#E5E7EB]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-12">
+          <div className="max-w-3xl mb-10">
             <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE] block mb-2">
               Comprehensive Service Overview
             </span>
-            <h2 className="text-h2 font-extrabold text-white">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#111827] font-heading">
               Why Choose Our {service.title}
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            <div className="bg-[#0B0B0B] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
-              <div className="w-10 h-10 rounded-xl bg-[#35B6DE]/15 border border-[#35B6DE]/30 text-[#35B6DE] flex items-center justify-center mb-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
+            <div className="bg-white p-6 sm:p-7 rounded-2xl border border-[#E5E7EB] shadow-xs">
+              <div className="w-10 h-10 rounded-xl bg-[#EEF8FC] border border-[#35B6DE]/30 text-[#35B6DE] flex items-center justify-center mb-3">
                 <FileCheck2 className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">What Is It?</h3>
-              <p className="text-sm text-[#CFCFCF] leading-relaxed font-normal">
+              <h3 className="text-lg font-bold text-[#111827] mb-2 font-heading">What Is It?</h3>
+              <p className="text-sm text-[#4B5563] leading-relaxed font-normal">
                 {service.serviceOverview.whatIs}
               </p>
             </div>
 
-            <div className="bg-[#0B0B0B] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
-              <div className="w-10 h-10 rounded-xl bg-[#F3ED1A]/15 border border-[#F3ED1A]/30 text-[#F3ED1A] flex items-center justify-center mb-3">
-                <Users className="w-5 h-5" />
+            <div className="bg-white p-6 sm:p-7 rounded-2xl border border-[#E5E7EB] shadow-xs">
+              <div className="w-10 h-10 rounded-xl bg-[#FEF9C3] border border-[#F3ED1A] text-[#854D0E] flex items-center justify-center mb-3">
+                <Users className="w-5 h-5 text-[#854D0E]" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">Who Is It For?</h3>
-              <p className="text-sm text-[#CFCFCF] leading-relaxed font-normal">
+              <h3 className="text-lg font-bold text-[#111827] mb-2 font-heading">Who Is It For?</h3>
+              <p className="text-sm text-[#4B5563] leading-relaxed font-normal">
                 {service.serviceOverview.whoSuitable}
               </p>
             </div>
 
-            <div className="bg-[#0B0B0B] p-6 sm:p-7 rounded-2xl border border-white/10 shadow-xl">
-              <div className="w-10 h-10 rounded-xl bg-[#35B6DE]/15 border border-[#35B6DE]/30 text-[#35B6DE] flex items-center justify-center mb-3">
+            <div className="bg-white p-6 sm:p-7 rounded-2xl border border-[#E5E7EB] shadow-xs">
+              <div className="w-10 h-10 rounded-xl bg-[#EEF8FC] border border-[#35B6DE]/30 text-[#35B6DE] flex items-center justify-center mb-3">
                 <ShieldCheck className="w-5 h-5" />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">How We Support You</h3>
-              <p className="text-sm text-[#CFCFCF] leading-relaxed font-normal">
+              <h3 className="text-lg font-bold text-[#111827] mb-2 font-heading">How We Support You</h3>
+              <p className="text-sm text-[#4B5563] leading-relaxed font-normal">
                 {service.serviceOverview.howOtdsHelps || 'We provide police-verified chauffeurs with zero recruitment hassle, fast replacement guarantees, and transparent pricing.'}
               </p>
             </div>
@@ -279,15 +302,15 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
           {/* Use Cases Deep Dive */}
           {service.useCases && service.useCases.length > 0 && (
             <div className="mb-14">
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-6">
+              <h3 className="text-xl sm:text-2xl font-bold text-[#111827] font-heading mb-6">
                 Common Mumbai Transit Scenarios
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {service.useCases.map((uc, i) => (
-                  <div key={i} className="bg-[#0B0B0B] p-6 rounded-2xl border border-white/10">
-                    <div className="text-xs font-bold text-[#F3ED1A] mb-1">Route: {uc.route}</div>
-                    <h4 className="text-base font-bold text-white mb-2">{uc.title}</h4>
-                    <p className="text-xs sm:text-sm text-[#CFCFCF] leading-relaxed">{uc.description}</p>
+                  <div key={i} className="bg-white p-6 rounded-2xl border border-[#E5E7EB] shadow-xs">
+                    <div className="text-xs font-bold text-[#35B6DE] mb-1">Route: {uc.route}</div>
+                    <h4 className="text-base font-bold text-[#111827] mb-2 font-heading">{uc.title}</h4>
+                    <p className="text-xs sm:text-sm text-[#4B5563] leading-relaxed">{uc.description}</p>
                   </div>
                 ))}
               </div>
@@ -296,24 +319,24 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
 
           {/* FAQs Accordion */}
           {service.faqs && service.faqs.length > 0 && (
-            <div className="mb-16">
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-6">
+            <div className="mb-14">
+              <h3 className="text-xl sm:text-2xl font-bold text-[#111827] font-heading mb-6">
                 Frequently Asked Questions About {service.title}
               </h3>
-              <div className="space-y-3.5 max-w-4xl">
+              <div className="space-y-3 max-w-4xl">
                 {service.faqs.map((faq, idx) => {
                   const isOpen = openFaqIndex === idx;
                   return (
-                    <div key={idx} className="bg-[#0B0B0B] rounded-xl border border-white/10 overflow-hidden">
+                    <div key={idx} className="bg-white rounded-xl border border-[#E5E7EB] overflow-hidden shadow-xs">
                       <button
                         onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                        className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-white"
+                        className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-[#111827] cursor-pointer"
                       >
                         <span>{faq.question}</span>
-                        <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180 text-[#35B6DE]' : ''}`} />
+                        <ChevronDown className={`w-4 h-4 text-[#35B6DE] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
                       </button>
                       {isOpen && (
-                        <div className="px-5 pb-5 text-sm text-[#CFCFCF] leading-relaxed border-t border-white/5 pt-3">
+                        <div className="px-5 pb-5 text-sm text-[#4B5563] leading-relaxed border-t border-[#E5E7EB] pt-3">
                           {faq.answer}
                         </div>
                       )}
@@ -324,26 +347,47 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
             </div>
           )}
 
-          {/* 4. Complete 9-Field Lead Booking Form */}
-          <div className="bg-[#0B0B0B] rounded-2xl border border-white/15 p-6 sm:p-8 shadow-2xl max-w-3xl mx-auto">
+          {/* 4. Complete Lead Booking Form */}
+          <div className="bg-white rounded-2xl border border-[#E5E7EB] p-6 sm:p-8 shadow-md max-w-3xl mx-auto">
             {!submitted ? (
               <div>
                 <div className="text-center mb-6">
                   <span className="text-xs font-bold text-[#35B6DE] uppercase tracking-wider block mb-1">
                     Instant Booking Concierge
                   </span>
-                  <h3 className="text-2xl font-extrabold text-white">
+                  <h3 className="text-2xl font-extrabold text-[#111827] font-heading">
                     Book {service.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#CFCFCF] mt-1">
-                    All 9 fields below are delivered to <span className="text-[#35B6DE]">info@ontimedriverservice.com</span>. We allocate your driver within 15–30 minutes.
+                  <p className="text-xs sm:text-sm text-[#4B5563] mt-1">
+                    All fields below are delivered to <span className="text-[#35B6DE] font-semibold">info@ontimedriverservice.com</span>. We allocate your driver within 15–30 minutes.
                   </p>
                 </div>
 
                 {errors.form && (
-                  <div className="p-3 mb-4 rounded-xl bg-red-950/60 border border-red-500/40 text-red-200 text-xs flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
-                    <span>{errors.form}</span>
+                  <div className="p-4 mb-5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs space-y-2">
+                    <div className="flex items-start gap-2">
+                      <AlertCircle className="w-4 h-4 shrink-0 text-red-500 mt-0.5" />
+                      <span className="font-semibold">{errors.form}</span>
+                    </div>
+                    {submissionFailed && (
+                      <div className="pt-2 flex flex-wrap gap-2">
+                        <button
+                          type="button"
+                          onClick={handleWhatsAppFallback}
+                          className="px-3 py-1.5 rounded-lg bg-[#25D366] text-white text-xs font-bold flex items-center gap-1.5 hover:bg-[#20ba5a]"
+                        >
+                          <MessageSquare className="w-3.5 h-3.5" />
+                          <span>WhatsApp Us Directly</span>
+                        </button>
+                        <a
+                          href={`tel:${PRIMARY_PHONE}`}
+                          className="px-3 py-1.5 rounded-lg bg-[#35B6DE] text-white text-xs font-bold flex items-center gap-1.5"
+                        >
+                          <Phone className="w-3.5 h-3.5" />
+                          <span>Call {PRIMARY_PHONE}</span>
+                        </a>
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -361,11 +405,11 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
                   {/* 1. Name & 2. Mobile */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                        Full Name <span className="text-[#F3ED1A]">*</span>
+                      <label className="block text-xs font-semibold text-[#111827] mb-1.5">
+                        Full Name <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
-                        <User className="absolute left-3.5 top-3.5 w-4 h-4 text-neutral-400" />
+                        <User className="absolute left-3.5 top-3.5 w-4 h-4 text-[#9CA3AF]" />
                         <input
                           type="text"
                           required
@@ -375,18 +419,18 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
                             if (errors.name) setErrors({ ...errors, name: '' });
                           }}
                           placeholder="Your full name"
-                          className="dark-input w-full pl-10 pr-3 py-2.5"
+                          className="form-input w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm"
                         />
                       </div>
-                      {errors.name && <p className="text-red-400 text-[11px] mt-1">{errors.name}</p>}
+                      {errors.name && <p className="text-red-500 text-[11px] mt-1">{errors.name}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                        Mobile Number <span className="text-[#F3ED1A]">*</span>
+                      <label className="block text-xs font-semibold text-[#111827] mb-1.5">
+                        Mobile Number <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
-                        <Phone className="absolute left-3.5 top-3.5 w-4 h-4 text-neutral-400" />
+                        <Phone className="absolute left-3.5 top-3.5 w-4 h-4 text-[#9CA3AF]" />
                         <input
                           type="tel"
                           required
@@ -397,46 +441,45 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
                             if (errors.mobile) setErrors({ ...errors, mobile: '' });
                           }}
                           placeholder="10-digit mobile"
-                          className="dark-input w-full pl-10 pr-3 py-2.5"
+                          className="form-input w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm font-medium"
                         />
                       </div>
-                      {errors.mobile && <p className="text-red-400 text-[11px] mt-1">{errors.mobile}</p>}
+                      {errors.mobile && <p className="text-red-500 text-[11px] mt-1">{errors.mobile}</p>}
                     </div>
                   </div>
 
                   {/* 3. Email & 4. Location */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                        Email Address <span className="text-[#F3ED1A]">*</span>
+                      <label className="block text-xs font-semibold text-[#111827] mb-1.5">
+                        Email Address
                       </label>
                       <div className="relative">
-                        <Mail className="absolute left-3.5 top-3.5 w-4 h-4 text-neutral-400" />
+                        <Mail className="absolute left-3.5 top-3.5 w-4 h-4 text-[#9CA3AF]" />
                         <input
                           type="email"
-                          required
                           value={formData.email}
                           onChange={(e) => {
                             setFormData({ ...formData, email: e.target.value });
                             if (errors.email) setErrors({ ...errors, email: '' });
                           }}
-                          placeholder="name@example.com"
-                          className="dark-input w-full pl-10 pr-3 py-2.5"
+                          placeholder="name@example.com (optional)"
+                          className="form-input w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm"
                         />
                       </div>
-                      {errors.email && <p className="text-red-400 text-[11px] mt-1">{errors.email}</p>}
+                      {errors.email && <p className="text-red-500 text-[11px] mt-1">{errors.email}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
-                        Pickup Location <span className="text-[#F3ED1A]">*</span>
+                      <label className="block text-xs font-semibold text-[#111827] mb-1.5">
+                        Pickup Location <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
-                        <MapPin className="absolute left-3.5 top-3.5 w-4 h-4 text-neutral-400" />
+                        <MapPin className="absolute left-3.5 top-3.5 w-4 h-4 text-[#9CA3AF]" />
                         <select
                           value={formData.location}
                           onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                          className="dark-input w-full pl-10 pr-3 py-2.5 appearance-none"
+                          className="form-input w-full pl-10 pr-3 py-2.5 appearance-none text-xs sm:text-sm bg-white"
                         >
                           <option value="Mumbai (BKC, South Mumbai, Suburbs)">Mumbai (BKC / South Mumbai / Suburbs)</option>
                           <option value="Bandra / Khar / Juhu / Andheri">Bandra / Khar / Juhu / Andheri</option>
@@ -454,30 +497,30 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
                   {/* 5. Service Type & 6. Vehicle Type */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                      <label className="block text-xs font-semibold text-[#111827] mb-1.5">
                         Service Type
                       </label>
                       <div className="relative">
-                        <Car className="absolute left-3.5 top-3.5 w-4 h-4 text-neutral-400" />
+                        <Car className="absolute left-3.5 top-3.5 w-4 h-4 text-[#9CA3AF]" />
                         <input
                           type="text"
                           readOnly
                           value={service.title}
-                          className="dark-input w-full pl-10 pr-3 py-2.5 opacity-80 cursor-not-allowed text-[#35B6DE] font-bold"
+                          className="form-input w-full pl-10 pr-3 py-2.5 bg-slate-50 cursor-not-allowed text-[#35B6DE] font-bold text-xs sm:text-sm"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                      <label className="block text-xs font-semibold text-[#111827] mb-1.5">
                         Vehicle Type
                       </label>
                       <div className="relative">
-                        <Car className="absolute left-3.5 top-3.5 w-4 h-4 text-neutral-400" />
+                        <Car className="absolute left-3.5 top-3.5 w-4 h-4 text-[#9CA3AF]" />
                         <select
                           value={formData.vehicleType}
                           onChange={(e) => setFormData({ ...formData, vehicleType: e.target.value })}
-                          className="dark-input w-full pl-10 pr-3 py-2.5 appearance-none"
+                          className="form-input w-full pl-10 pr-3 py-2.5 appearance-none text-xs sm:text-sm bg-white"
                         >
                           <option value="Toyota Innova Crysta / Hycross">Toyota Innova Crysta / Hycross</option>
                           <option value="Sedan (Honda City / Dzire / Verna)">Sedan (Honda City / Dzire / Verna)</option>
@@ -492,30 +535,30 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
                   {/* 7. Date & 8. Time */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                      <label className="block text-xs font-semibold text-[#111827] mb-1.5">
                         Date Required
                       </label>
                       <div className="relative">
-                        <Calendar className="absolute left-3.5 top-3.5 w-4 h-4 text-neutral-400" />
+                        <Calendar className="absolute left-3.5 top-3.5 w-4 h-4 text-[#9CA3AF]" />
                         <input
                           type="date"
                           value={formData.date}
                           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                          className="dark-input w-full pl-10 pr-3 py-2.5"
+                          className="form-input w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                      <label className="block text-xs font-semibold text-[#111827] mb-1.5">
                         Time / Shift
                       </label>
                       <div className="relative">
-                        <Clock className="absolute left-3.5 top-3.5 w-4 h-4 text-neutral-400" />
+                        <Clock className="absolute left-3.5 top-3.5 w-4 h-4 text-[#9CA3AF]" />
                         <select
                           value={formData.time}
                           onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                          className="dark-input w-full pl-10 pr-3 py-2.5 appearance-none"
+                          className="form-input w-full pl-10 pr-3 py-2.5 appearance-none text-xs sm:text-sm bg-white"
                         >
                           <option value="Immediate Dispatch (30-45 mins)">Immediate Dispatch (30–45 mins)</option>
                           <option value="Morning Shift (07:00 AM - 03:00 PM)">Morning Shift (07:00 AM – 03:00 PM)</option>
@@ -529,17 +572,17 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
 
                   {/* 9. Message */}
                   <div>
-                    <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
+                    <label className="block text-xs font-semibold text-[#111827] mb-1.5">
                       Specific Instructions (Optional)
                     </label>
                     <div className="relative">
-                      <FileText className="absolute left-3.5 top-3 w-4 h-4 text-neutral-400" />
+                      <FileText className="absolute left-3.5 top-3 w-4 h-4 text-[#9CA3AF]" />
                       <textarea
                         rows={2}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         placeholder="Car make & model, manual or automatic transmission, flight number (if airport)..."
-                        className="dark-input w-full pl-10 pr-3 py-2.5 text-xs"
+                        className="form-input w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm"
                       />
                     </div>
                   </div>
@@ -548,47 +591,77 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="btn-primary w-full h-[54px] text-base font-bold flex items-center justify-center gap-2 mt-4 shadow-xl shadow-[#F3ED1A]/25"
+                    className="btn-primary w-full h-[52px] text-sm sm:text-base font-bold flex items-center justify-center gap-2 mt-4 shadow-xs cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
-                      <span>Sending to info@ontimedriverservice.com...</span>
+                      <span className="flex items-center gap-2">
+                        <span className="w-4 h-4 border-2 border-[#111827] border-t-transparent rounded-full animate-spin" />
+                        <span>Submitting...</span>
+                      </span>
                     ) : (
                       <>
-                        <Send className="w-4 h-4 text-[#050505]" />
-                        <span>Submit Booking &amp; Allocate Chauffeur</span>
+                        <Send className="w-4 h-4 text-[#111827]" />
+                        <span>Submit Booking &amp; Allocate Driver</span>
                       </>
                     )}
                   </button>
 
-                  <div className="flex items-center justify-between text-[11px] text-neutral-400 pt-1">
+                  <div className="flex flex-wrap items-center justify-between text-[11px] text-[#4B5563] pt-1">
                     <span>✓ Delivered to info@ontimedriverservice.com</span>
                     <span>✓ Guaranteed verified driver replacement</span>
                   </div>
                 </form>
               </div>
             ) : (
-              <div className="text-center py-8">
-                <div className="w-16 h-16 rounded-full bg-[#35B6DE]/20 border border-[#35B6DE] text-[#35B6DE] flex items-center justify-center mx-auto mb-4 animate-bounce">
+              /* Standardized Confirmation Screen */
+              <div className="text-center py-8 animate-fade-in">
+                <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-500 text-emerald-600 flex items-center justify-center mx-auto mb-4">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h3 className="text-2xl font-extrabold text-white mb-2">
-                  Booking Request Received!
+
+                <h3 className="text-xl sm:text-2xl font-extrabold text-[#111827] mb-2 leading-tight font-heading">
+                  Thank you. Our team will contact you within 15 minutes.
                 </h3>
-                <p className="text-sm text-[#CFCFCF] mb-5">
-                  Reference: <span className="font-mono font-bold text-[#F3ED1A]">{bookingRef}</span>
+
+                <p className="text-sm text-[#4B5563] mb-5">
+                  Reference: <span className="font-mono font-bold text-[#111827] bg-[#EEF8FC] px-2 py-0.5 rounded">{bookingRef}</span>
                 </p>
-                <div className="bg-[#181818] rounded-xl p-4 border border-white/10 text-left text-xs space-y-2 mb-6 text-neutral-300">
+
+                <div className="bg-[#F8FAFC] rounded-xl p-4 border border-[#E5E7EB] text-left text-xs space-y-2 mb-6 text-[#4B5563]">
                   <p>• <strong>Delivered To:</strong> info@ontimedriverservice.com</p>
                   <p>• <strong>Customer:</strong> {formData.name} (+91 {formData.mobile})</p>
                   <p>• <strong>Service:</strong> {service.title} ({formData.vehicleType})</p>
+                  <p>• <strong>Location:</strong> {formData.location}</p>
                   <p>• <strong>Timing:</strong> {formData.date} at {formData.time}</p>
                 </div>
-                <button
-                  onClick={() => setSubmitted(false)}
-                  className="btn-primary h-[50px] px-8 text-sm font-bold"
-                >
-                  Book Another Service
-                </button>
+
+                {/* Call Now and WhatsApp Us Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a
+                    href={`tel:${PRIMARY_PHONE}`}
+                    className="flex-1 h-12 rounded-xl bg-[#35B6DE] text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#2ca0c4] transition-all shadow-xs"
+                  >
+                    <Phone className="w-4 h-4 text-white" />
+                    <span>Call Now ({PRIMARY_PHONE})</span>
+                  </a>
+
+                  <button
+                    onClick={handleWhatsAppForward}
+                    className="flex-1 h-12 rounded-xl bg-[#25D366] text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#20ba59] transition-all shadow-xs cursor-pointer"
+                  >
+                    <MessageSquare className="w-4 h-4 text-white" />
+                    <span>WhatsApp Us</span>
+                  </button>
+                </div>
+
+                <div className="mt-4">
+                  <button
+                    onClick={() => setSubmitted(false)}
+                    className="text-xs text-[#35B6DE] hover:underline cursor-pointer font-semibold"
+                  >
+                    Book Another Service
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -597,25 +670,25 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
       </section>
 
       {/* 5. Bottom Call Now & WhatsApp CTA Banner */}
-      <section className="py-16 bg-[#050505] text-white border-t border-white/10">
+      <section className="py-14 sm:py-16 bg-white text-[#111827] border-t border-[#E5E7EB]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-          <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-white">
+          <h2 className="text-2xl sm:text-3xl font-extrabold font-heading text-[#111827]">
             Need an Immediate Driver for {service.title}?
           </h2>
-          <p className="text-sm text-[#CFCFCF] max-w-xl mx-auto">
+          <p className="text-sm text-[#4B5563] max-w-xl mx-auto">
             Our 24/7 concierge is on standby across Mumbai, Thane, Navi Mumbai, Mira Road, Vasai, Virar &amp; Palghar.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3.5 pt-4">
+          <div className="flex flex-wrap items-center justify-center gap-3.5 pt-3">
             <a
               href="tel:8652880057"
-              className="btn-primary h-[52px] px-8 text-base font-bold flex items-center gap-2"
+              className="btn-primary h-12 px-7 text-sm sm:text-base font-bold flex items-center gap-2"
             >
-              <Phone className="w-4 h-4 text-[#050505]" />
-              <span>Call Now: +91 8652880057</span>
+              <Phone className="w-4 h-4 text-[#111827]" />
+              <span>Call Now: 8652880057</span>
             </a>
             <button
               onClick={handleWhatsAppDirect}
-              className="btn-secondary h-[52px] px-8 text-base font-bold flex items-center gap-2 text-white"
+              className="btn-secondary h-12 px-7 text-sm sm:text-base font-bold flex items-center gap-2 cursor-pointer"
             >
               <MessageSquare className="w-4 h-4 text-[#25D366]" />
               <span>WhatsApp Concierge</span>

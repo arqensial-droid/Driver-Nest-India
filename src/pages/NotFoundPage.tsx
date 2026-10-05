@@ -10,8 +10,8 @@ export const NotFoundPage: React.FC = () => {
         description="The page you are looking for does not exist on On Time Driver Service. Explore our verified driver services across Mumbai."
       />
 
-      <div className="min-h-[75vh] flex flex-col items-center justify-center text-center px-4 pt-32 pb-20 bg-[#050505] text-white">
-        <div className="w-16 h-16 rounded-2xl bg-[#35B6DE]/15 border border-[#35B6DE]/30 flex items-center justify-center text-[#35B6DE] mb-6">
+      <div className="min-h-[75vh] flex flex-col items-center justify-center text-center px-4 pt-32 pb-20 bg-[#F8FAFC] text-[#111827]">
+        <div className="w-16 h-16 rounded-2xl bg-[#EEF8FC] border border-[#35B6DE]/30 flex items-center justify-center text-[#35B6DE] mb-6 shadow-xs">
           <Clock className="w-8 h-8" />
         </div>
 
@@ -19,20 +19,20 @@ export const NotFoundPage: React.FC = () => {
           Error 404
         </span>
 
-        <h1 className="text-h1 font-extrabold text-white mb-4">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#111827] mb-3 font-heading">
           Page Not Found
         </h1>
 
-        <p className="text-subheading text-[#CFCFCF] mb-8 max-w-md">
+        <p className="text-sm sm:text-base text-[#4B5563] mb-8 max-w-md leading-relaxed">
           The requested page could not be located. Let us guide you back to our verified driver services or locations across Mumbai.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3.5">
-          <Link href="/" className="btn-primary h-[52px] px-8 text-base font-bold flex items-center gap-2">
-            <Home className="w-4 h-4 text-[#050505]" />
+          <Link href="/" className="btn-primary h-12 px-7 text-sm sm:text-base font-bold flex items-center gap-2 shadow-xs">
+            <Home className="w-4 h-4 text-[#111827]" />
             <span>Return to Home</span>
           </Link>
-          <Link href="/services" className="btn-secondary h-[52px] px-8 text-base font-bold flex items-center gap-2">
+          <Link href="/services" className="btn-secondary h-12 px-7 text-sm sm:text-base font-semibold flex items-center gap-2">
             <Car className="w-4 h-4 text-[#35B6DE]" />
             <span>Browse All Services</span>
           </Link>

@@ -1,21 +1,16 @@
 import React from 'react';
 import { servicesData } from '../data/servicesData';
-import { ImageWithFallback } from './ImageWithFallback';
 import {
   UserCheck,
-  ShieldCheck,
-  CalendarClock,
   Briefcase,
-  PlaneTakeoff,
+  ShieldCheck,
   Compass,
-  PartyPopper,
-  HeartHandshake,
-  Crown,
-  CheckCircle,
-  ArrowRight,
+  PlaneTakeoff,
   Clock,
   Car,
   Sparkles,
+  ArrowRight,
+  CheckCircle,
   Calendar,
 } from 'lucide-react';
 import { Link } from '../router';
@@ -28,23 +23,20 @@ const DEDICATED_PAGE_URLS: Record<string, string> = {
   'personal-driver': '/personal-driver-service',
   'corporate-driver': '/corporate-driver-service',
   'permanent-driver': '/permanent-driver-service',
-  'full-time-driver': '/permanent-driver-service',
-  'outstation-driver': '/outstation-driver-service',
-  'airport-driver': '/airport-driver-service',
   'hourly-driver': '/hourly-driver-service',
-  'chauffeur-service': '/chauffeur-service',
-  'part-time-driver': '/part-time-driver-service',
-  'temporary-driver': '/temporary-driver-service',
+  'airport-driver': '/airport-driver-service',
+  'outstation-driver': '/outstation-driver-service',
 };
 
-// The 6 core driver categories specified in design requirements
+// The 6 exact services requested by the client:
+// Personal Driver, Corporate Driver, Permanent Driver, Hourly Driver, Airport Driver, Outstation Driver
 const CORE_CATEGORY_SLUGS = [
   'personal-driver',
   'corporate-driver',
   'permanent-driver',
-  'outstation-driver',
-  'airport-driver',
   'hourly-driver',
+  'airport-driver',
+  'outstation-driver',
 ];
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServiceAndBook }) => {
@@ -55,157 +47,129 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
       case 'corporate-driver':
         return <Briefcase className="w-5 h-5 text-[#35B6DE]" />;
       case 'permanent-driver':
-      case 'full-time-driver':
         return <ShieldCheck className="w-5 h-5 text-[#35B6DE]" />;
-      case 'outstation-driver':
-        return <Compass className="w-5 h-5 text-[#35B6DE]" />;
-      case 'airport-driver':
-        return <PlaneTakeoff className="w-5 h-5 text-[#35B6DE]" />;
       case 'hourly-driver':
         return <Clock className="w-5 h-5 text-[#35B6DE]" />;
+      case 'airport-driver':
+        return <PlaneTakeoff className="w-5 h-5 text-[#35B6DE]" />;
+      case 'outstation-driver':
+        return <Compass className="w-5 h-5 text-[#35B6DE]" />;
       default:
         return <Car className="w-5 h-5 text-[#35B6DE]" />;
     }
   };
 
-  // Select core 6 services in the requested order
   const displayServices = CORE_CATEGORY_SLUGS.map(
     (slug) => servicesData.find((s) => s.slug === slug) || servicesData[0]
   );
 
   return (
-    <section id="services" className="relative py-20 lg:py-28 bg-[#050505] text-white border-b border-white/10">
-      {/* Background ambient lighting */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#35B6DE]/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-10 left-10 w-[400px] h-[400px] bg-[#F3ED1A]/5 rounded-full blur-[100px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="services" className="py-20 lg:py-24 bg-[#EEF8FC] text-[#111827] border-b border-[#E5E7EB]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 lg:mb-18">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0B0B0B] border border-[#35B6DE]/40 shadow-md mb-3.5">
-            <Sparkles className="w-3.5 h-3.5 text-[#F3ED1A]" />
+        <div className="text-center max-w-3xl mx-auto mb-14 lg:mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#35B6DE]/30 shadow-xs mb-3.5">
+            <Sparkles className="w-3.5 h-3.5 text-[#35B6DE]" />
             <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE]">
-              Driver Categories
+              Specialized Chauffeur Services
             </span>
           </div>
 
-          <h2 className="text-h2 font-extrabold text-white mb-4">
-            Specialized Chauffeur Services in Mumbai
+          <h2 className="text-h2 font-extrabold text-[#111827] mb-4">
+            Professional Driver Services in Mumbai
           </h2>
 
-          <p className="text-subheading text-[#CFCFCF] leading-relaxed font-normal">
-            Whether you need a dedicated permanent chauffeur, a corporate driver for BKC commutes, an on-demand hourly driver, or an experienced outstation highway pilot.
+          <p className="text-subheading text-[#4B5563] leading-relaxed font-normal text-base sm:text-lg">
+            Choose from our range of verified, trained driver services tailored for corporate executives, busy families, daily commutes, and weekend highway trips.
           </p>
         </div>
 
-        {/* Services Grid:
-            Desktop: 3 cards per row
-            Tablet: 2 cards per row
-            Mobile: 1 card per row
-            Equal card heights & consistent 16:9 images */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
-          {displayServices.map((service, index) => {
+        {/* 6 Modern Service Cards with Real Service Photography */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {displayServices.map((service) => {
             const pageUrl = DEDICATED_PAGE_URLS[service.slug] || `/services/${service.slug}`;
-
             return (
               <div
-                key={`${service.id}-${index}`}
-                className="h-full bg-[#0B0B0B] rounded-2xl border border-white/10 hover:border-[#35B6DE]/50 overflow-hidden flex flex-col justify-between group shadow-xl hover:shadow-[#35B6DE]/10 transition-all duration-300 hover:-translate-y-1.5"
+                key={service.slug}
+                className="bg-white rounded-2xl border border-[#E5E7EB] hover:border-[#35B6DE] shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between overflow-hidden group hover:-translate-y-1"
               >
                 <div>
-                  {/* Card Image with 16:9 Aspect Ratio & Glass Badges */}
-                  <div className="relative aspect-video w-full overflow-hidden bg-[#141414]">
-                    <ImageWithFallback
-                      src={service.image}
-                      alt={`${service.title} in Mumbai`}
-                      fallbackTitle={service.title}
-                      vehicleTag={service.vehicleTag}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-
-                    {/* Dark gradient overlay on image */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-transparent to-black/30 pointer-events-none" />
-
-                    {/* Top Overlay Badges */}
-                    <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none z-10">
-                      <span className="glass-badge text-white text-[10px] font-bold px-2.5 py-1 rounded-md uppercase tracking-wider">
-                        {service.badge || 'Verified Chauffeur'}
-                      </span>
-                      <span className="bg-[#22C55E]/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-md shadow-sm flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                        Police Verified
-                      </span>
+                  {/* Actual Service Image with WebP & Fallback */}
+                  <div className="relative aspect-video w-full overflow-hidden bg-slate-100">
+                    <picture className="w-full h-full block">
+                      <source type="image/webp" srcSet={`/images/services/${service.slug}.webp`} />
+                      <img
+                        src={`/images/services/${service.slug}.jpg`}
+                        alt={service.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </picture>
+                    <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm border border-[#E5E7EB] px-3 py-1 rounded-lg text-xs font-bold text-[#111827] flex items-center gap-1.5 shadow-xs">
+                      {getIcon(service.slug)}
+                      <span>{service.badge || 'Verified'}</span>
                     </div>
 
-                    {/* Vehicle tag pill */}
-                    {service.vehicleTag && (
-                      <div className="absolute bottom-2.5 left-3 z-10">
-                        <span className="text-[10px] font-semibold text-[#F3ED1A] bg-black/80 px-2 py-0.5 rounded border border-white/10">
-                          {service.vehicleTag}
-                        </span>
-                      </div>
-                    )}
+                    <div className="absolute bottom-3 right-3 bg-[#111827]/85 backdrop-blur-sm text-white px-2.5 py-1 rounded-md text-[11px] font-semibold">
+                      {service.dutyFlexibility || 'On-Demand & Monthly'}
+                    </div>
                   </div>
 
-                  {/* Card Content Body */}
+                  {/* Card Content */}
                   <div className="p-6">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-xl bg-[#35B6DE]/15 border border-[#35B6DE]/30 flex items-center justify-center shrink-0">
-                        {getIcon(service.slug)}
-                      </div>
-                      <h3 className="text-lg font-bold text-white group-hover:text-[#35B6DE] transition-colors">
-                        {service.title}
-                      </h3>
-                    </div>
+                    <h3 className="text-xl font-bold text-[#111827] mb-2 font-heading group-hover:text-[#35B6DE] transition-colors">
+                      {service.title}
+                    </h3>
 
-                    <p className="text-sm text-[#CFCFCF] line-clamp-2 mb-4 leading-relaxed font-normal">
-                      {service.shortDescription}
+                    <p className="text-sm text-[#4B5563] leading-relaxed mb-4 line-clamp-2">
+                      {service.shortDesc || service.shortDescription}
                     </p>
 
                     {/* Features list */}
-                    <ul className="space-y-2 mb-2 text-xs text-neutral-300">
-                      {service.keyFeatures.slice(0, 3).map((feat, i) => (
-                        <li key={i} className="flex items-center gap-2">
-                          <CheckCircle className="w-3.5 h-3.5 text-[#35B6DE] shrink-0" />
-                          <span className="truncate">{feat}</span>
-                        </li>
+                    <div className="space-y-2 mb-6 pt-2 border-t border-[#E5E7EB]">
+                      {(service.features || service.keyFeatures || []).slice(0, 3).map((feat: string, i: number) => (
+                        <div key={i} className="flex items-center gap-2 text-xs text-[#4B5563]">
+                          <CheckCircle className="w-3.5 h-3.5 text-[#22C55E] shrink-0" />
+                          <span>{feat}</span>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 </div>
 
-                {/* Card Actions Footer - Equal height buttons (50px) */}
-                <div className="p-5 pt-3 border-t border-white/5 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 bg-[#080808]/90">
+                {/* Card Actions / CTA Buttons */}
+                <div className="p-6 pt-0 flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => onSelectServiceAndBook(service.title)}
+                    className="flex-1 h-11 rounded-xl bg-[#F3ED1A] hover:bg-[#eae415] text-[#111827] font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors cursor-pointer"
+                  >
+                    <Calendar className="w-3.5 h-3.5 text-[#111827]" />
+                    <span>Book Driver</span>
+                  </button>
+
                   <Link
                     href={pageUrl}
-                    className="flex-1 h-[50px] btn-secondary text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 text-white"
+                    className="h-11 px-4 rounded-xl bg-white border border-[#E5E7EB] hover:border-[#35B6DE] hover:bg-[#EEF8FC] text-[#111827] font-semibold text-xs flex items-center justify-center gap-1 transition-colors"
                   >
-                    <span>View Details</span>
-                    <ArrowRight className="w-4 h-4 text-[#35B6DE]" />
+                    <span>Details</span>
+                    <ArrowRight className="w-3 h-3 text-[#35B6DE]" />
                   </Link>
-
-                  <button
-                    onClick={() => onSelectServiceAndBook(service.title)}
-                    className="h-[50px] px-5 btn-primary text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 shrink-0"
-                    title={`Book ${service.title}`}
-                  >
-                    <Calendar className="w-4 h-4 text-[#050505]" />
-                    <span>Book Now</span>
-                  </button>
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* View All Services Link */}
-        <div className="mt-14 text-center">
+        {/* Bottom Directory Link */}
+        <div className="mt-12 text-center">
           <Link
             href="/services"
-            className="btn-secondary h-[52px] px-8 text-sm font-bold inline-flex items-center gap-2 hover:border-[#35B6DE]"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white border border-[#E5E7EB] hover:border-[#35B6DE] hover:bg-slate-50 text-[#111827] font-bold text-sm shadow-xs transition-colors"
           >
-            <span>Explore All Chauffeur Services &amp; Packages</span>
+            <span>View All 10+ Driver Services &amp; Packages</span>
             <ArrowRight className="w-4 h-4 text-[#35B6DE]" />
           </Link>
         </div>

@@ -1,0 +1,22 @@
+# On Time Driver Service - Hostinger Apache Configuration
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Forward /api/leads to /api/leads.php if PHP is used
+  RewriteRule ^api/leads/?$ api/leads.php [QSA,L]
+
+  # Do not rewrite real files or directories
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Route all other SPA routes to index.html
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Security: Prevent viewing of leads.json directly in browser
+<Files "leads.json">
+  Order Allow,Deny
+  Deny from all
+</Files>
