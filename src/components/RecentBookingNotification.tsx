@@ -14,7 +14,7 @@ const SAMPLE_ACTIVITIES: BookingNotification[] = [
   { name: 'Pooja S.', location: 'Powai Hiranandani', service: 'Personal Driver', timeAgo: '11 mins ago', vehicle: 'Honda City' },
   { name: 'Dr. Anand K.', location: 'Worli Sea Face', service: 'Full-Time Chauffeur', timeAgo: '19 mins ago', vehicle: 'Mercedes E-Class' },
   { name: 'Sameer D.', location: 'Ghodbunder Road, Thane', service: 'Hourly Driver', timeAgo: '32 mins ago', vehicle: 'Hyundai Creta' },
-  { name: 'Meera N.', location: 'Vashi Sector 17, Navi Mumbai', service: 'Airport Transfer Driver', timeAgo: '45 mins ago', vehicle: 'Toyota Fortuner' },
+  { name: 'Meera N.', location: 'Vashi Sector 17, Navi Mumbai', service: 'Airport Transfer Driver', timeAgo: '1 hr ago', vehicle: 'Toyota Fortuner' },
   { name: 'Kunal P.', location: 'Juhu Tara Road', service: 'Outstation Driver (Lonavala)', timeAgo: '58 mins ago', vehicle: 'Kia Carnival' }
 ];
 

@@ -87,7 +87,7 @@ export interface TestimonialItem {
   role: string;
   organization?: string;
   location: string;
-  avatar: string;
+  avatar?: string;
   category: 'Family' | 'Corporate' | 'Senior Citizen' | 'Luxury Car Owner';
   rating: number;
   text: string;

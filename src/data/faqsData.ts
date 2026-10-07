@@ -47,7 +47,7 @@ export const faqsData: FaqItem[] = [
     id: 'faq-8',
     category: 'General',
     question: 'How quickly can a driver be arranged across Mumbai and surrounding suburbs?',
-    answer: 'For on-demand and short-notice requests, we typically allocate and deploy an experienced driver to your doorstep within 30 to 45 minutes across Mumbai, Navi Mumbai, and Thane. For outer regions like Vasai, Virar, Kalyan, and Panvel, driver allocation is completed within 45 to 60 minutes.'
+    answer: 'For on-demand and short-notice requests, we allocate and deploy an experienced driver to your doorstep promptly across Mumbai, Navi Mumbai, and Thane, with dedicated pods also serving Vasai, Virar, Kalyan, and Panvel.'
   },
   {
     id: 'faq-9',
@@ -83,7 +83,7 @@ export const faqsData: FaqItem[] = [
     id: 'faq-14',
     category: 'Services & Booking',
     question: 'Can I book an airport transfer driver for midnight or early morning departures?',
-    answer: 'Yes. Our airport transfer desk operates 24/7. You can schedule pickups as early as 3:00 AM or 4:00 AM for domestic departures from CSMIA T1 or international flights from CSMIA T2. Our chauffeurs arrive at your doorstep 15 minutes ahead of time with flight tracking.'
+    answer: 'Yes. Our airport transfer desk operates 24/7. You can schedule pickups as early as 3:00 AM or 4:00 AM for domestic departures from CSMIA T1 or international flights from CSMIA T2. Our chauffeurs arrive at your doorstep punctually ahead of scheduled time with live flight tracking.'
   },
   {
     id: 'faq-15',

@@ -21,14 +21,14 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ onSelectLoca
   const [activeLocationId, setActiveLocationId] = useState<string>('mumbai');
 
   const primaryDistricts = [
-    { name: 'Mumbai', id: 'mumbai', dispatch: '20–35 Mins', hubs: 'BKC, South Mumbai, Bandra, Andheri, Powai, Borivali' },
-    { name: 'Thane', id: 'thane', dispatch: '25–40 Mins', hubs: 'Majiwada, Ghodbunder, Teen Hath Naka, Naupada' },
-    { name: 'Navi Mumbai', id: 'navi-mumbai', dispatch: '25–40 Mins', hubs: 'Vashi, Nerul, Belapur, Kharghar, Palm Beach' },
-    { name: 'Mira Road', id: 'mira-road', dispatch: '30–45 Mins', hubs: 'Shanti Nagar, Kanakia, Beverly Park, Pleasant Park' },
-    { name: 'Bhayandar', id: 'bhayandar', dispatch: '30–45 Mins', hubs: 'Station Road, Golden Nest, Maxus Mall, Uttan' },
-    { name: 'Vasai', id: 'vasai', dispatch: '35–50 Mins', hubs: 'Evershine City, Vasai West, Ambadi Road' },
-    { name: 'Virar', id: 'virar', dispatch: '35–50 Mins', hubs: 'Global City, Bolinj, Yazoo Park, Station Road' },
-    { name: 'Palghar', id: 'palghar', dispatch: '45–60 Mins', hubs: 'Boisar, Manor, Palghar Town, Industrial Zone' },
+    { name: 'Mumbai', id: 'mumbai', dispatch: 'Priority Dispatch', hubs: 'BKC, South Mumbai, Bandra, Andheri, Powai, Borivali' },
+    { name: 'Thane', id: 'thane', dispatch: 'Priority Dispatch', hubs: 'Majiwada, Ghodbunder, Teen Hath Naka, Naupada' },
+    { name: 'Navi Mumbai', id: 'navi-mumbai', dispatch: 'Priority Dispatch', hubs: 'Vashi, Nerul, Belapur, Kharghar, Palm Beach' },
+    { name: 'Mira Road', id: 'mira-road', dispatch: 'Priority Dispatch', hubs: 'Shanti Nagar, Kanakia, Beverly Park, Pleasant Park' },
+    { name: 'Bhayandar', id: 'bhayandar', dispatch: 'Priority Dispatch', hubs: 'Station Road, Golden Nest, Maxus Mall, Uttan' },
+    { name: 'Vasai', id: 'vasai', dispatch: 'Priority Dispatch', hubs: 'Evershine City, Vasai West, Ambadi Road' },
+    { name: 'Virar', id: 'virar', dispatch: 'Priority Dispatch', hubs: 'Global City, Bolinj, Yazoo Park, Station Road' },
+    { name: 'Palghar', id: 'palghar', dispatch: 'Priority Dispatch', hubs: 'Boisar, Manor, Palghar Town, Industrial Zone' },
   ];
 
   const activeLocation = locationsData.find((loc) => loc.id === activeLocationId) || locationsData[0];
@@ -59,8 +59,11 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ onSelectLoca
         <div className="relative rounded-2xl overflow-hidden border border-[#E5E7EB] shadow-sm mb-12 bg-slate-900 text-white">
           <div className="h-64 sm:h-80 md:h-96 w-full relative overflow-hidden">
             <img
-              src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1400&q=80"
-              alt="Mumbai Bandra-Worli Sea Link and city skyline at dusk"
+              src="/images/services/chauffeur-service.webp"
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).src = '/images/services/chauffeur-service.jpg';
+              }}
+              alt="Mumbai chauffeur driving luxury vehicle across Mumbai MMR"
               className="w-full h-full object-cover brightness-75"
               loading="lazy"
             />
@@ -109,7 +112,7 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ onSelectLoca
                 </span>
                 <span className="text-xs font-semibold text-[#4B5563] flex items-center gap-1">
                   <Clock className="w-3.5 h-3.5 text-[#35B6DE]" />
-                  Average Arrival: 25–40 Minutes
+                  Prompt Doorstep Dispatch
                 </span>
               </div>
 
@@ -147,7 +150,7 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ onSelectLoca
                   className="btn-primary w-full sm:w-auto h-11 px-6 text-xs sm:text-sm font-bold shadow-xs flex items-center justify-center gap-2"
                 >
                   <Calendar className="w-4 h-4 text-[#111827]" />
-                  <span>Book Driver in {activeLocation.name}</span>
+                  <span>Request Driver</span>
                 </button>
 
                 <Link

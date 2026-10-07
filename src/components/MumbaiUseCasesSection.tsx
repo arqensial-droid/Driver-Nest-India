@@ -169,7 +169,7 @@ export const MumbaiUseCasesSection: React.FC<MumbaiUseCasesSectionProps> = ({ on
                   Punctual Airport Pickups &amp; Drop-offs Anytime, Day or Night
                 </h3>
                 <p className="text-sm text-[#4B5563] leading-relaxed mb-5 font-normal">
-                  Never stress about parking fees, midnight flight delays, or finding a cab outside Terminal 2. Our drivers arrive at your residence or terminal parking 15 minutes before reporting time, handle luggage with care, and drive you home smoothly.
+                  Never stress about parking fees, midnight flight delays, or finding a cab outside Terminal 2. Our drivers arrive at your residence or terminal parking punctually before reporting time, handle luggage with care, and drive you home smoothly.
                 </p>
                 <div className="space-y-2 mb-6">
                   <div className="flex items-center gap-2 text-xs sm:text-sm text-[#4B5563]">

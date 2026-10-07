@@ -28,7 +28,7 @@ export const LeadFormSection: React.FC = () => {
     time: 'Immediate Dispatch',
     vehicleType: 'Sedan (Honda City / Verna / Ciaz)',
     message: '',
-    formName: 'Homepage Quick Booking Form',
+    formName: 'Instant Driver Booking',
   });
 
   const [honeypot, setHoneypot] = useState('');
@@ -53,7 +53,7 @@ export const LeadFormSection: React.FC = () => {
 
     try {
       console.log('[CONSOLE LOG] [HOMEPAGE FORM SUBMIT]', formData);
-      const res = await submitLead(formData, 'Homepage Quick Booking Form');
+      const res = await submitLead(formData, 'Instant Driver Booking');
 
       if (res.success && res.record) {
         setBookingRef(res.record.id);
@@ -153,10 +153,10 @@ export const LeadFormSection: React.FC = () => {
                 <div>
                   <div className="mb-6">
                     <h3 className="text-xl sm:text-2xl font-bold font-heading text-[#111827]">
-                      Driver Requirement Form
+                      Instant Driver Booking
                     </h3>
                     <p className="text-xs sm:text-sm text-[#4B5563] mt-1">
-                      Fill out the fields below. Leads are directly dispatched to <span className="text-[#35B6DE] font-semibold">info@ontimedriverservice.com</span>.
+                      Fill your details and our team will contact you shortly.
                     </p>
                   </div>
 
@@ -392,7 +392,7 @@ export const LeadFormSection: React.FC = () => {
                         ) : (
                           <>
                             <Send className="w-4 h-4 text-[#111827]" />
-                            <span>Submit Booking Request</span>
+                            <span>Request Driver</span>
                           </>
                         )}
                       </button>
@@ -423,7 +423,7 @@ export const LeadFormSection: React.FC = () => {
 
                   {/* Required exact success confirmation message */}
                   <p className="text-sm font-bold text-[#22C55E] mb-3 bg-[#22C55E]/10 py-2 px-3 rounded-lg max-w-md mx-auto">
-                    Thank you. Our team will contact you within 15 minutes.
+                    Thank you for your enquiry. Our team will contact you shortly.
                   </p>
 
                   <p className="text-xs text-[#4B5563] max-w-md mx-auto mb-6">

@@ -26,6 +26,7 @@ import {
   PRIMARY_PHONE,
 } from '../services/leadService';
 import { LeadFormData } from '../types';
+import { BrandLogo } from '../components/BrandLogo';
 
 export const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState<LeadFormData>({
@@ -36,7 +37,7 @@ export const ContactPage: React.FC = () => {
     serviceType: 'Personal Driver',
     vehicleType: 'Toyota Innova Crysta / Hycross',
     date: new Date().toISOString().split('T')[0],
-    time: 'Immediate Dispatch (30-45 mins)',
+    time: 'Priority Dispatch',
     message: '',
     formName: 'Contact Form',
   });
@@ -123,7 +124,7 @@ export const ContactPage: React.FC = () => {
               Contact On Time Driver Service
             </h1>
             <p className="text-subheading text-[#4B5563] leading-relaxed text-base sm:text-lg">
-              Need a verified driver within 30 minutes? Or planning monthly driver placement for your family or corporate fleet? Reach our concierge team directly.
+              Need a verified driver on demand? Or planning monthly driver placement for your family or corporate fleet? Reach our concierge team directly.
             </p>
           </div>
 
@@ -205,11 +206,17 @@ export const ContactPage: React.FC = () => {
             <div className="lg:col-span-7 bg-white rounded-2xl border border-[#E5E7EB] p-6 sm:p-8 shadow-xs">
               {!submitted ? (
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-bold font-heading text-[#111827] mb-2">
-                    Send Driver Requirement
+                  <div className="flex items-center justify-between mb-3">
+                    <BrandLogo size="md" />
+                    <span className="text-[11px] font-bold text-[#22C55E] bg-[#22C55E]/10 border border-[#22C55E]/20 px-2 py-0.5 rounded-full">
+                      Live Concierge
+                    </span>
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold font-heading text-[#111827] mb-1">
+                    Instant Driver Booking
                   </h3>
                   <p className="text-xs sm:text-sm text-[#4B5563] mb-6">
-                    Fill the fields below to dispatch your booking directly to <span className="text-[#35B6DE] font-semibold">info@ontimedriverservice.com</span>.
+                    Fill your details and our team will contact you shortly.
                   </p>
 
                   {errors.form && (
@@ -446,7 +453,7 @@ export const ContactPage: React.FC = () => {
                       ) : (
                         <>
                           <Send className="w-4 h-4 text-[#111827]" />
-                          <span>Submit Requirement &amp; Assign Driver</span>
+                          <span>Request Driver</span>
                         </>
                       )}
                     </button>
@@ -465,7 +472,7 @@ export const ContactPage: React.FC = () => {
                   </div>
 
                   <h3 className="text-xl sm:text-2xl font-extrabold text-[#111827] mb-2 leading-tight">
-                    Thank you. Our team will contact you within 15 minutes.
+                    Thank you for your enquiry. Our team will contact you shortly.
                   </h3>
 
                   <p className="text-sm text-[#4B5563] mb-5">
@@ -549,8 +556,8 @@ export const ContactPage: React.FC = () => {
                     <strong className="text-[#111827]">24/7 Live Concierge</strong>
                   </div>
                   <div className="flex items-center justify-between py-1">
-                    <span>Average Doorstep Arrival:</span>
-                    <strong className="text-[#35B6DE]">30–45 Minutes</strong>
+                    <span>Doorstep Allocation:</span>
+                    <strong className="text-[#35B6DE]">Priority Staged Dispatch</strong>
                   </div>
                 </div>
               </div>

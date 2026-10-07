@@ -31,6 +31,7 @@ import {
   getWhatsAppFallbackUrl,
   PRIMARY_PHONE,
 } from '../services/leadService';
+import { BrandLogo } from '../components/BrandLogo';
 
 interface ServiceDetailPageProps {
   slug: string;
@@ -68,7 +69,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
     serviceType: service?.title || 'Personal Driver',
     vehicleType: 'Toyota Innova Crysta / Hycross',
     date: new Date().toISOString().split('T')[0],
-    time: 'Immediate Dispatch (30-45 mins)',
+    time: 'Priority Dispatch',
     message: '',
     formName,
   });
@@ -210,7 +211,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
                   className="btn-primary h-12 px-7 text-sm sm:text-base font-bold flex items-center justify-center gap-2 shadow-xs cursor-pointer"
                 >
                   <Calendar className="w-4 h-4 text-[#111827]" />
-                  <span>Book {service.title}</span>
+                  <span>Request Driver</span>
                 </button>
 
                 <a
@@ -233,7 +234,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
               <div className="text-xs text-[#4B5563] pt-2 flex flex-wrap items-center gap-4">
                 <span>✓ Police Clearance Verified</span>
                 <span>✓ Local Mumbai Route Specialists</span>
-                <span>✓ 30–45 Min Dispatch</span>
+                <span>✓ Priority Doorstep Dispatch</span>
               </div>
             </div>
 
@@ -352,14 +353,14 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
             {!submitted ? (
               <div>
                 <div className="text-center mb-6">
-                  <span className="text-xs font-bold text-[#35B6DE] uppercase tracking-wider block mb-1">
-                    Instant Booking Concierge
-                  </span>
+                  <div className="flex justify-center mb-2">
+                    <BrandLogo size="md" />
+                  </div>
                   <h3 className="text-2xl font-extrabold text-[#111827] font-heading">
-                    Book {service.title}
+                    Instant Driver Booking
                   </h3>
                   <p className="text-xs sm:text-sm text-[#4B5563] mt-1">
-                    All fields below are delivered to <span className="text-[#35B6DE] font-semibold">info@ontimedriverservice.com</span>. We allocate your driver within 15–30 minutes.
+                    Fill your details and our team will contact you shortly.
                   </p>
                 </div>
 
@@ -560,7 +561,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
                           onChange={(e) => setFormData({ ...formData, time: e.target.value })}
                           className="form-input w-full pl-10 pr-3 py-2.5 appearance-none text-xs sm:text-sm bg-white"
                         >
-                          <option value="Immediate Dispatch (30-45 mins)">Immediate Dispatch (30–45 mins)</option>
+                          <option value="Priority Dispatch">Priority Dispatch</option>
                           <option value="Morning Shift (07:00 AM - 03:00 PM)">Morning Shift (07:00 AM – 03:00 PM)</option>
                           <option value="General Office Hours (09:00 AM - 07:00 PM)">General Office Hours (09:00 AM – 07:00 PM)</option>
                           <option value="Evening Return (05:00 PM - 01:00 AM)">Evening Return (05:00 PM – 01:00 AM)</option>
@@ -601,7 +602,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
                     ) : (
                       <>
                         <Send className="w-4 h-4 text-[#111827]" />
-                        <span>Submit Booking &amp; Allocate Driver</span>
+                        <span>Request Driver</span>
                       </>
                     )}
                   </button>
@@ -620,7 +621,7 @@ export const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ slug, onOp
                 </div>
 
                 <h3 className="text-xl sm:text-2xl font-extrabold text-[#111827] mb-2 leading-tight font-heading">
-                  Thank you. Our team will contact you within 15 minutes.
+                  Thank you for your enquiry. Our team will contact you shortly.
                 </h3>
 
                 <p className="text-sm text-[#4B5563] mb-5">

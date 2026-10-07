@@ -57,7 +57,7 @@ export const ExitIntentModal: React.FC<ExitIntentModalProps> = ({ onOpenBooking 
         </h3>
 
         <p className="text-xs sm:text-sm text-[#4B5563] leading-relaxed mb-6 font-normal">
-          Speak directly with our concierge team. We match your vehicle model and schedule with a 100% police-verified chauffeur within 30 minutes.
+          Speak directly with our concierge team. We match your vehicle model and schedule with a 100% police-verified chauffeur promptly.
         </p>
 
         <div className="space-y-3">
@@ -65,7 +65,7 @@ export const ExitIntentModal: React.FC<ExitIntentModalProps> = ({ onOpenBooking 
             onClick={handleClaim}
             className="btn-primary w-full h-12 text-sm font-bold flex items-center justify-center gap-2 shadow-xs"
           >
-            <span>Book a Driver Online</span>
+            <span>Request Driver</span>
             <ArrowRight className="w-4 h-4 text-[#111827]" />
           </button>
 

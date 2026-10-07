@@ -90,7 +90,7 @@ export const FinalCTASection: React.FC<FinalCTASectionProps> = ({ onOpenBooking 
 
             {/* Subheadline */}
             <p className="text-subheading text-[#4B5563] leading-relaxed mb-8 max-w-2xl mx-auto font-normal text-base sm:text-lg">
-              Get an experienced chauffeur matched to your car model, schedule, and route within 30 minutes. Safe, punctual, and police-verified.
+              Get an experienced chauffeur matched to your car model, schedule, and route. Safe, punctual, and police-verified.
             </p>
 
             {/* CTA Quick Form */}
@@ -164,11 +164,11 @@ export const FinalCTASection: React.FC<FinalCTASectionProps> = ({ onOpenBooking 
                     className="w-full h-11 bg-[#F3ED1A] hover:bg-[#eae415] text-[#111827] font-bold text-xs sm:text-sm rounded-xl flex items-center justify-center gap-2 shadow-xs transition-colors cursor-pointer"
                   >
                     {ctaSubmitting ? (
-                      <span>Dispatching to 24/7 Desk...</span>
+                      <span>Connecting to Desk...</span>
                     ) : (
                       <>
                         <Send className="w-3.5 h-3.5 text-[#111827]" />
-                        <span>Book Verified Driver Now</span>
+                        <span>Request Driver</span>
                       </>
                     )}
                   </button>
@@ -179,7 +179,7 @@ export const FinalCTASection: React.FC<FinalCTASectionProps> = ({ onOpenBooking 
                 <CheckCircle2 className="w-10 h-10 text-[#22C55E] mx-auto mb-2" />
                 <h4 className="text-base font-bold text-[#111827] mb-1">Request Received</h4>
                 <p className="text-xs font-semibold text-[#22C55E] mb-2">
-                  Thank you. Our team will contact you within 15 minutes.
+                  Thank you for your enquiry. Our team will contact you shortly.
                 </p>
                 <p className="text-[11px] text-[#4B5563] mb-4">
                   Reference: <strong>{ctaRef}</strong> &middot; Target: info@ontimedriverservice.com

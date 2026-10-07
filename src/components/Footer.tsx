@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ShieldCheck, Phone, Mail, MapPin, MessageSquare, ArrowRight, Clock, Calendar, CheckCircle2, Send, AlertCircle } from 'lucide-react';
 import { Link } from '../router';
 import { submitLead, validateLeadForm, PRIMARY_PHONE } from '../services/leadService';
+import { BrandLogo } from './BrandLogo';
 
 interface FooterProps {
   onOpenBooking: () => void;
@@ -84,18 +85,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
           
           {/* COLUMN 1: Company */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2.5" aria-label="On Time Driver Service Home">
-              <div className="w-9 h-9 rounded-xl bg-[#35B6DE] flex items-center justify-center text-[#111827] shadow-xs shrink-0 font-bold">
-                <Clock className="w-5 h-5 text-white" />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-heading font-extrabold text-sm sm:text-base tracking-tight text-white whitespace-nowrap">
-                  ON TIME DRIVER SERVICE
-                </span>
-                <span className="text-[10px] uppercase font-bold tracking-wider text-[#35B6DE] mt-0.5">
-                  Mumbai · Thane · Navi Mumbai
-                </span>
-              </div>
+            <Link href="/" className="inline-block focus:outline-none" aria-label="On Time Driver Service Home">
+              <BrandLogo variant="dark" size="footer" priority={false} />
             </Link>
 
             <p className="text-slate-300 text-xs leading-relaxed font-normal">
@@ -237,7 +228,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
                     ) : (
                       <>
                         <Send className="w-3 h-3 text-[#111827]" />
-                        <span>Call Me in 15 Mins</span>
+                        <span>Request Driver</span>
                       </>
                     )}
                   </button>
@@ -246,7 +237,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
                 <div className="text-center py-2 space-y-1.5 animate-fade-in">
                   <CheckCircle2 className="w-5 h-5 text-[#22C55E] mx-auto" />
                   <p className="text-xs font-bold text-white">
-                    Thank you. Our team will contact you within 15 minutes.
+                    Thank you for your enquiry. Our team will contact you shortly.
                   </p>
                   <p className="text-[10px] text-[#35B6DE] font-mono">
                     Ref: {footerRef}

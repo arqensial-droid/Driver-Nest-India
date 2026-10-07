@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MessageSquare, X, ChevronLeft } from 'lucide-react';
+import { BrandLogo } from './BrandLogo';
 
 export const FloatingWhatsApp: React.FC = () => {
   const [showTooltip, setShowTooltip] = useState(true);
@@ -14,20 +15,25 @@ export const FloatingWhatsApp: React.FC = () => {
       aria-label="Direct WhatsApp support"
       className="fixed bottom-[84px] sm:bottom-[24px] right-[20px] z-40 flex flex-col items-end pointer-events-auto"
     >
-      {/* Interactive status teaser with smooth fade & slide */}
+      {/* Interactive status teaser with brand logo */}
       {showTooltip && (
-        <div className="mb-2.5 relative bg-white/95 backdrop-blur-md border border-[#E5E7EB] text-[#111827] text-xs px-3.5 py-2.5 rounded-xl shadow-lg flex items-center gap-2 max-w-[260px] animate-fade-in transition-all duration-300 hover:border-[#25D366]">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#22C55E] animate-pulse shrink-0" />
-          <span className="font-semibold text-[#111827]">
-            24/7 Driver Desk <span className="text-[#35B6DE] font-bold">Online</span>
-          </span>
-          <button
-            onClick={() => setShowTooltip(false)}
-            className="text-[#9CA3AF] hover:text-[#111827] ml-auto shrink-0 p-0.5 cursor-pointer"
-            aria-label="Dismiss message"
-          >
-            <X className="w-3.5 h-3.5" />
-          </button>
+        <div className="mb-2.5 relative bg-white/95 backdrop-blur-md border border-[#E5E7EB] text-[#111827] text-xs p-3 rounded-2xl shadow-xl flex flex-col gap-2 max-w-[280px] animate-fade-in transition-all duration-300 hover:border-[#25D366]">
+          <div className="flex items-center justify-between gap-2 border-b border-[#E5E7EB]/80 pb-1.5">
+            <BrandLogo size="widget" />
+            <button
+              onClick={() => setShowTooltip(false)}
+              className="text-[#9CA3AF] hover:text-[#111827] shrink-0 p-0.5 cursor-pointer"
+              aria-label="Dismiss message"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#22C55E] animate-pulse shrink-0" />
+            <span className="font-semibold text-[#111827] text-[11px]">
+              24/7 Central Desk <span className="text-[#35B6DE] font-bold">Online</span>
+            </span>
+          </div>
         </div>
       )}
 

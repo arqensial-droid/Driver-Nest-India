@@ -37,7 +37,7 @@ export const ServiceAreasPage: React.FC<ServiceAreasPageProps> = ({ onOpenBookin
     <>
       <SEO
         title="Service Areas – On Time Driver Service | Mumbai, Thane, Navi Mumbai, Mira Road & MMR"
-        description="Comprehensive driver coverage across Mumbai, Thane, Navi Mumbai, Mira Road, Bhayandar, Vasai, Virar, Panvel, Kalyan, Dombivli, and Palghar. Fast 30-45 min dispatch."
+        description="Comprehensive driver coverage across Mumbai, Thane, Navi Mumbai, Mira Road, Bhayandar, Vasai, Virar, Panvel, Kalyan, Dombivli, and Palghar. Prompt verified driver dispatch."
         canonicalPath="/service-areas"
         schema={schema}
       />
@@ -128,7 +128,7 @@ export const ServiceAreasPage: React.FC<ServiceAreasPageProps> = ({ onOpenBookin
                     className="flex-1 h-11 rounded-xl bg-[#F3ED1A] hover:bg-[#eae415] text-[#111827] font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors cursor-pointer"
                   >
                     <Calendar className="w-3.5 h-3.5 text-[#111827]" />
-                    <span>Book in {location.name}</span>
+                    <span>Request Driver</span>
                   </button>
 
                   <Link
@@ -153,7 +153,7 @@ export const ServiceAreasPage: React.FC<ServiceAreasPageProps> = ({ onOpenBookin
                 Need a Driver Dispatched to Your Doorstep Right Now?
               </h3>
               <p className="text-xs sm:text-sm text-[#4B5563]">
-                Our local driver stations ensure rapid reporting in 30–45 minutes across Mumbai MMR.
+                Our local driver stations ensure prompt doorstep reporting across Mumbai MMR.
               </p>
             </div>
 
@@ -169,7 +169,7 @@ export const ServiceAreasPage: React.FC<ServiceAreasPageProps> = ({ onOpenBookin
                 onClick={() => onOpenBooking()}
                 className="btn-primary h-11 px-6 text-xs sm:text-sm font-bold shadow-xs"
               >
-                <span>Book Driver</span>
+                <span>Request Driver</span>
               </button>
             </div>
           </div>

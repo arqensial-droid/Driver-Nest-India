@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { validateLeadForm, submitLead, getWhatsAppFallbackUrl, getWhatsAppSuccessUrl, PRIMARY_PHONE } from '../services/leadService';
 import { LeadFormData, FormType } from '../types';
+import { BrandLogo } from './BrandLogo';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -146,15 +147,18 @@ export const BookingModal: React.FC<BookingModalProps> = ({
           <div>
             {/* Modal Header */}
             <div className="mb-5">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EEF8FC] border border-[#35B6DE]/30 text-[#35B6DE] text-xs font-bold mb-2">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#22C55E]" />
-                <span>Verified Chauffeur Dispatch</span>
+              <div className="flex items-center justify-between mb-3">
+                <BrandLogo size="md" />
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EEF8FC] border border-[#35B6DE]/30 text-[#35B6DE] text-xs font-bold">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#22C55E]" />
+                  <span>Verified Drivers</span>
+                </div>
               </div>
               <h3 className="text-xl sm:text-2xl font-bold font-heading text-[#111827]">
-                Book a Verified Driver
+                Instant Driver Booking
               </h3>
               <p className="text-xs sm:text-sm text-[#4B5563] mt-1">
-                Dispatched directly to our 24/7 central desk at <span className="text-[#35B6DE] font-semibold">info@ontimedriverservice.com</span>.
+                Fill your details and our team will contact you shortly.
               </p>
             </div>
 
@@ -379,7 +383,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   ) : (
                     <>
                       <Send className="w-3.5 h-3.5 text-[#111827]" />
-                      <span>Confirm Driver Booking</span>
+                      <span>Request Driver</span>
                     </>
                   )}
                 </button>
@@ -409,7 +413,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
             {/* Exact Required Success Message */}
             <p className="text-sm font-bold text-[#22C55E] mb-2 bg-[#22C55E]/10 py-1.5 px-3 rounded-lg max-w-sm mx-auto">
-              Thank you. Our team will contact you within 15 minutes.
+              Thank you for your enquiry. Our team will contact you shortly.
             </p>
 
             <div className="bg-[#EEF8FC] rounded-xl p-3.5 border border-[#E5E7EB] text-left text-xs space-y-1.5 mb-5 max-w-sm mx-auto">

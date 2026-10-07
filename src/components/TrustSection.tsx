@@ -31,7 +31,7 @@ export const TrustSection: React.FC = () => {
     {
       icon: Zap,
       title: 'Fast Driver Allocation',
-      badge: '30–45 Mins Arrival',
+      badge: 'Prompt Allocation',
       description:
         'Strategic driver stations positioned across South Mumbai, BKC, Western Suburbs, Thane, and Navi Mumbai for prompt doorstep allocation.',
       color: '#35B6DE',

@@ -13,6 +13,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { Link, useRouter } from '../router';
+import { BrandLogo } from './BrandLogo';
 
 interface NavbarProps {
   onOpenBooking: () => void;
@@ -119,20 +120,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
             {/* Logo Left: ON TIME DRIVER SERVICE */}
             <Link
               href="/"
-              className="flex items-center gap-2.5 shrink-0 focus:outline-none min-w-0"
+              className="flex items-center shrink-0 focus:outline-none min-w-0 py-1"
               aria-label="On Time Driver Service Home"
             >
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#35B6DE] flex items-center justify-center text-white shadow-sm shrink-0">
-                <Clock className="w-5 h-5 text-white" />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-heading font-extrabold text-sm sm:text-base lg:text-lg tracking-tight text-[#111827] whitespace-nowrap overflow-hidden">
-                  ON TIME DRIVER SERVICE
-                </span>
-                <span className="text-[10px] text-[#4B5563] font-semibold hidden sm:block tracking-wider uppercase">
-                  Verified Drivers Across Mumbai
-                </span>
-              </div>
+              <BrandLogo size="header" priority />
             </Link>
 
             {/* Desktop Navigation Links */}
@@ -290,39 +281,38 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
 
               <button
                 onClick={onOpenBooking}
-                className="btn-primary h-11 px-6 text-sm font-bold shadow-sm"
+                className="btn-primary h-11 px-6 text-sm font-bold shadow-xs cursor-pointer flex items-center gap-2"
               >
-                <Calendar className="w-4 h-4 mr-2 text-[#111827]" />
-                <span>Book Driver</span>
+                <Calendar className="w-4 h-4 text-[#111827]" />
+                <span>Request Driver</span>
               </button>
             </div>
 
-            {/* Mobile Header Layout */}
-            <div className="flex lg:hidden items-center gap-1.5 sm:gap-2 shrink-0">
+            {/* Mobile Header Layout - Fixed with min 44px touch target, no overflow */}
+            <div className="flex lg:hidden items-center gap-2 shrink-0">
               <a
                 href="tel:8652880057"
-                className="h-9 px-2.5 sm:px-3 rounded-lg bg-white border border-[#E5E7EB] text-[#111827] flex items-center justify-center gap-1 text-xs font-bold hover:border-[#35B6DE] transition-colors shrink-0"
+                className="w-11 h-11 rounded-xl bg-white border border-[#E5E7EB] text-[#111827] flex items-center justify-center hover:border-[#35B6DE] hover:bg-[#EEF8FC] transition-colors shrink-0"
                 aria-label="Call 8652880057"
               >
-                <Phone className="w-3.5 h-3.5 text-[#35B6DE]" />
-                <span className="text-[11px] sm:text-xs">Call</span>
+                <Phone className="w-4 h-4 text-[#35B6DE]" />
               </a>
 
               <button
                 onClick={onOpenBooking}
-                className="h-9 px-2.5 sm:px-3.5 rounded-lg bg-[#F3ED1A] text-[#111827] text-[11px] sm:text-xs font-bold flex items-center justify-center gap-1 shadow-sm hover:bg-[#e5df15] transition-colors shrink-0"
-                aria-label="Book Driver"
+                className="h-11 px-3.5 sm:px-4 rounded-xl bg-[#F3ED1A] hover:bg-[#eae415] text-[#111827] text-xs font-bold flex items-center justify-center gap-1.5 shadow-xs transition-colors shrink-0 cursor-pointer active:scale-98"
+                aria-label="Request Driver"
               >
                 <Calendar className="w-3.5 h-3.5 text-[#111827]" />
-                <span>Book</span>
+                <span className="whitespace-nowrap font-extrabold">Request Driver</span>
               </button>
 
               <button
                 onClick={() => setMobileMenuOpen(true)}
-                className="w-9 h-9 flex items-center justify-center rounded-lg bg-white border border-[#E5E7EB] text-[#111827] hover:border-slate-400 transition-colors shrink-0"
+                className="w-11 h-11 flex items-center justify-center rounded-xl bg-white border border-[#E5E7EB] text-[#111827] hover:border-[#35B6DE] hover:bg-slate-50 transition-colors shrink-0 cursor-pointer"
                 aria-label="Open Navigation Menu"
               >
-                <Menu className="w-4 h-4 text-[#111827]" />
+                <Menu className="w-5 h-5 text-[#111827]" />
               </button>
             </div>
 
@@ -342,19 +332,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
             <div>
               {/* Drawer Header */}
               <div className="flex items-center justify-between pb-4 border-b border-[#E5E7EB]">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#35B6DE] flex items-center justify-center text-white">
-                    <Clock className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-heading font-bold text-sm text-[#111827]">ON TIME DRIVER SERVICE</p>
-                    <p className="text-[10px] text-[#4B5563]">Verified Drivers Across Mumbai</p>
-                  </div>
-                </div>
+                <BrandLogo size="md" />
 
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-1.5 rounded-lg text-[#4B5563] hover:text-[#111827] hover:bg-slate-100 transition-colors"
+                  className="w-10 h-10 flex items-center justify-center rounded-xl text-[#4B5563] hover:text-[#111827] hover:bg-slate-100 transition-colors cursor-pointer"
                   aria-label="Close menu"
                 >
                   <X className="w-5 h-5" />
@@ -470,7 +452,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking }) => {
                 className="btn-primary w-full h-12 text-sm font-bold flex items-center justify-center gap-2"
               >
                 <Calendar className="w-4 h-4 text-[#111827]" />
-                <span>Book Driver</span>
+                <span>Request Driver</span>
               </button>
 
               <a

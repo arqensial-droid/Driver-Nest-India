@@ -64,7 +64,7 @@ export const CustomerExperienceBanner: React.FC<CustomerExperienceBannerProps> =
                 className="btn-primary w-full sm:w-auto h-[50px] px-8 text-sm sm:text-base font-bold flex items-center justify-center gap-2 shadow-xs cursor-pointer"
               >
                 <Calendar className="w-4 h-4 text-[#111827]" />
-                <span>Book Driver Now</span>
+                <span>Request Driver</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
@@ -93,8 +93,8 @@ export const CustomerExperienceBanner: React.FC<CustomerExperienceBannerProps> =
                 <Clock className="w-4 h-4 text-[#35B6DE]" />
                 <span>Rapid Doorstep Dispatch</span>
               </div>
-              <div className="text-3xl font-extrabold text-[#111827] font-heading mb-1">
-                30–45 Mins
+              <div className="text-2xl font-extrabold text-[#111827] font-heading mb-1">
+                Prompt Allocation
               </div>
               <p className="text-xs text-[#4B5563] mb-5 leading-relaxed">
                 Chauffeurs staged across BKC, South Mumbai, Western Suburbs, Thane &amp; Navi Mumbai.

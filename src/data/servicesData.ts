@@ -181,7 +181,7 @@ export const servicesData: ServiceItem[] = [
       { question: 'What is the minimum booking duration for part-time drivers?', answer: 'Our standard part-time driver slots are structured for 4 hours, 6 hours, or scheduled recurring half-days.' },
       { question: 'Can I book a part-time driver on recurring days of the week?', answer: 'Yes! Many clients book part-time drivers for Monday, Wednesday, and Friday for clinic or hybrid office routines.' },
       { question: 'Does the driver manage parking at crowded markets?', answer: 'Yes, the driver remains with your car, drops you at the shop entrance, handles parking, and pulls up when you are ready.' },
-      { question: 'How much notice is required to book a part-time driver?', answer: 'We recommend booking 2 to 3 hours in advance, though urgent dispatch can often be arranged in 30-45 minutes.' },
+      { question: 'How much notice is required to book a part-time driver?', answer: 'We recommend booking 2 to 3 hours in advance, though urgent dispatch can often be arranged promptly upon request.' },
       { question: 'Are part-time drivers background checked?', answer: 'Yes, 100% of our drivers—whether part-time or full-time—pass stringent police verification and ID validation.' }
     ],
     relatedServices: [
@@ -202,7 +202,7 @@ export const servicesData: ServiceItem[] = [
     title: 'Temporary Driver Service',
     h1Title: 'Temporary Driver Service in Mumbai',
     metaTitle: 'Temporary Driver Service in Mumbai – Emergency Leave Replacement Chauffeurs',
-    metaDescription: 'Hire temporary drivers in Mumbai for days or weeks when your regular driver is on leave. Rapid 30-45 min allocation, police-verified, and zero long-term commitments.',
+    metaDescription: 'Hire temporary drivers in Mumbai for days or weeks when your regular driver is on leave. Prompt verified allocation, police-verified, and zero long-term commitments.',
     sceneDescription: 'Customer handing car keys to professional driver',
     shortHeadline: 'On-Demand Relief & Leave Replacement',
     shortDescription: 'Short-term driver allocation for days or weeks when your regular driver is on leave—hand over keys with total peace of mind.',
@@ -212,7 +212,7 @@ export const servicesData: ServiceItem[] = [
     vehicleTag: 'All Personal Car Transmissions',
     locationTag: 'Andheri, Thane & Navi Mumbai',
     badge: 'On-Demand Flexibility',
-    trustStatement: '✓ Rapid 30-45 Min Deployment · Zero Lock-In Contract',
+    trustStatement: '✓ Prompt Verified Deployment · Zero Lock-In Contract',
     dutyFlexibility: 'Single-Day to Multi-Week Deployments',
     keyFeatures: [
       'Rapid driver allocation across Mumbai and MMR corridors',
@@ -243,7 +243,7 @@ export const servicesData: ServiceItem[] = [
       { title: 'Corporate Delegate City Transit', description: '3-day temporary allocation for outstation executives visiting Mumbai tech parks.', route: 'Powai to Airoli & BKC' }
     ],
     faqs: [
-      { question: 'How quickly can a temporary driver be deployed?', answer: 'In emergency scenarios, we can typically dispatch a verified driver within 30 to 45 minutes across Mumbai, Thane, and Navi Mumbai.' },
+      { question: 'How quickly can a temporary driver be deployed?', answer: 'In emergency scenarios, we can typically dispatch a verified driver promptly across Mumbai, Thane, and Navi Mumbai.' },
       { question: 'Is there any minimum booking period for temporary drivers?', answer: 'No, you can engage a temporary driver for a single day, a few days, or multiple weeks as needed.' },
       { question: 'What happens if my regular driver extends their leave?', answer: 'You can easily extend your temporary driver engagement with our concierge desk with a quick WhatsApp message.' },
       { question: 'Can the temporary driver handle luxury or automatic cars?', answer: 'Yes, our roster includes drivers trained on all transmissions, European cars, and electric vehicles.' },
@@ -267,7 +267,7 @@ export const servicesData: ServiceItem[] = [
     title: 'Hourly Driver Service',
     h1Title: 'Hourly Driver Service in Mumbai',
     metaTitle: 'Hourly Driver Service in Mumbai – On-Demand Point-to-Point Drivers',
-    metaDescription: 'Book hourly drivers in Mumbai on demand. Pay only for the hours you need for shopping, local meetings, club nights, or doctor appointments with fast 30-45 min dispatch.',
+    metaDescription: 'Book hourly drivers in Mumbai on demand. Pay only for the hours you need for shopping, local meetings, club nights, or doctor appointments with prompt doorstep dispatch.',
     sceneDescription: 'Indian customer using driver for local appointments or city travel',
     shortHeadline: 'On-Demand Urban Appointments',
     shortDescription: 'Flexible hourly driver booking for short appointments, local shopping, club nights, or multi-stop city errands.',
@@ -277,10 +277,10 @@ export const servicesData: ServiceItem[] = [
     vehicleTag: 'Hatchbacks, Sedans & SUVs',
     locationTag: 'South Mumbai & Suburban Hubs',
     badge: 'By-The-Hour Convenience',
-    trustStatement: '✓ Instant 30-Min Staging · Pay for What You Use',
+    trustStatement: '✓ Fast Staged Allocation · Pay for What You Use',
     dutyFlexibility: 'Hourly Flexible Blocks (Min. 2-3 Hours)',
     keyFeatures: [
-      'Fast doorstep dispatch within 30 to 45 minutes',
+      'Prompt doorstep dispatch upon booking confirmation',
       'Pay only for the hours you actually utilize',
       'Courteous, verified drivers who handle all parking hassles',
       'Ideal for late-night returns, medical visits, and city meetings'
@@ -311,7 +311,7 @@ export const servicesData: ServiceItem[] = [
       { question: 'What is the minimum hourly booking duration?', answer: 'Hourly bookings generally start from a convenient 2 or 3-hour minimum slot.' },
       { question: 'Can I extend the driver hours if my meeting runs late?', answer: 'Yes! You can inform the driver or our concierge desk directly to extend duty hours seamlessly.' },
       { question: 'Will the driver wait with the car while I am in an appointment?', answer: 'Yes, the driver stays with your vehicle, finds suitable parking, and is ready the moment you exit.' },
-      { question: 'How is driver punctuality assured in Mumbai traffic?', answer: 'We dispatch drivers from hyper-local staging pods closest to your pin code, ensuring rapid arrival within 30-45 minutes.' },
+      { question: 'How is driver punctuality assured in Mumbai traffic?', answer: 'We dispatch drivers from hyper-local staging pods closest to your pin code, ensuring rapid arrival to your requested location.' },
       { question: 'Can I book an hourly driver for late-night party returns?', answer: 'Absolutely. We provide safe, responsible designated drivers 24/7 across Mumbai and MMR.' }
     ],
     relatedServices: [
@@ -531,7 +531,7 @@ export const servicesData: ServiceItem[] = [
     sceneDescription: 'Driver holding name board at Mumbai Airport arrivals',
     shortHeadline: 'CSMIA T1 & T2 Terminal Transfers',
     shortDescription: 'Punctual airport pickup and drop-off chauffeurs for Mumbai CSMIA T1 & T2 arrivals with personalized name board and luggage help.',
-    fullDescription: 'Never worry about missing an early morning departure or driving through dense traffic after an exhausting flight. Our airport chauffeurs arrive 15 minutes ahead of schedule, hold a personalized name board at the arrival gate, track live flight landing updates, assist with luggage, and steer your vehicle safely home or to your hotel.',
+    fullDescription: 'Never worry about missing an early morning departure or driving through dense traffic after an exhausting flight. Our airport chauffeurs arrive punctually ahead of scheduled pickup, hold a personalized name board at the arrival gate, track live flight landing updates, assist with luggage, and steer your vehicle safely home or to your hotel.',
     iconName: 'PlaneTakeoff',
     image: '/images/services/airport-driver.jpg',
     vehicleTag: 'Toyota Innova Crysta & Executive Sedans',
@@ -541,7 +541,7 @@ export const servicesData: ServiceItem[] = [
     dutyFlexibility: '24/7 Round-the-Clock Terminal Transfers',
     keyFeatures: [
       'Flight schedule tracking to accommodate delays or early arrivals',
-      'Doorstep arrival 15 minutes prior to scheduled pickup time',
+      'Punctual doorstep arrival prior to scheduled pickup time',
       'Personalized arrival name board and baggage assistance',
       'Expert navigation via Coastal Road, Sea Link, and elevated airport ramps'
     ],
@@ -563,7 +563,7 @@ export const servicesData: ServiceItem[] = [
       { title: 'Visiting Guests & VIPs', description: 'Executive name board greeting that creates an impressive first impression.', icon: 'Plane' }
     ],
     useCases: [
-      { title: 'Early Morning 4 AM Departure to T2', description: 'Chauffeur reaches your home 15 minutes ahead of schedule with zero delay anxiety.', route: 'Thane West to CSMIA Terminal 2 International' },
+      { title: 'Early Morning 4 AM Departure to T2', description: 'Chauffeur reaches your home punctually ahead of schedule with zero delay anxiety.', route: 'Thane West to CSMIA Terminal 2 International' },
       { title: 'Midnight Red-Eye Arrival Meet-and-Greet', description: 'Personalized name board at Arrival Gate 6 with smooth luggage loading.', route: 'CSMIA Terminal 2 to Malabar Hill via Sea Link' },
       { title: 'Domestic T1 Terminal Transfer', description: 'Quick drop-off at Santacruz domestic departure ramp via Western Express Highway.', route: 'BKC Corporate Office to T1 Domestic' }
     ],

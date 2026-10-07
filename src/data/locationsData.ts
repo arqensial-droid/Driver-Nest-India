@@ -5,15 +5,15 @@ export const locationsData: LocationItem[] = [
     id: 'mumbai',
     name: 'Mumbai',
     district: 'Mumbai City & Mumbai Suburban',
-    image: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/services/chauffeur-service.jpg',
     seoHeadline: 'Professional Chauffeur & Driver Service in Mumbai – South Mumbai, BKC, Bandra & Suburbs',
     shortSnippet: 'Premier chauffeur services serving South Mumbai, BKC, Lower Parel, Western Suburbs, and Eastern corridors.',
-    avgDispatchTime: '30 - 45 Minutes',
+    avgDispatchTime: 'Priority Dispatch',
     popularHubs: ['Bandra Kurla Complex (BKC)', 'Nariman Point & Colaba', 'Lower Parel & Worli', 'Andheri & Juhu', 'Borivali & Malad', 'Powai Hiranandani'],
     keyRoutes: ['Western Express Highway', 'Mumbai Coastal Road', 'Bandra-Worli Sea Link', 'Eastern Freeway', 'Santacruz-Chembur Link Road (SCLR)'],
     fullContent: `On Time Driver Service stands as the premier provider of verified, professional chauffeur and driver services across Mumbai. Navigating the vibrant financial capital of India demands profound vehicular expertise, patience, and tactical route awareness. From the dense bumper-to-bumper peak hour traffic on the Western Express Highway to the rapid high-speed corridors of the Mumbai Coastal Road, the iconic Bandra-Worli Sea Link, and the Eastern Freeway, Mumbai vehicle owners face unique driving stress every single day. 
 
-Our specialized driver agency eliminates the exhaustion of daily commuting, complex urban parking, and late-night highway navigation. Whether you reside in heritage precincts of South Mumbai like Marine Drive, Malabar Hill, and Cuffe Parade, commercial hubs of Lower Parel and BKC, or buzzing suburban neighborhoods spanning Bandra, Juhu, Andheri, Goregaon, and Borivali, On Time Driver Service deploys seasoned chauffeurs right to your private doorstep within 30 to 45 minutes.
+Our specialized driver agency eliminates the exhaustion of daily commuting, complex urban parking, and late-night highway navigation. Whether you reside in heritage precincts of South Mumbai like Marine Drive, Malabar Hill, and Cuffe Parade, commercial hubs of Lower Parel and BKC, or buzzing suburban neighborhoods spanning Bandra, Juhu, Andheri, Goregaon, and Borivali, On Time Driver Service deploys seasoned chauffeurs right to your private doorstep promptly and on schedule.
 
 Every chauffeur on our roster undergoes exhaustive three-layer vetting: criminal record clearance via local Mumbai police stations, residential address verification, and an intensive practical road test assessing smooth braking, defensive driving maneuvers, and familiarity with Mumbai's ever-changing traffic diversions. We cater to diverse vehicular demands, offering certified chauffeurs proficient in European luxury cars (Mercedes-Benz, BMW, Audi, Porsche, Jaguar), premium electric vehicles with regenerative braking dynamics, and traditional manual hatchbacks or SUVs.
 
@@ -21,7 +21,7 @@ Whether your requirement is a monthly permanent chauffeur for executive commutes
     localFaqs: [
       {
         question: 'How fast can On Time Driver Service allocate a chauffeur in Mumbai?',
-        answer: 'With multiple chauffeur clusters located in Bandra, Andheri, Worli, BKC, and Borivali, our average chauffeur dispatch time across Mumbai is within 30 to 45 minutes.'
+        answer: 'With multiple chauffeur clusters located in Bandra, Andheri, Worli, BKC, and Borivali, our concierge team allocates and deploys verified chauffeurs across Mumbai promptly upon request.'
       },
       {
         question: 'Are your Mumbai chauffeurs familiar with the Mumbai Coastal Road and Atal Setu (MTHL)?',
@@ -33,10 +33,10 @@ Whether your requirement is a monthly permanent chauffeur for executive commutes
     id: 'thane',
     name: 'Thane',
     district: 'Thane Urban District',
-    image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/services/corporate-driver.jpg',
     seoHeadline: 'Verified Driver Service in Thane – Ghodbunder Road, Majiwada, Pokhran & Thane West',
     shortSnippet: 'Experienced city and outstation chauffeurs serving high-rise residential towers and business parks across Thane.',
-    avgDispatchTime: '30 - 45 Minutes',
+    avgDispatchTime: 'Priority Dispatch',
     popularHubs: ['Ghodbunder Road (Hiranandani Estate)', 'Majiwada & Viviana Mall vicinity', 'Pokhran Road No. 1 & 2', 'Thane West Station & Naupada', 'Wagle Industrial Estate', 'Kolshet Road & Lodha Amara'],
     keyRoutes: ['Eastern Express Highway', 'Ghodbunder Road', 'Thane-Belapur Road', 'Mumbai-Nashik Highway (NH-3)', 'Bypass Flyovers'],
     fullContent: `Thane has evolved into one of the most vibrant urban centers in the Mumbai Metropolitan Region, boasting world-class residential townships, expansive corporate parks, and bustling retail destinations like Viviana and Korum Malls. However, the sheer volume of vehicular traffic along Ghodbunder Road, the Majiwada junction flyovers, Kolshet Road, and the Eastern Express Highway presents daily hurdles for car owners. On Time Driver Service delivers trusted, professional chauffeur services designed to give Thane residents back their time and peace of mind.
@@ -61,10 +61,10 @@ Additionally, our Thane outstation driver desk provides seasoned highway special
     id: 'navi-mumbai',
     name: 'Navi Mumbai',
     district: 'Thane & Raigad Region',
-    image: 'https://images.unsplash.com/photo-1506015391300-4802dc74de2e?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/services/airport-driver.jpg',
     seoHeadline: 'Trusted Driver Service in Navi Mumbai – Vashi, Nerul, Belapur, Kharghar & Airoli',
     shortSnippet: 'Dependable personal, corporate, and outstation drivers across the planned smart city nodes of Navi Mumbai.',
-    avgDispatchTime: '35 - 50 Minutes',
+    avgDispatchTime: 'Priority Dispatch',
     popularHubs: ['Vashi Sector 17 & Palm Beach Road', 'Kharghar Central Park & Sector 20', 'CBD Belapur Financial Hub', 'Nerul & Seawoods Grand Central', 'Airoli Mindspace IT Park', 'Ulwe & Dronagiri'],
     keyRoutes: ['Palm Beach Road', 'Sion-Panvel Expressway', 'Thane-Belapur Road', 'Atal Setu (MTHL) Interchange', 'Old Mumbai-Pune Highway'],
     fullContent: `Navi Mumbai's expansive, master-planned boulevards, fast-moving expressways, and surging commercial hubs demand dependable, disciplined driving professionals. On Time Driver Service provides comprehensive driver hiring solutions across all nodes of Navi Mumbai, including Vashi, Nerul, Belapur, Sanpada, Seawoods, Kharghar, Airoli, Koparkhairane, Ghansoli, and the emerging airport precincts of Ulwe. 
@@ -89,15 +89,15 @@ On Time Driver Service offers flexible hiring packages for Navi Mumbai residents
     id: 'mira-road',
     name: 'Mira Road',
     district: 'Thane / Palghar Border',
-    image: 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/services/personal-driver.jpg',
     seoHeadline: 'Reliable Driver Service in Mira Road – Shanti Nagar, Kanakia & Beverly Park',
     shortSnippet: 'Affordable, verified, and punctual drivers for daily commutes, family travel, and highway trips in Mira Road.',
-    avgDispatchTime: '30 - 40 Minutes',
+    avgDispatchTime: 'Priority Dispatch',
     popularHubs: ['Shanti Nagar Sectors', 'Kanakia Spaces & Beverly Park', 'Silver Park & Poonam Sagar', 'Mira Road Railway Station Zone', 'Pleasant Park & Jangid Complex', 'Kashimira Junction'],
     keyRoutes: ['Western Express Highway', 'Mira-Bhayandar Road', 'Kashimira Flyover', 'Ghodbunder Link Road', 'Coastal Road Extension'],
     fullContent: `Mira Road represents a bustling residential corridor home to thousands of working professionals, thriving business owners, and growing families who commute daily toward central Mumbai and the commercial districts of Andheri, Goregaon, and Bandra. The daily transit through Kashimira toll junction, the Western Express Highway, and internal arteries like Mira-Bhayandar Road can quickly deplete your energy. On Time Driver Service provides certified, background-checked personal and corporate drivers to take the burden off your shoulders.
 
-Our Mira Road driver agency specializes in flexible personal driver hiring, whether you require an attentive chauffeur for daily office commutes, temporary coverage when your regular driver takes unplanned leave, or a careful driver for senior parents visiting clinics in Kandivali or Borivali. We maintain active driver pods stationed across Shanti Nagar, Kanakia, Beverly Park, Poonam Sagar, and Silver Park, enabling rapid dispatch times under 40 minutes.
+Our Mira Road driver agency specializes in flexible personal driver hiring, whether you require an attentive chauffeur for daily office commutes, temporary coverage when your regular driver takes unplanned leave, or a careful driver for senior parents visiting clinics in Kandivali or Borivali. We maintain active driver pods stationed across Shanti Nagar, Kanakia, Beverly Park, Poonam Sagar, and Silver Park, enabling rapid and punctual doorstep dispatch.
 
 Safety is non-negotiable at On Time Driver Service. Each driver undergoes rigorous police verification, address authentication, and practical driving evaluations across various vehicle types, including manual, automatic, and high-end SUVs. Our drivers are trained to handle heavy monsoon downpours, tricky waterlogged road patches, and bumper-to-bumper peak-hour gridlocks with exceptional calm and smooth handling.
 
@@ -109,7 +109,7 @@ For Mira Road vehicle owners planning weekend family visits to Gujarat, Daman, S
       },
       {
         question: 'How do I request an emergency driver in Mira Road on short notice?',
-        answer: 'Simply call or send a WhatsApp message to our 24/7 dispatch desk. A driver will be deployed to your location within 30 to 40 minutes.'
+        answer: 'Simply call or send a WhatsApp message to our 24/7 dispatch desk. A verified driver will be deployed to your location promptly.'
       }
     ]
   },
@@ -117,10 +117,10 @@ For Mira Road vehicle owners planning weekend family visits to Gujarat, Daman, S
     id: 'bhayandar',
     name: 'Bhayandar',
     district: 'Thane / Palghar Region',
-    image: 'https://images.unsplash.com/photo-1516726817505-f5ed825624d8?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/services/hourly-driver.jpg',
     seoHeadline: 'Professional Driver Service in Bhayandar East & West – Verified Chauffeurs on Demand',
     shortSnippet: 'Comprehensive driver hiring solutions for business owners, families, and senior citizens in Bhayandar.',
-    avgDispatchTime: '35 - 45 Minutes',
+    avgDispatchTime: 'Priority Dispatch',
     popularHubs: ['Bhayandar West Station Road', 'Golden Nest Circle & 150 Feet Road', 'Maxus Mall & Temba Hospital vicinity', 'Bhayandar East Industrial Estate', 'Uttan & Gorai Coastal Belt', 'Navghar & Jesal Park'],
     keyRoutes: ['Mira-Bhayandar Road', 'Uttan Coastal Road', 'Western Express Highway access', 'Bhayandar Flyover', 'Subhash Chandra Bose Marg'],
     fullContent: `Bhayandar, bifurcated into the bustling residential and coastal zones of Bhayandar West and the industrious commercial sector of Bhayandar East, requires a driver service that understands the distinct character of the locality. From navigating the busy market corridors around Station Road and Maxus Mall to managing transit across the Golden Nest circle and the scenic winding roads toward Uttan and Gorai, On Time Driver Service delivers professional driver services tailored to local needs.
@@ -145,10 +145,10 @@ On Time Driver Service also provides dedicated driver assistance for elderly res
     id: 'vasai',
     name: 'Vasai',
     district: 'Palghar District',
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/services/part-time-driver.jpg',
     seoHeadline: 'Experienced Driver Service in Vasai – Vasai West, Evershine City & Sun City',
     shortSnippet: 'Trusted local and highway driver hiring for households, industrial firms, and outstation travelers in Vasai.',
-    avgDispatchTime: '35 - 50 Minutes',
+    avgDispatchTime: 'Priority Dispatch',
     popularHubs: ['Vasai West Station & Anand Nagar', 'Evershine City & Sun City', 'Manickpur & Babhola', 'Vasai East Industrial MIDC Area', 'Kaul Heritage City', 'Giriz & Bena Patti Coastal Belt'],
     keyRoutes: ['NH-48 (Mumbai-Ahmedabad Highway)', 'Vasai-Virar Link Road', 'Manickpur Road', 'Papdy-Bhabola Road', 'Ambadi Road'],
     fullContent: `Vasai is a historic, rapidly growing coastal hub that seamlessly blends bustling industrial clusters in Vasai East with expansive, serene residential communities in Vasai West, such as Evershine City, Sun City, and Kaul Heritage. However, commuting from Vasai into Mumbai or navigating the congested intersections of Ambadi Road, Babhola, and the NH-48 junction presents substantial driving exhaustion. On Time Driver Service offers professional, police-verified driver services to make every journey effortless.
@@ -161,7 +161,7 @@ For residents of Vasai planning scenic road trips to Surat, Vapi, Daman, or week
     localFaqs: [
       {
         question: 'How quickly can I get a driver in Vasai West or Evershine City?',
-        answer: 'Our average driver dispatch turnaround in Vasai West, Evershine City, and Sun City is 35 to 50 minutes from booking confirmation.'
+        answer: 'Our driver dispatch turnaround in Vasai West, Evershine City, and Sun City is rapid and dependable upon booking confirmation.'
       },
       {
         question: 'Do you offer monthly driver packages for business executives in Vasai East MIDC?',
@@ -173,10 +173,10 @@ For residents of Vasai planning scenic road trips to Surat, Vapi, Daman, or week
     id: 'virar',
     name: 'Virar',
     district: 'Palghar District',
-    image: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/services/full-time-driver.jpg',
     seoHeadline: 'Verified Driver Service in Virar – Bolinj, Global City & Virar West',
     shortSnippet: 'Punctual, vetted personal and outstation drivers serving the booming residential townships of Virar.',
-    avgDispatchTime: '40 - 55 Minutes',
+    avgDispatchTime: 'Priority Dispatch',
     popularHubs: ['Global City (Rustomjee Township)', 'Bolinj & Agashi Road', 'Virar West Station Precinct', 'Viva College Road', 'Virar East Phoolpada & Manvelpada', 'Arnala & Navapur Coastal Stretch'],
     keyRoutes: ['Virar-Nalasopara Link Road', 'NH-48 Access via Shirsad Fata', 'Agashi Road', 'Yashwant Nagar Main Road', 'Bolinj-Sobhagya Nagar Corridor'],
     fullContent: `Virar has grown exponentially into one of the most populated residential hubs on the Western line, celebrated for expansive mega-townships like Rustomjee Global City, Bolinj, and Yashwant Nagar. While Virar offers modern lifestyle amenities, commuting to Mumbai for corporate duties or driving out for family occasions entails extensive hours behind the steering wheel through heavy traffic along the NH-48 link roads and congested suburban arteries. On Time Driver Service brings dependable, verified driver services directly to Virar vehicle owners.
@@ -201,10 +201,10 @@ With flexible hiring models including temporary bookings, weekend family trips, 
     id: 'panvel',
     name: 'Panvel',
     district: 'Raigad / Navi Mumbai Southern Gateway',
-    image: 'https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/services/outstation-driver.jpg',
     seoHeadline: 'Professional Driver Service in Panvel – New Panvel, Khandeshwar & Airport Corridor',
     shortSnippet: 'Premier driver service for personal commutes, industrial hubs, and highway travel across Panvel and Raigad.',
-    avgDispatchTime: '35 - 50 Minutes',
+    avgDispatchTime: 'Priority Dispatch',
     popularHubs: ['New Panvel (East & West)', 'Old Panvel Market & City', 'Khandeshwar & Kamothe Boundary', 'Palaspe Phata & JNPT Road', 'Navi Mumbai International Airport Zone', 'Kalamboli Steel Market & CIDCO Colonies'],
     keyRoutes: ['Mumbai-Pune Expressway', 'Sion-Panvel Highway', 'NH-66 (Mumbai-Goa Highway)', 'NH-48 (Old Pune Highway)', 'JNPT Port Highway'],
     fullContent: `Panvel serves as the pivotal southern gateway of the Mumbai Metropolitan Region, connecting Mumbai directly to Pune, the Konkan coastline via NH-66, and the upcoming Navi Mumbai International Airport (NMIA). With massive infrastructural expansions, logistics parks, and sprawling residential complexes in New Panvel, Khandeshwar, and Karanjade, the volume of vehicular traffic across Panvel's junctions has multiplied exponentially. On Time Driver Service provides verified, highly trained professional drivers to navigate Panvel with precision and safety.
@@ -229,10 +229,10 @@ Planning a weekend getaway to Lonavala, Mahabaleshwar, Alibaug, or Goa? Panvel i
     id: 'kalyan',
     name: 'Kalyan',
     district: 'Thane District / Central Belt',
-    image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/services/permanent-driver.jpg',
     seoHeadline: 'Verified Driver Service in Kalyan – Kalyan West, Khadakpada & Gandhinagar',
     shortSnippet: 'Dependable personal, monthly, and outstation driver agency serving households and businesses in Kalyan.',
-    avgDispatchTime: '35 - 45 Minutes',
+    avgDispatchTime: 'Priority Dispatch',
     popularHubs: ['Khadakpada & Wayle Nagar', 'Kalyan West Station Area & Shivaji Chowk', 'Gandhinagar & Godrej Hill', 'Birla College Road & Syndicate', 'Kalyan East (Chinchpada & Kolsewadi)', 'Shahad & Waldhuni Corridor'],
     keyRoutes: ['Kalyan-Shilphata Road', 'Kalyan-Bhiwandi Road', 'Mumbai-Nashik Highway (NH-3) link', 'Kalyan-Murbad Road', 'Agra Road'],
     fullContent: `Kalyan stands as one of the premier historical and commercial nerve centers of Central MMR, featuring bustling commercial markets alongside upscale residential zones like Khadakpada, Godrej Hill, and Wayle Nagar. However, navigating Kalyan's congested streets—particularly the bottlenecked Kalyan-Shilphata corridor, the station market, and the bypass toward Bhiwandi or Thane—can be exhausting for any car owner. On Time Driver Service delivers professional, police-verified driver services to restore comfort to your vehicular life.
@@ -257,10 +257,10 @@ Whether you need a temporary driver for a family event, an outstation driver for
     id: 'dombivli',
     name: 'Dombivli',
     district: 'Thane District / Central Belt',
-    image: 'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/services/event-driver.jpg',
     seoHeadline: 'Professional Driver Service in Dombivli – Dombivli East, Lodha Palava & MIDC',
     shortSnippet: 'High-trust chauffeur and driver services for families, corporate professionals, and Palava City residents.',
-    avgDispatchTime: '35 - 50 Minutes',
+    avgDispatchTime: 'Priority Dispatch',
     popularHubs: ['Lodha Palava City (Lakeshore & Downtown)', 'Dombivli East (Tilak Road & Phadke Road)', 'MIDC Residential & Industrial Zone', 'Regency Estate & Thakurli Boundary', 'Dombivli West (Gupte Road & Station)', 'Manpada & Nilje Junction'],
     keyRoutes: ['Kalyan-Shilphata Road', 'Mankhurd-Ghatkopar Link connections', 'MIDC Main Road', 'Dombivli-Mankoli Flyover Link', 'Badlapur-Kalyan Highway'],
     fullContent: `Dombivli, celebrated for its rich cultural fabric, academic prestige, and massive contemporary residential developments like Lodha Palava City, is home to a vast population of car owners who travel across MMR daily. However, the traffic along Kalyan-Shilphata Road, Manpada junction, and the industrial corridors of Dombivli MIDC often turns daily driving into an exhausting chore. On Time Driver Service provides vetted, courteous, and highly skilled drivers to ensure smooth, stress-free journeys for Dombivli residents.
@@ -273,7 +273,7 @@ For Dombivli residents seeking outstation drivers for vacations to Mahabaleshwar
     localFaqs: [
       {
         question: 'Do you provide driver services inside Lodha Palava City, Dombivli?',
-        answer: 'Yes, we have drivers stationed near Lodha Palava Lakeshore and Downtown sections for prompt allocation within 35 to 45 minutes.'
+        answer: 'Yes, we have drivers stationed near Lodha Palava Lakeshore and Downtown sections for prompt allocation upon booking confirmation.'
       },
       {
         question: 'Can I book a temporary driver for one day in Dombivli East?',
@@ -285,10 +285,10 @@ For Dombivli residents seeking outstation drivers for vacations to Mahabaleshwar
     id: 'palghar',
     name: 'Palghar',
     district: 'Palghar District Headquarters',
-    image: 'https://images.unsplash.com/photo-1506015391300-4802dc74de2e?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/services/senior-citizen-assistance.jpg',
     seoHeadline: 'Trusted Driver Service in Palghar – Palghar Town, Boisar & Industrial Corridor',
     shortSnippet: 'Dependable personal, outstation, and industrial chauffeurs serving Palghar district and weekend coastal routes.',
-    avgDispatchTime: '45 - 60 Minutes',
+    avgDispatchTime: 'Priority Dispatch',
     popularHubs: ['Palghar Town & Station Road', 'Boisar MIDC Industrial Area', 'Manor NH-48 Gateway', 'Kelva Beach Road & Mahim Palghar', 'Tarapur Industrial Area', 'Kelve & Shirgaon Coastal Stretch'],
     keyRoutes: ['Palghar-Manor Road', 'NH-48 (Mumbai-Ahmedabad Highway)', 'Boisar-Tarapur Link Road', 'Coastal Highway', 'Wada-Palghar Road'],
     fullContent: `Palghar, the administrative center of Palghar District, represents a vital bridge between expanding industrial centers like Boisar Tarapur MIDC and picturesque coastal weekend retreats like Kelva and Shirgaon beaches. Traversing the Palghar-Manor link road, navigating state highways, and connecting onto the bustling NH-48 Mumbai-Ahmedabad highway requires attentive, safe driving, especially during night shifts or monsoons. On Time Driver Service delivers professional, police-verified driver services across Palghar town, Boisar, and surrounding areas.

@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { submitLead, validateLeadForm, getWhatsAppFallbackUrl, getWhatsAppSuccessUrl, PRIMARY_PHONE } from '../services/leadService';
 import { LeadFormData } from '../types';
+import { BrandLogo } from '../components/BrandLogo';
 
 interface LocationDetailPageProps {
   slug: string;
@@ -285,7 +286,7 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                   <CheckCircle2 className="w-8 h-8 text-[#22C55E]" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-extrabold text-[#111827] leading-tight">
-                  Thank you. Our team will contact you within 15 minutes.
+                  Thank you for your enquiry. Our team will contact you shortly.
                 </h3>
                 <p className="text-xs sm:text-sm text-[#4B5563]">
                   Booking Reference: <strong className="font-mono text-[#35B6DE]">{bookingRef}</strong> · Dispatching in <strong className="text-[#111827]">{location.name}</strong>
@@ -321,14 +322,14 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
             ) : (
               <div>
                 <div className="text-center mb-6">
-                  <span className="text-xs font-bold text-[#35B6DE] uppercase tracking-wider block mb-1">
-                    Direct Staging Dispatch
-                  </span>
+                  <div className="flex justify-center mb-2">
+                    <BrandLogo size="md" />
+                  </div>
                   <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#111827]">
-                    Book a Driver in {location.name}
+                    Instant Driver Booking
                   </h2>
                   <p className="text-xs sm:text-sm text-[#4B5563] mt-1">
-                    Delivered directly to <span className="text-[#35B6DE] font-semibold">info@ontimedriverservice.com</span>.
+                    Fill your details and our team will contact you shortly.
                   </p>
                 </div>
 
@@ -508,7 +509,7 @@ export const LocationDetailPage: React.FC<LocationDetailPageProps> = ({ slug, on
                     ) : (
                       <>
                         <Send className="w-3.5 h-3.5 text-[#111827]" />
-                        <span>Book Driver in {location.name}</span>
+                        <span>Request Driver</span>
                       </>
                     )}
                   </button>

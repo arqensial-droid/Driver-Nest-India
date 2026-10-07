@@ -48,7 +48,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
     serviceType: 'Personal Driver',
     vehicleType: 'Sedan / SUV',
     date: new Date().toISOString().split('T')[0],
-    time: 'Immediate Dispatch (30 mins)',
+    time: 'Priority Dispatch',
     message: '',
     formName: 'Hero Booking Form',
   });
@@ -230,7 +230,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
                 className="btn-primary w-full sm:w-auto h-[50px] px-7 text-sm sm:text-base font-bold flex items-center justify-center gap-2 shadow-sm"
               >
                 <Calendar className="w-4 h-4 text-[#111827]" />
-                <span>Book Driver</span>
+                <span>Request Driver</span>
               </button>
 
               <a
@@ -291,7 +291,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
                       </span>
                     </div>
                     <p className="text-[11px] text-[#4B5563]">
-                      Doorstep arrival in 30–45 mins across Mumbai, Thane &amp; Navi Mumbai
+                      Prompt driver allocation across Mumbai, Thane &amp; Navi Mumbai
                     </p>
                   </div>
                 </div>
@@ -326,7 +326,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
                         : 'text-[#4B5563] hover:text-[#111827]'
                     }`}
                   >
-                    Quick Booking
+                    Instant Booking
                   </button>
                   <button
                     type="button"
@@ -356,17 +356,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
                         <div className="flex items-center justify-between">
                           <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE] flex items-center gap-1">
                             <Sparkles className="w-3 h-3 text-[#35B6DE]" />
-                            <span>Instant Dispatch Concierge</span>
+                            <span>Instant Driver Booking</span>
                           </span>
                           <span className="text-[10px] text-[#22C55E] bg-[#22C55E]/10 border border-[#22C55E]/20 px-2 py-0.5 rounded font-bold">
                             Live 24/7 Desk
                           </span>
                         </div>
                         <h3 className="text-lg sm:text-xl font-bold font-heading text-[#111827] mt-1">
-                          Book a Driver in 60 Seconds
+                          Instant Driver Booking
                         </h3>
                         <p className="text-[12px] text-[#4B5563]">
-                          Dispatched directly to <span className="text-[#35B6DE] font-semibold">info@ontimedriverservice.com</span>
+                          Fill your details and our team will contact you shortly.
                         </p>
                       </div>
 
@@ -551,7 +551,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
                           ) : (
                             <>
                               <Send className="w-3.5 h-3.5 text-[#111827]" />
-                              <span>Confirm Driver Booking Now</span>
+                              <span>Request Driver</span>
                             </>
                           )}
                         </button>
@@ -579,8 +579,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
                       </h4>
 
                       {/* Required exact success confirmation message */}
-                      <p className="text-xs font-semibold text-[#22C55E] mb-2 bg-[#22C55E]/10 py-1 px-2 rounded-md">
-                        Thank you. Our team will contact you within 15 minutes.
+                      <p className="text-xs font-semibold text-[#22C55E] mb-2 bg-[#22C55E]/10 py-1.5 px-2.5 rounded-md">
+                        Thank you for your enquiry. Our team will contact you shortly.
                       </p>
 
                       <div className="bg-[#EEF8FC] rounded-xl p-3 border border-[#E5E7EB] text-left text-xs space-y-1 mb-4">
@@ -712,7 +712,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
                     onClick={() => setActiveTab('form')}
                     className="btn-primary w-full h-10 text-xs font-bold mt-2"
                   >
-                    <span>Proceed with Driver Booking</span>
+                    <span>Request Driver</span>
                   </button>
                 </div>
               )}
