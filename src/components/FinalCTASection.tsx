@@ -13,6 +13,7 @@ import {
   MapPin,
 } from 'lucide-react';
 import { submitLead, validateLeadForm, getWhatsAppSuccessUrl, getWhatsAppFallbackUrl, PRIMARY_PHONE } from '../services/leadService';
+import { BrandLogo } from './BrandLogo';
 
 interface FinalCTASectionProps {
   onOpenBooking: () => void;
@@ -77,6 +78,11 @@ export const FinalCTASection: React.FC<FinalCTASectionProps> = ({ onOpenBooking 
         <div className="bg-white rounded-3xl border border-[#E5E7EB] p-8 sm:p-12 lg:p-16 shadow-lg relative overflow-hidden">
           
           <div className="max-w-3xl mx-auto text-center">
+            {/* Official Brand Logo */}
+            <div className="flex justify-center mb-5">
+              <BrandLogo size="lg" />
+            </div>
+
             {/* Header Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EEF8FC] border border-[#35B6DE]/30 text-[#35B6DE] text-xs font-bold uppercase tracking-wider mb-5 shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-[#35B6DE]" />

@@ -303,7 +303,7 @@ async function handleLeadSubmission(req: express.Request, res: express.Response)
     const emailHtml = `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 620px; margin: 0 auto; background: #FFFFFF; color: #111827; padding: 28px; border-radius: 12px; border: 1px solid #E5E7EB;">
         <div style="border-bottom: 2px solid #35B6DE; padding-bottom: 16px; margin-bottom: 20px; text-align: center;">
-          <img src="https://ontimedriverservice.com/images/logo.png" alt="On Time Driver Service" style="max-height: 55px; width: auto; margin-bottom: 10px;" />
+          <img src="https://ontimedriverservice.com/images/Logo.png" alt="ON TIME DRIVER SERVICE" style="max-height: 55px; width: auto; margin-bottom: 10px;" />
           <h2 style="color: #111827; margin: 0; font-size: 20px; letter-spacing: 0.5px;">ON TIME DRIVER SERVICE</h2>
           <p style="color: #35B6DE; margin: 4px 0 0; font-weight: bold; font-size: 13px; text-transform: uppercase;">NEW DRIVER BOOKING ENQUIRY RECEIVED</p>
         </div>

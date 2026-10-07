@@ -58,7 +58,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
       '@type': 'Organization',
       'name': 'On Time Driver Service',
       'url': 'https://ontimedriverservice.com',
-      'logo': 'https://ontimedriverservice.com/images/services/chauffeur-service.jpg',
+      'logo': 'https://ontimedriverservice.com/images/Logo.png',
       'email': 'info@ontimedriverservice.com',
       'contactPoint': {
         '@type': 'ContactPoint',

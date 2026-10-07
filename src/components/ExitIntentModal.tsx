@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, ShieldCheck, Phone, ArrowRight, Clock } from 'lucide-react';
+import { BrandLogo } from './BrandLogo';
 
 interface ExitIntentModalProps {
   onOpenBooking: () => void;
@@ -44,8 +45,8 @@ export const ExitIntentModal: React.FC<ExitIntentModalProps> = ({ onOpenBooking 
           <X className="w-5 h-5" />
         </button>
 
-        <div className="w-12 h-12 rounded-2xl bg-[#EEF8FC] border border-[#35B6DE]/30 flex items-center justify-center mx-auto mb-3.5 text-[#35B6DE]">
-          <Clock className="w-6 h-6" />
+        <div className="flex justify-center mb-4">
+          <BrandLogo size="md" />
         </div>
 
         <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE] block mb-1">

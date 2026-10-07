@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { submitLead, validateLeadForm, getWhatsAppFallbackUrl, getWhatsAppSuccessUrl, PRIMARY_PHONE } from '../services/leadService';
 import { LeadFormData } from '../types';
+import { BrandLogo } from './BrandLogo';
 
 interface HeroProps {
   onOpenBooking: () => void;
@@ -353,16 +354,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
                   {!heroSubmitted ? (
                     <div>
                       <div className="mb-4">
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE] flex items-center gap-1">
-                            <Sparkles className="w-3 h-3 text-[#35B6DE]" />
-                            <span>Instant Driver Booking</span>
-                          </span>
+                        <div className="flex items-center justify-between mb-2">
+                          <BrandLogo size="sm" />
                           <span className="text-[10px] text-[#22C55E] bg-[#22C55E]/10 border border-[#22C55E]/20 px-2 py-0.5 rounded font-bold">
                             Live 24/7 Desk
                           </span>
                         </div>
-                        <h3 className="text-lg sm:text-xl font-bold font-heading text-[#111827] mt-1">
+                        <h3 className="text-lg sm:text-xl font-bold font-heading text-[#111827]">
                           Instant Driver Booking
                         </h3>
                         <p className="text-[12px] text-[#4B5563]">

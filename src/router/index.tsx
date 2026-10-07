@@ -104,7 +104,7 @@ export const SEO: React.FC<SEOProps> = ({
   title,
   description,
   canonicalPath,
-  image = '/images/services/chauffeur-service.jpg',
+  image = '/images/og-share.png',
   schema,
 }) => {
   useEffect(() => {

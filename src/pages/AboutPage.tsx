@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, SEO } from '../router';
+import { BrandLogo } from '../components/BrandLogo';
 import { AboutSection } from '../components/AboutSection';
 import { TrustSection } from '../components/TrustSection';
 import {
@@ -37,6 +38,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenBooking }) => {
 
           {/* About Hero Header */}
           <div className="text-center max-w-3xl mx-auto mb-14">
+            <div className="flex justify-center mb-5">
+              <BrandLogo size="lg" />
+            </div>
+
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#35B6DE]/30 shadow-xs mb-3.5">
               <Sparkles className="w-3.5 h-3.5 text-[#35B6DE]" />
               <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE]">

@@ -14,6 +14,7 @@ import {
   FileText,
 } from 'lucide-react';
 import { ImageWithFallback } from './ImageWithFallback';
+import { BrandLogo } from './BrandLogo';
 
 interface AboutSectionProps {
   onOpenBooking: () => void;
@@ -82,6 +83,10 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenBooking }) => 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center mb-16 sm:mb-20">
           {/* Left: Brand Story */}
           <div className="lg:col-span-6 flex flex-col justify-center">
+            <div className="mb-4">
+              <BrandLogo size="md" />
+            </div>
+
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EEF8FC] border border-[#35B6DE]/30 shadow-xs mb-3.5 w-fit">
               <Sparkles className="w-3.5 h-3.5 text-[#35B6DE]" />
               <span className="text-xs font-bold uppercase tracking-wider text-[#35B6DE]">

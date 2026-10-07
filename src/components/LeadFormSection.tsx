@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { validateLeadForm, submitLead, getWhatsAppFallbackUrl, getWhatsAppSuccessUrl, PRIMARY_PHONE } from '../services/leadService';
 import { LeadFormData } from '../types';
+import { BrandLogo } from './BrandLogo';
 
 export const LeadFormSection: React.FC = () => {
   const [formData, setFormData] = useState<LeadFormData>({
@@ -152,6 +153,12 @@ export const LeadFormSection: React.FC = () => {
               {!submitted ? (
                 <div>
                   <div className="mb-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <BrandLogo size="md" />
+                      <span className="text-[11px] font-bold text-[#22C55E] bg-[#22C55E]/10 border border-[#22C55E]/20 px-2 py-0.5 rounded-full">
+                        Central Desk
+                      </span>
+                    </div>
                     <h3 className="text-xl sm:text-2xl font-bold font-heading text-[#111827]">
                       Instant Driver Booking
                     </h3>
