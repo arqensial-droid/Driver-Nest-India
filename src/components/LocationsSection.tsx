@@ -57,16 +57,16 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ onSelectLoca
 
         {/* Panoramic Mumbai Skyline Visual Banner */}
         <div className="relative rounded-2xl overflow-hidden border border-[#E5E7EB] shadow-sm mb-12 bg-slate-900 text-white">
-          <div className="h-64 sm:h-80 md:h-96 w-full relative overflow-hidden">
-            <img
-              src="/images/services/chauffeur-service.webp"
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).src = '/images/services/chauffeur-service.jpg';
-              }}
-              alt="Mumbai chauffeur driving luxury vehicle across Mumbai MMR"
-              className="w-full h-full object-cover brightness-75"
-              loading="lazy"
-            />
+            <picture className="w-full h-full block">
+              <source type="image/webp" srcSet="/images/services/service-areas-mumbai.webp" />
+              <img
+                src="/images/services/service-areas-mumbai.jpg"
+                alt="Mumbai Metropolitan Region driver service network coverage across Mumbai, Navi Mumbai, Thane, Mira Road, Vasai, Virar, and Palghar"
+                className="w-full h-full object-cover brightness-75"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-r from-[#111827]/90 via-[#111827]/60 to-transparent" />
             
             <div className="absolute inset-0 p-6 sm:p-10 flex flex-col justify-end max-w-2xl">
@@ -81,7 +81,6 @@ export const LocationsSection: React.FC<LocationsSectionProps> = ({ onSelectLoca
               </p>
             </div>
           </div>
-        </div>
 
         {/* City Filter Tabs (8 Regions) */}
         <div className="flex flex-wrap items-center justify-center gap-2 mb-10">

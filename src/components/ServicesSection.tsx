@@ -95,21 +95,37 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
                 className="bg-white rounded-2xl border border-[#E5E7EB] hover:border-[#35B6DE] shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between overflow-hidden group hover:-translate-y-1"
               >
                 <div>
-                  {/* Actual Service Image with WebP & Fallback */}
+                  {/* 100% Realistic Photography Card Header */}
                   <div className="relative aspect-video w-full overflow-hidden bg-slate-100">
                     <picture className="w-full h-full block">
                       <source type="image/webp" srcSet={`/images/services/${service.slug}.webp`} />
                       <img
                         src={`/images/services/${service.slug}.jpg`}
-                        alt={service.title}
+                        alt={
+                          service.slug === 'personal-driver'
+                            ? 'Real Indian chauffeur with customer beside a premium sedan in Mumbai'
+                            : service.slug === 'corporate-driver'
+                            ? 'Professional chauffeur assisting business executive with corporate executive sedan'
+                            : service.slug === 'permanent-driver'
+                            ? 'Dedicated chauffeur assisting family members with household vehicle'
+                            : service.slug === 'hourly-driver'
+                            ? 'Professional Indian driver navigating city traffic smoothly in sedan'
+                            : service.slug === 'airport-driver'
+                            ? 'Professional chauffeur assisting passenger with luggage at Mumbai airport'
+                            : service.slug === 'outstation-driver'
+                            ? 'Professional highway driver steering premium SUV on expressway road trip'
+                            : `${service.title} – Professional Indian chauffeur service in Mumbai MMR`
+                        }
                         loading="lazy"
                         decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </picture>
-                    <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm border border-[#E5E7EB] px-3 py-1 rounded-lg text-xs font-bold text-[#111827] flex items-center gap-1.5 shadow-xs">
-                      {getIcon(service.slug)}
-                      <span>{service.badge || 'Verified'}</span>
+                    
+                    {/* Verified Status Tag */}
+                    <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm border border-[#E5E7EB] px-3 py-1 rounded-lg text-[11px] font-bold text-[#111827] flex items-center gap-1 shadow-xs">
+                      <span className="w-2 h-2 rounded-full bg-[#22C55E]"></span>
+                      <span>{service.badge || 'Police Verified'}</span>
                     </div>
 
                     <div className="absolute bottom-3 right-3 bg-[#111827]/85 backdrop-blur-sm text-white px-2.5 py-1 rounded-md text-[11px] font-semibold">

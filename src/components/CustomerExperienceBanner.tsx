@@ -17,7 +17,7 @@ export const CustomerExperienceBanner: React.FC<CustomerExperienceBannerProps> =
       {/* Subtle Corporate Chauffeur Background with Clean Light Overlay */}
       <div className="absolute inset-0 z-0">
         <ImageWithFallback
-          src="/images/services/chauffeur-service.jpg"
+          src="/images/services/chauffeur-service-mumbai.webp"
           alt="Professional Indian chauffeur opening car door for executive in Mumbai"
           fallbackTitle="Chauffeur Service Experience"
           className="w-full h-full object-cover opacity-15"

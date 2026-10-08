@@ -108,12 +108,16 @@ export const LeadFormSection: React.FC = () => {
 
             {/* Visual Image Card with clean corporate styling */}
             <div className="relative rounded-2xl overflow-hidden border border-[#E5E7EB] shadow-xs aspect-[16/10] bg-slate-100">
-              <img
-                src="/images/services/corporate-driver.jpg"
-                alt="Verified Chauffeur in executive attire with car in Mumbai"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
+              <picture className="w-full h-full block">
+                <source type="image/webp" srcSet="/images/services/corporate-driver-service.webp" />
+                <img
+                  src="/images/services/corporate-driver-service.jpg"
+                  alt="Professional Indian corporate chauffeur in executive uniform with premium sedan in Mumbai BKC"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div className="absolute inset-0 bg-gradient-to-t from-[#111827]/80 via-transparent to-transparent pointer-events-none" />
 
               <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 border border-[#E5E7EB] shadow-xs">

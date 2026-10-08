@@ -129,12 +129,16 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenBooking }) => 
           {/* Right: Visual Experience */}
           <div className="lg:col-span-6">
             <div className="relative rounded-2xl overflow-hidden border border-[#E5E7EB] shadow-md aspect-video bg-slate-100">
-              <img
-                src="/images/services/chauffeur-service.jpg"
-                alt="Executive chauffeur opening luxury car door in Mumbai"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
+              <picture className="w-full h-full block">
+                <source type="image/webp" srcSet="/images/services/about-team-service.webp" />
+                <img
+                  src="/images/services/about-team-service.jpg"
+                  alt="Team of professional Indian chauffeurs with police verification dossier in Mumbai"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <div className="absolute inset-0 bg-gradient-to-t from-[#111827]/70 via-transparent to-transparent pointer-events-none" />
 
               <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-xl p-4 border border-[#E5E7EB] shadow-xs">

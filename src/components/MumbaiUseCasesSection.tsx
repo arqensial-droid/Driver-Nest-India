@@ -44,8 +44,8 @@ export const MumbaiUseCasesSection: React.FC<MumbaiUseCasesSectionProps> = ({ on
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               <div className="lg:col-span-6 rounded-2xl overflow-hidden border border-[#E5E7EB] aspect-video relative bg-slate-100 shadow-xs">
                 <ImageWithFallback
-                  src="/images/services/senior-citizen-assistance.jpg"
-                  alt="Senior citizen assisted safely into vehicle by professional chauffeur"
+                  src="/images/services/senior-citizen-assistance.webp"
+                  alt="Senior citizen assisted safely into vehicle by professional chauffeur in Mumbai"
                   fallbackTitle="Senior Citizen Care"
                   vehicleTag="Maruti Ertiga / Honda City"
                   locationTag="Lilavati & Hinduja Hospitals, Mumbai"
@@ -136,7 +136,7 @@ export const MumbaiUseCasesSection: React.FC<MumbaiUseCasesSectionProps> = ({ on
               </div>
               <div className="lg:col-span-6 order-1 lg:order-2 rounded-2xl overflow-hidden border border-[#E5E7EB] aspect-video relative bg-slate-100 shadow-xs">
                 <ImageWithFallback
-                  src="/images/services/corporate-driver.jpg"
+                  src="/images/services/corporate-driver-service.webp"
                   alt="Corporate executive entering luxury car driven by chauffeur in BKC Mumbai"
                   fallbackTitle="BKC Corporate Transit"
                   vehicleTag="Toyota Camry / Mercedes E-Class"
@@ -152,8 +152,8 @@ export const MumbaiUseCasesSection: React.FC<MumbaiUseCasesSectionProps> = ({ on
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               <div className="lg:col-span-6 rounded-2xl overflow-hidden border border-[#E5E7EB] aspect-video relative bg-slate-100 shadow-xs">
                 <ImageWithFallback
-                  src="/images/services/airport-driver.jpg"
-                  alt="Airport pickup chauffeur with name placard at Mumbai CSMIA Terminal 2"
+                  src="/images/services/airport-driver-mumbai.webp"
+                  alt="Airport pickup chauffeur with luggage assistance at Mumbai CSMIA Terminal 2"
                   fallbackTitle="CSMIA Airport Transfers"
                   vehicleTag="Toyota Innova Crysta / Fortuner"
                   locationTag="Chhatrapati Shivaji Maharaj Airport (T1 & T2)"
@@ -244,8 +244,8 @@ export const MumbaiUseCasesSection: React.FC<MumbaiUseCasesSectionProps> = ({ on
               </div>
               <div className="lg:col-span-6 order-1 lg:order-2 rounded-2xl overflow-hidden border border-[#E5E7EB] aspect-video relative bg-slate-100 shadow-xs">
                 <ImageWithFallback
-                  src="/images/services/outstation-driver.jpg"
-                  alt="Family luxury SUV driving smoothly on Mumbai-Pune Expressway"
+                  src="/images/services/outstation-driver-service.webp"
+                  alt="Family luxury SUV driving smoothly on Mumbai-Pune Expressway with professional chauffeur"
                   fallbackTitle="Mumbai-Pune Expressway"
                   vehicleTag="Toyota Fortuner / Innova Hycross"
                   locationTag="Mumbai-Pune Expressway & Western Ghats"

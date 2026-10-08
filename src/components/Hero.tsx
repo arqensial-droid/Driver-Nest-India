@@ -158,21 +158,21 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
       {/* 1. Large Real Photography Hero Image Background with Soft Light Overlay */}
       <div className="absolute inset-0 z-0">
         <picture className="w-full h-full block">
-          <source type="image/webp" srcSet="/images/services/chauffeur-service.webp" />
+          <source type="image/webp" srcSet="/images/mumbai-driver-service.webp" />
           <img
-            src="/images/services/chauffeur-service.jpg"
-            alt="Professional chauffeur standing beside luxury corporate sedan in Mumbai"
+            src="/images/mumbai-driver-service.jpg"
+            alt="Professional Indian chauffeur in formal uniform standing beside premium sedan with Mumbai skyline background"
             loading="eager"
             fetchPriority="high"
             decoding="async"
             style={{ objectFit: 'cover' }}
-            className="w-full h-full object-cover object-center filter contrast-95"
+            className="w-full h-full object-cover object-right lg:object-center filter contrast-100 brightness-[1.02]"
           />
         </picture>
 
-        {/* Clean Light Overlay for maximum readability */}
-        <div className="absolute inset-0 bg-white/90 sm:bg-white/85 backdrop-blur-[2px]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/70 lg:to-white/50" />
+        {/* Directional light overlay for WCAG AAA text readability while keeping the Mumbai skyline & chauffeur photograph crystal-clear on the right */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 via-45% to-white/30 lg:to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/70 to-transparent lg:hidden" />
       </div>
 
       {/* 2. Hero Content Container */}
@@ -231,7 +231,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
                 className="btn-primary w-full sm:w-auto h-[50px] px-7 text-sm sm:text-base font-bold flex items-center justify-center gap-2 shadow-sm"
               >
                 <Calendar className="w-4 h-4 text-[#111827]" />
-                <span>Request Driver</span>
+                <span>Book Driver Now</span>
               </button>
 
               <a
@@ -309,6 +309,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
               </div>
             </div>
 
+            {/* Realistic Vehicle Fleet Compatibility Indicator */}
+            <div className="flex flex-wrap items-center gap-1.5 text-[11px] sm:text-xs text-[#4B5563] pt-1 mb-2">
+              <span className="font-bold text-[#111827] flex items-center gap-1">
+                <Car className="w-3.5 h-3.5 text-[#35B6DE]" />
+                Vehicles We Drive:
+              </span>
+              <span className="text-[#374151]">Toyota Innova Crysta, Maruti Suzuki Ciaz, Honda City, Hyundai Verna, Kia Carens, Executive Sedans &amp; Luxury SUVs</span>
+            </div>
           </div>
 
           {/* ================= RIGHT: HIGH-CONVERTING HERO FORM ================= */}
@@ -549,7 +557,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
                           ) : (
                             <>
                               <Send className="w-3.5 h-3.5 text-[#111827]" />
-                              <span>Request Driver</span>
+                              <span>Book Driver Now</span>
                             </>
                           )}
                         </button>
@@ -710,7 +718,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
                     onClick={() => setActiveTab('form')}
                     className="btn-primary w-full h-10 text-xs font-bold mt-2"
                   >
-                    <span>Request Driver</span>
+                    <span>Book Driver Now</span>
                   </button>
                 </div>
               )}

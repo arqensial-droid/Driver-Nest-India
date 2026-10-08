@@ -134,12 +134,16 @@ export const ContactPage: React.FC = () => {
               {/* Driver visual */}
               <div className="lg:col-span-6 relative">
                 <div className="rounded-xl overflow-hidden border border-[#E5E7EB] shadow-xs aspect-[16/10] bg-slate-100 relative">
-                  <img
-                    src="/images/services/corporate-driver.jpg"
-                    alt="Professional driver standing beside corporate sedan vehicle in Mumbai"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
+                  <picture className="w-full h-full block">
+                    <source type="image/webp" srcSet="/images/services/corporate-driver-service.webp" />
+                    <img
+                      src="/images/services/corporate-driver-service.jpg"
+                      alt="Professional Indian chauffeur in executive uniform standing beside corporate sedan vehicle in Mumbai"
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
                   <div className="absolute inset-0 bg-gradient-to-t from-[#111827]/70 via-transparent to-transparent pointer-events-none" />
                   <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-md text-xs font-bold text-[#111827] border border-[#E5E7EB]">
                     Mumbai BKC Operations Pod
